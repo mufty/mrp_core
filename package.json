@@ -1,0 +1,16 @@
+{
+    "name": "mrp-core",
+    "version": "0.0.1",
+    "description": "",
+    "main": "client.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "config": "^3.3.6",
+        "mongodb": "^3.6.6"
+    }
+}
