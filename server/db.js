@@ -62,7 +62,7 @@ client.connect(function(err) {
 
 // shutdown
 on('onResourceStop', (resource) => {
-    if(resource == "mrp_core") {
+    if(resource == GetCurrentResourceName()) {
         logger.log('Closing DB connection');
         client.close();
     }

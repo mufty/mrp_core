@@ -21,17 +21,29 @@ MRP.getFivemId = function(source){
     return fivemID;
 };
 
+MRP.getPlayersServer = function(){
+	let num = GetNumPlayerIndices();
+	let players = [];
+	for (i = 0; i < num; i++) {
+		players.push( { id: num, identifier: GetPlayerIdentifier(num), name: GetPlayerName(num) } );
+	}
+	return players;
+};
+
 var getConnectedUsers = () => connectedUsers;
 
 on('onResourceStart', (resource) => {
-    //TODO fill connectedUsers when mrp_core starts
-    /*
-    for _, playerId in ipairs(GetPlayers()) do
-      local name = GetPlayerName(playerId)
-      print(('Player %s with id %i is in the server'):format(name, playerId))
-      -- ('%s'):format('text') is same as string.format('%s', 'text)
-    end
-    */
+    let resName = GetCurrentResourceName();
+    if(resName != resource)
+        return;
+
+    let players = MRP.getPlayersServer();
+    for(let player of players){
+        let fivemID = MRP.getFivemId(player.id + "");
+        if(fivemID) {
+            emit('mrp:userLogin', player.name, player, fivemID);
+        }
+    }
 });
 
 on('playerConnecting', (playerName, setKickReason, deferrals) => {
@@ -49,6 +61,12 @@ on('playerConnecting', (playerName, setKickReason, deferrals) => {
 
     if(fivemID) {
         emit('mrp:userLogin', playerName, player, fivemID);
+    }
+});
+
+on('onResourceStop', (resource) => {
+    if(resource == GetCurrentResourceName()) {
+        //TODO despawn characters to prevent "ghost" characters from running around
     }
 });
 
