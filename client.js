@@ -31,7 +31,7 @@ onNet('mrp:spawn', (char, spawnIdx) => {
         });
 
         let health = currentCharacter.stats.health;
-        if(currentCharacter.gender == "MALE") {
+        if(currentCharacter.sex == "MALE") {
             //because reasons :D
             health += 100;
         }
@@ -47,7 +47,7 @@ onNet('mrp:revive', () => {
         return;
 
     let health = currentCharacter.stats.health;
-    if(currentCharacter.gender == "MALE") {
+    if(currentCharacter.sex == "MALE") {
         //because reasons :D
         health += 100;
     }
