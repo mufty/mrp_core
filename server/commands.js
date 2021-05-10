@@ -98,6 +98,7 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
                     characterToUse = char;
             }
 
+            characterToUse.entityID = ENTITIES++;
             if(characterToUse == null) {
                 emitNet('chat:addMessage', source, {
                     color: RGB_ARRAY,
@@ -131,4 +132,12 @@ RegisterCommand('pos', (source, args, cmd) => {
         multiline: true,
         args: ['[Obtain Position]', msg]
     });
+});
+
+RegisterCommand('respawn', (source) => {
+    emitNet('mrp:spawn', source);
+});
+
+RegisterCommand('revive', (source) => {
+    emitNet('mrp:revive', source);
 });

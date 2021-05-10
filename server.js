@@ -1,4 +1,5 @@
 MRP = {};
+ENTITIES = 0;
 
 const config = require('./config/default.json');
 const logger = require('./shared/debug.js');

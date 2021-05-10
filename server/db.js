@@ -110,6 +110,7 @@ on('mrp:createCharacter', (player, name, surname) => {
                 cash: DEFAULT_CASH,
                 bank: DEFAULT_BANK
             },
+            gender: "MALE", // TODO argument
             owner: player._id
         });
 

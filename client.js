@@ -11,15 +11,49 @@ for(let sp of spawnPoints){
 }
 
 let currentCharacter = null;
+let currentSpawnId = null;
 
 onNet('mrp:spawn', (char, spawnIdx) => {
-    currentCharacter = char;
-    
-    exports.spawnmanager.spawnPlayer(spawnIdx, () => {
-      emit('chat:addMessage', {
-        args: [
-          'Hi, there!'
-        ]
-      })
+    if(!char && currentCharacter) {
+        currentCharacter = currentCharacter;
+        currentSpawnId = spawnIdx;
+    } else if (char) {
+        currentCharacter = char;
+    } else {
+        return;
+    }
+
+    exports.spawnmanager.spawnPlayer(currentSpawnId, () => {
+        emit('chat:addMessage', {
+            args: [
+              'Hi, there!'
+            ]
+        });
+
+        let health = currentCharacter.stats.health;
+        if(currentCharacter.gender == "MALE") {
+            //because reasons :D
+            health += 100;
+        }
+
+        let ped = PlayerPedId();
+        SetEntityHealth(ped, health);
+        SetPedArmour(ped, currentCharacter.stats.armor);
     });
+});
+
+onNet('mrp:revive', () => {
+    if(currentCharacter == null)
+        return;
+
+    let health = currentCharacter.stats.health;
+    if(currentCharacter.gender == "MALE") {
+        //because reasons :D
+        health += 100;
+    }
+
+    let ped = PlayerPedId();
+    SetPlayerInvincible(ped, false);
+    SetEntityHealth(ped, health);
+    SetPedArmour(ped, currentCharacter.stats.armor);
 });
