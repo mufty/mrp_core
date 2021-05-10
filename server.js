@@ -33,6 +33,10 @@ MRP.getPlayersServer = function(){
 
 var getConnectedUsers = () => connectedUsers;
 
+on('mrp:getSharedObject', (cb) => {
+    cb(MRP);
+});
+
 on('onResourceStart', (resource) => {
     let resName = GetCurrentResourceName();
     if(resName != resource)

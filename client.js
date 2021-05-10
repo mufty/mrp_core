@@ -34,12 +34,6 @@ onNet('mrp:spawn', (char, spawnIdx) => {
     }
 
     exports.spawnmanager.spawnPlayer(currentSpawnId, () => {
-        emit('chat:addMessage', {
-            args: [
-              'Hi, there!'
-            ]
-        });
-
         let health = currentCharacter.stats.health;
         if(currentCharacter.sex == "MALE") {
             //because reasons :D

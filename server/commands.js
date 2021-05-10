@@ -107,6 +107,7 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
                 });
             } else {
                 emitNet('mrp:spawn', source, characterToUse, 1);
+                emit('mrp:spawn', source, characterToUse);
             }
         } else {
             emitNet('chat:addMessage', source, {
