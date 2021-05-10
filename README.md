@@ -57,8 +57,11 @@ There is also a command for listing characters:
 ```
 
 Other usefull commands:
+
 ```bash
 /respawn
 /revive
 /pos
 ```
+
+Includes noclip from: https://github.com/MiiMii1205/noclipper
