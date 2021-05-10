@@ -1,5 +1,13 @@
+const config = require('config');
 const db = require('./db.js');
 const logger = require('../shared/debug.js');
+
+const rawConsoleColor = config.get('console.system.color');
+let RGB_ARRAY = rawConsoleColor.split(',');
+//convert to numbers
+for(let i in RGB_ARRAY) {
+    RGB_ARRAY[i] = parseInt(RGB_ARRAY[i]);
+}
 
 RegisterCommand('users', (source, args, rawCommand) => {
     let users = MRP.getConnectedUsers();
@@ -15,7 +23,7 @@ RegisterCommand('users', (source, args, rawCommand) => {
     msg = msg.slice(0, -2);
 
     emitNet('chat:addMessage', source, {
-        color: [245, 54, 47], //TODO config
+        color: RGB_ARRAY,
         multiline: true,
         args: ['Connected users', msg]
     });
@@ -50,13 +58,13 @@ RegisterCommand('listCharacters', (source, args, cmd) => {
             }
 
             emitNet('chat:addMessage', source, {
-                color: [245, 54, 47], //TODO config
+                color: RGB_ARRAY,
                 multiline: true,
                 args: ['Characters', chatList]
             });
         } else {
             emitNet('chat:addMessage', source, {
-                color: [245, 54, 47], //TODO config
+                color: RGB_ARRAY,
                 multiline: true,
                 args: ['Characters', "no characters"]
             });
@@ -76,7 +84,7 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
 
         if(!name || !surname){
             emitNet('chat:addMessage', source, {
-                color: [245, 54, 47], //TODO config
+                color: RGB_ARRAY,
                 multiline: true,
                 args: ['Use charcater', "Missing parameter requires Name Surname"]
             });
@@ -92,7 +100,7 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
 
             if(characterToUse == null) {
                 emitNet('chat:addMessage', source, {
-                    color: [245, 54, 47], //TODO config
+                    color: RGB_ARRAY,
                     multiline: true,
                     args: ['Use charcater', "Didn't find the specified character by name and surname"]
                 });
@@ -101,7 +109,7 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
             }
         } else {
             emitNet('chat:addMessage', source, {
-                color: [245, 54, 47], //TODO config
+                color: RGB_ARRAY,
                 multiline: true,
                 args: ['Use charcater', "no characters"]
             });
@@ -119,7 +127,7 @@ RegisterCommand('pos', (source, args, cmd) => {
     let msg = `Heading: ${plyHeading} | x: ${plyPos[0]} | y: ${plyPos[1]} | z: ${plyPos[2]}`;
 
     emitNet('chat:addMessage', source, {
-        color: [245, 54, 47], //TODO config
+        color: RGB_ARRAY,
         multiline: true,
         args: ['[Obtain Position]', msg]
     });

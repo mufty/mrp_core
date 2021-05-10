@@ -10,6 +10,12 @@ const url = config.get('DB.url');
 const dbName = config.get('DB.name');
 const client = new MongoClient(url);
 
+//new default character starts
+const HEALTH = config.get('newCharacter.health');
+const ARMOR = config.get('newCharacter.armor');
+const HUNGER = config.get('newCharacter.hunger');
+const THIRST = config.get('newCharacter.thirst');
+
 let db;
 
 MRP.getPlayer = async function(source){
@@ -94,6 +100,12 @@ on('mrp:createCharacter', (player, name, surname) => {
         const result = await collection.insertOne({
             name: name,
             surname: surname,
+            stats: {
+                health: HEALTH,
+                armor: ARMOR,
+                hunger: HUNGER,
+                thirst: THIRST
+            },
             owner: player._id
         });
 

@@ -2,5 +2,16 @@
     "DB": {
         "url": "mongodb://localhost:27017",
         "name": "mrp_test"
+    },
+    "console": {
+        "system": {
+            "color": "245,54,47"
+        }
+    },
+    "newCharacter": {
+        "health": 100,
+        "armor": 0,
+        "hunger": 100,
+        "thirst": 100
     }
 }
