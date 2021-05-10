@@ -12,6 +12,8 @@
         "health": 100,
         "armor": 0,
         "hunger": 100,
-        "thirst": 100
+        "thirst": 100,
+        "cash": 0,
+        "bank": 0
     }
 }

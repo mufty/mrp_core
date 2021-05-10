@@ -11,10 +11,12 @@ const dbName = config.get('DB.name');
 const client = new MongoClient(url);
 
 //new default character starts
-const HEALTH = config.get('newCharacter.health');
-const ARMOR = config.get('newCharacter.armor');
-const HUNGER = config.get('newCharacter.hunger');
-const THIRST = config.get('newCharacter.thirst');
+const DEFAULT_HEALTH = config.get('newCharacter.health');
+const DEFAULT_ARMOR = config.get('newCharacter.armor');
+const DEFAULT_HUNGER = config.get('newCharacter.hunger');
+const DEFAULT_THIRST = config.get('newCharacter.thirst');
+const DEFAULT_CASH = config.get('newCharacter.cash');
+const DEFAULT_BANK = config.get('newCharacter.bank');
 
 let db;
 
@@ -101,10 +103,12 @@ on('mrp:createCharacter', (player, name, surname) => {
             name: name,
             surname: surname,
             stats: {
-                health: HEALTH,
-                armor: ARMOR,
-                hunger: HUNGER,
-                thirst: THIRST
+                health: DEFAULT_HEALTH,
+                armor: DEFAULT_ARMOR,
+                hunger: DEFAULT_HUNGER,
+                thirst: DEFAULT_THIRST,
+                cash: DEFAULT_CASH,
+                bank: DEFAULT_BANK
             },
             owner: player._id
         });
