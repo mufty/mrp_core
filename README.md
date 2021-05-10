@@ -50,7 +50,7 @@ After creating a character you can "use" it to spawn as that character with anot
 /useCharacter Name Surname
 ```
 
-There is also a command for listing character already created:
+There is also a command for listing characters:
 
 ```bash
 /listCharacters
