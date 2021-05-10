@@ -55,3 +55,10 @@ There is also a command for listing characters:
 ```bash
 /listCharacters
 ```
+
+Other usefull commands:
+```bash
+/respawn
+/revive
+/pos
+```
