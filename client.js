@@ -13,6 +13,16 @@ for(let sp of spawnPoints){
 let currentCharacter = null;
 let currentSpawnId = null;
 
+let CLIENT_MRP = {
+    GetPlayerData: function() {
+        return currentCharacter;
+    }
+};
+
+on('mrp:getSharedObject', (cb) => {
+    cb(CLIENT_MRP);
+});
+
 onNet('mrp:spawn', (char, spawnIdx) => {
     if(!char && currentCharacter) {
         currentCharacter = currentCharacter;
