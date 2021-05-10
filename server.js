@@ -8,17 +8,17 @@ const commands = require('./server/commands.js');
 var connectedUsers = {};
 
 MRP.getFivemId = function(source){
-        let numOfIdentifiers = GetNumPlayerIdentifiers(source);
-        let fivemID;
-        for(let i = 0; i < numOfIdentifiers; i++) {
-            const identifier = GetPlayerIdentifier(source, i);
+    let numOfIdentifiers = GetNumPlayerIdentifiers(source);
+    let fivemID;
+    for(let i = 0; i < numOfIdentifiers; i++) {
+        const identifier = GetPlayerIdentifier(source, i);
 
-            if(identifier.includes('fivem:')){
-                fivemID = identifier.slice(6);
-            }
+        if(identifier.includes('fivem:')){
+            fivemID = identifier.slice(6);
         }
+    }
 
-        return fivemID;
+    return fivemID;
 };
 
 var getConnectedUsers = () => connectedUsers;

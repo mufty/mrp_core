@@ -11,9 +11,10 @@ files {
 }
 
 client_scripts {
-    'client.js',
+	'client.js',
+	'client/noclip.lua',
 }
 
 server_scripts {
-    'server.js',
+	'server.js',
 }
