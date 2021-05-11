@@ -63,4 +63,8 @@ Other usefull commands:
 /pos
 ```
 
+## In-game features
+
+- fingerpointing (B)
+
 Includes noclip from: https://github.com/MiiMii1205/noclipper

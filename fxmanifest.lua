@@ -14,7 +14,7 @@ client_scripts {
 	'client/utils.lua',
 	'client.js',
 	'client/noclip.lua',
-	'client/fingerpointing.lua',
+	'client/mechanics/fingerpointing.lua',
 }
 
 server_scripts {
