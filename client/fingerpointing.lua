@@ -1,20 +1,21 @@
 local mp_pointing = false
 local keyPressed = false
+local POINT_ANIM = "anim@mp_point"
 
 local function startPointing()
-    local ped = GetPlayerPed(-1)
-    RequestAnimDict("anim@mp_point")
-    while not HasAnimDictLoaded("anim@mp_point") do
+    local ped = PlayerPedId()
+    RequestAnimDict(POINT_ANIM)
+    while not HasAnimDictLoaded(POINT_ANIM) do
         Wait(0)
     end
     SetPedCurrentWeaponVisible(ped, 0, 1, 1, 1)
     SetPedConfigFlag(ped, 36, 1)
-    Citizen.InvokeNative(0x2D537BA194896636, ped, "task_mp_pointing", 0.5, 0, "anim@mp_point", 24)
-    RemoveAnimDict("anim@mp_point")
+    Citizen.InvokeNative(0x2D537BA194896636, ped, "task_mp_pointing", 0.5, 0, POINT_ANIM, 24)
+    RemoveAnimDict(POINT_ANIM)
 end
 
 local function stopPointing()
-    local ped = GetPlayerPed(-1)
+    local ped = PlayerPedId()
     Citizen.InvokeNative(0xD01015C7316AE176, ped, "Stop")
     if not IsPedInjured(ped) then
         ClearPedSecondaryTask(ped)
@@ -23,7 +24,7 @@ local function stopPointing()
         SetPedCurrentWeaponVisible(ped, 1, 1, 1, 1)
     end
     SetPedConfigFlag(ped, 36, 0)
-    ClearPedSecondaryTask(PlayerPedId())
+    ClearPedSecondaryTask(ped)
 end
 
 local once = true
@@ -38,8 +39,10 @@ Citizen.CreateThread(function()
             once = false
         end
 
+        local ped = PlayerPedId()
+
         if not keyPressed then
-            if IsControlPressed(0, 29) and not mp_pointing and IsPedOnFoot(PlayerPedId()) then
+            if IsControlPressed(0, 29) and not mp_pointing and IsPedOnFoot(ped) then
                 Wait(200)
                 if not IsControlPressed(0, 29) then
                     keyPressed = true
@@ -51,7 +54,7 @@ Citizen.CreateThread(function()
                         Wait(50)
                     end
                 end
-            elseif (IsControlPressed(0, 29) and mp_pointing) or (not IsPedOnFoot(PlayerPedId()) and mp_pointing) then
+            elseif (IsControlPressed(0, 29) and mp_pointing) or (not IsPedOnFoot(ped) and mp_pointing) then
                 keyPressed = true
                 mp_pointing = false
                 stopPointing()
@@ -63,11 +66,11 @@ Citizen.CreateThread(function()
                 keyPressed = false
             end
         end
-        if Citizen.InvokeNative(0x921CE12C489C4C41, PlayerPedId()) and not mp_pointing then
+        if Citizen.InvokeNative(0x921CE12C489C4C41, ped) and not mp_pointing then
             stopPointing()
         end
-        if Citizen.InvokeNative(0x921CE12C489C4C41, PlayerPedId()) then
-            if not IsPedOnFoot(PlayerPedId()) then
+        if Citizen.InvokeNative(0x921CE12C489C4C41, ped) then
+            if not IsPedOnFoot(ped) then
                 stopPointing()
             else
                 local ped = GetPlayerPed(-1)
