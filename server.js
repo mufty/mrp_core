@@ -107,6 +107,10 @@ on("playerDropped", (reason) => {
     }
 });
 
+onNet('mrp:server:tacklePlayer', (tackled, forvardVector, tackler) => {
+    emitNet('mrp:client:tacklePlayer', tackled, forvardVector, tackler);
+});
+
 MRP.log = logger.log;
 MRP.getConnectedUsers = getConnectedUsers;
 /*exports('log', logger.log);

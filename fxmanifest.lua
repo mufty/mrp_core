@@ -15,6 +15,7 @@ client_scripts {
 	'client.js',
 	'client/noclip.lua',
 	'client/mechanics/fingerpointing.lua',
+	'client/mechanics/tackle.js',
 }
 
 server_scripts {

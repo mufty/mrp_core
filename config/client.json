@@ -1,2 +1,9 @@
 {
+    "controls": {
+        "tackle": 38
+    },
+    "tackle": {
+        "time": 1000,
+        "tackledTime": 3000
+    }
 }

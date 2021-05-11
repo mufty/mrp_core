@@ -1,7 +1,7 @@
 //load config
-let configFile = LoadResourceFile(GetCurrentResourceName(), 'config/client.json');
+configFile = LoadResourceFile(GetCurrentResourceName(), 'config/client.json');
 
-let config = JSON.parse(configFile);
+config = JSON.parse(configFile);
 
 let currentCharacter = null;
 let currentSpawn = null;
