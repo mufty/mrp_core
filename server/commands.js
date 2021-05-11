@@ -40,7 +40,7 @@ RegisterCommand('createCharacter', (source, args, cmd) => {
             let name = args[0];
             let surname = args[1];
 
-            emit('mrp:createCharacter', player, name, surname);
+            emit('mrp:createCharacter', player, {name, surname});
         } else {
             logger.log(`Player doesn't exist in database!`);
         }

@@ -114,13 +114,13 @@ on('mrp:userLogin', (playerName, source, fivemID) => {
     create();
 });
 
-on('mrp:createCharacter', (player, name, surname) => {
+on('mrp:createCharacter', (player, inputChar) => {
     const collection = db.collection('character');
 
     const create = async function() {
         const result = await collection.insertOne({
-            name: name,
-            surname: surname,
+            name: inputChar.name,
+            surname: inputChar.surname,
             stats: {
                 health: DEFAULT_HEALTH,
                 armor: DEFAULT_ARMOR,
@@ -138,7 +138,7 @@ on('mrp:createCharacter', (player, name, surname) => {
             owner: player._id
         });
 
-        logger.log(`mrp:createCharacter [${name} ${surname}] created`);
+        logger.log(`mrp:createCharacter [${inputChar.name} ${inputChar.surname}] created`);
     }
 
     create();
