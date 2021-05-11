@@ -66,5 +66,6 @@ Other usefull commands:
 ## In-game features
 
 - fingerpointing (B)
+- tackle while running (E)
 
 Includes noclip from: https://github.com/MiiMii1205/noclipper
