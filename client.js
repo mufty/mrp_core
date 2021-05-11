@@ -3,15 +3,8 @@ let configFile = LoadResourceFile(GetCurrentResourceName(), 'config/client.json'
 
 let config = JSON.parse(configFile);
 
-const spawnPoints = config.spawnPoints;
-
-//load spawnpoints
-for(let sp of spawnPoints){
-    exports.spawnmanager.addSpawnPoint(sp);
-}
-
 let currentCharacter = null;
-let currentSpawnId = null;
+let currentSpawn = null;
 
 let MRP_CLIENT = {
     GetPlayerData: function() {
@@ -31,17 +24,17 @@ on('mrp:getSharedObject', (cb) => {
     cb(MRP_CLIENT);
 });
 
-onNet('mrp:spawn', (char, spawnIdx) => {
+onNet('mrp:spawn', (char, spawn) => {
     if(!char && currentCharacter) {
         currentCharacter = currentCharacter;
-        currentSpawnId = spawnIdx;
     } else if (char) {
         currentCharacter = char;
+        currentSpawn = spawn;
     } else {
         return;
     }
 
-    exports.spawnmanager.spawnPlayer(currentSpawnId, () => {
+    exports.spawnmanager.spawnPlayer(currentSpawn, () => {
         let health = currentCharacter.stats.health;
         if(currentCharacter.sex == "MALE") {
             //because reasons :D
@@ -52,6 +45,8 @@ onNet('mrp:spawn', (char, spawnIdx) => {
         SetEntityHealth(ped, health);
         SetPedArmour(ped, currentCharacter.stats.armor);
     });
+
+    emitNet('mrp:characterSpawned', currentCharacter);
 });
 
 onNet('mrp:revive', () => {

@@ -1,8 +1,10 @@
-const config = require('config');
+const config = require('../config/default.json');
+
 const db = require('./db.js');
 const logger = require('../shared/debug.js');
 
-const rawConsoleColor = config.get('console.system.color');
+const rawConsoleColor = config.console.system.color;
+print(rawConsoleColor);
 let RGB_ARRAY = rawConsoleColor.split(',');
 //convert to numbers
 for(let i in RGB_ARRAY) {
@@ -106,8 +108,16 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
                     args: ['Use charcater', "Didn't find the specified character by name and surname"]
                 });
             } else {
-                emitNet('mrp:spawn', source, characterToUse, 1);
-                emit('mrp:spawn', source, characterToUse);
+                let update = async function(){
+                    let updatedUser = await MRP.setLastUsedCharacter(source, characterToUse);
+                    let users = MRP.getConnectedUsers();
+                    users[updatedUser._id] = updatedUser;
+                };
+                update();
+                let spawnPoint = {};
+                Object.assign(spawnPoint, config.spawnPoints[0]);
+                spawnPoint.model = characterToUse.model;
+                emitNet('mrp:spawn', source, characterToUse, spawnPoint);
             }
         } else {
             emitNet('chat:addMessage', source, {
@@ -122,17 +132,17 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
 });
 
 RegisterCommand('pos', (source, args, cmd) => {
-    let plyPed = GetPlayerPed(source);
-    let plyPos = GetEntityCoords(plyPed);
-    let plyHeading = GetEntityHeading(plyPed);
+    let pos = MRP.getEntityPosition(source);
+    if(pos && pos.length > 4) {
+        let [posX, posY, posZ, posHeading] = pos;
+        let msg = `Heading: ${posHeading} | x: ${posX} | y: ${posY} | z: ${posZ}`;
 
-    let msg = `Heading: ${plyHeading} | x: ${plyPos[0]} | y: ${plyPos[1]} | z: ${plyPos[2]}`;
-
-    emitNet('chat:addMessage', source, {
-        color: RGB_ARRAY,
-        multiline: true,
-        args: ['[Obtain Position]', msg]
-    });
+        emitNet('chat:addMessage', source, {
+            color: RGB_ARRAY,
+            multiline: true,
+            args: ['[Obtain Position]', msg]
+        });
+    }
 });
 
 RegisterCommand('respawn', (source) => {

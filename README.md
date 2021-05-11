@@ -13,7 +13,6 @@ cd resources
 git clone https://github.com/mufty/mrp_core.git [mrp]/mrp_core
 ```
 
-- copy config folder to your main server base directory (next to resources where server.cfg is)
 - add mrp_core to your server.cfg
 
 ```bash

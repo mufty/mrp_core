@@ -31,10 +31,27 @@ MRP.getPlayersServer = function(){
 	return players;
 };
 
+MRP.getEntityPosition = function(source){
+    let retVal = [];
+    let plyPed = GetPlayerPed(source);
+    let plyPos = GetEntityCoords(plyPed);
+    let plyHeading = GetEntityHeading(plyPed);
+
+    if(plyPos && plyHeading) {
+        retVal = [plyPos[0], plyPos[1], plyPos[2], plyHeading];
+    }
+
+    return retVal;
+};
+
 var getConnectedUsers = () => connectedUsers;
 
 on('mrp:getSharedObject', (cb) => {
     cb(MRP);
+});
+
+onNet('mrp:characterSpawned', (char) => {
+    //TODO
 });
 
 on('onResourceStart', (resource) => {

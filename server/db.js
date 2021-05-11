@@ -1,22 +1,23 @@
-const config = require('config');
+const config = require('../config/default.json');
+
 const MongoClient = require('mongodb').MongoClient;
 const Timestamp = require('mongodb').Timestamp;
 const logger = require('../shared/debug.js');
 
 // Connection URL
-const url = config.get('DB.url');
+const url = config.DB.url;
 
 // Database Name
-const dbName = config.get('DB.name');
+const dbName = config.DB.name;
 const client = new MongoClient(url);
 
 //new default character starts
-const DEFAULT_HEALTH = config.get('newCharacter.health');
-const DEFAULT_ARMOR = config.get('newCharacter.armor');
-const DEFAULT_HUNGER = config.get('newCharacter.hunger');
-const DEFAULT_THIRST = config.get('newCharacter.thirst');
-const DEFAULT_CASH = config.get('newCharacter.cash');
-const DEFAULT_BANK = config.get('newCharacter.bank');
+const DEFAULT_HEALTH = config.newCharacter.health;
+const DEFAULT_ARMOR = config.newCharacter.armor;
+const DEFAULT_HUNGER = config.newCharacter.hunger;
+const DEFAULT_THIRST = config.newCharacter.thirst;
+const DEFAULT_CASH = config.newCharacter.cash;
+const DEFAULT_BANK = config.newCharacter.bank;
 
 let db;
 
@@ -30,6 +31,24 @@ MRP.getPlayer = async function(source){
     let storedUser = await collection.findOne({ _id: id });
     return storedUser;
 };
+
+MRP.setLastUsedCharacter = async function(source, char){
+    if(!db)
+        return null;
+
+    let player = await MRP.getPlayer(source);
+    player.lastCharacter = char._id;
+
+    const collection = db.collection('user');
+
+    let query = { _id: player._id };
+    let options = { upsert: true };
+    const result = await collection.updateOne(query, { $set: player }, options);
+
+    logger.log(`Last character used operation count ${result.matchedCount} user(s) matched the filter, updated ${result.modifiedCount} user(s)`);
+
+    return player;
+}
 
 MRP.getCharacters = async function(source){
     if(!db)
@@ -114,6 +133,8 @@ on('mrp:createCharacter', (player, name, surname) => {
                 name: "unemployed"
             },
             sex: "MALE", // TODO argument
+            birthday: Timestamp.fromNumber(Date.now()), // TODO argument
+            model: "a_m_m_farmer_01", // TODO argument and default to mp_m_freemode_01
             owner: player._id
         });
 
