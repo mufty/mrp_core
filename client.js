@@ -13,14 +13,22 @@ for(let sp of spawnPoints){
 let currentCharacter = null;
 let currentSpawnId = null;
 
-let CLIENT_MRP = {
+let MRP_CLIENT = {
     GetPlayerData: function() {
         return currentCharacter;
+    },
+    InvokeNative: function() {
+        let args = arguments;
+        return new Promise(resolve => {
+            emit('mrp:invokeNative', args, (returnVal) => {
+                resolve(returnVal);
+            });
+        });
     }
 };
 
 on('mrp:getSharedObject', (cb) => {
-    cb(CLIENT_MRP);
+    cb(MRP_CLIENT);
 });
 
 onNet('mrp:spawn', (char, spawnIdx) => {

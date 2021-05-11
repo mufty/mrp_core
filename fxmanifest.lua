@@ -11,8 +11,10 @@ files {
 }
 
 client_scripts {
+	'client/utils.lua',
 	'client.js',
 	'client/noclip.lua',
+	'client/fingerpointing.lua',
 }
 
 server_scripts {
