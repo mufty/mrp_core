@@ -4,7 +4,6 @@ const db = require('./db.js');
 const logger = require('../shared/debug.js');
 
 const rawConsoleColor = config.console.system.color;
-print(rawConsoleColor);
 let RGB_ARRAY = rawConsoleColor.split(',');
 //convert to numbers
 for(let i in RGB_ARRAY) {
