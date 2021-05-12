@@ -83,6 +83,9 @@ onNet('mrp:revive', () => {
     }
 
     let ped = PlayerPedId();
+    let [x, y, z] = GetEntityCoords(ped, true);
+    let heading = GetEntityHeading(plyPed);
+    NetworkResurrectLocalPlayer(x, y, z, heading, true, false);
     SetPlayerInvincible(ped, false);
     SetEntityHealth(ped, health);
     SetPedArmour(ped, currentCharacter.stats.armor);
