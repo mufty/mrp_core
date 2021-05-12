@@ -5,14 +5,13 @@ if(!config.world.npc.vehicleRadioEnabled) {
                 await MRP_CLIENT.sleep(1000);
 
                 let playerPed = PlayerPedId();
-
                 if(IsPedInAnyVehicle(playerPed)) {
                     SetUserRadioControlEnabled(false);
                     if(GetPlayerRadioStationName())
                         SetVehRadioStation(GetVehiclePedIsIn(playerPed),"OFF");
                 }
             }
-        });
+        };
 
         cycle();
     });
