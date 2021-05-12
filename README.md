@@ -69,3 +69,11 @@ Other usefull commands:
 - tackle while running (E)
 
 Includes noclip from: https://github.com/MiiMii1205/noclipper
+
+## Server config
+
+Features:
+- npc spawning controlls
+- turn off/on cops
+- turn off/on wanted levels
+- enable/disable vehicle radio
