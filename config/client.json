@@ -5,5 +5,21 @@
     "tackle": {
         "time": 1000,
         "tackledTime": 3000
+    },
+    "world": {
+        "npc": {
+            "vehicleDensity": 1.0,
+            "pedDensity": 1.0,
+            "randomVehicleDensity": 1.0,
+            "parkedVehicleDensity": 1.0,
+            "scenarioPedDensity": [1.0, 1.0],
+            "garbageTrucks": false,
+            "randomBoats": true,
+            "randomCops": false,
+            "randomCopsNoScenarios": false,
+            "randomCopsScenarios": false,
+            "copsEnabled": false,
+            "wantedLevelEnabled": false
+        }
     }
 }
