@@ -20,6 +20,7 @@
             "randomCopsScenarios": false,
             "copsEnabled": false,
             "wantedLevelEnabled": false
-        }
+        },
+        "vehicleRadioEnabled": false
     }
 }

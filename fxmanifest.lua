@@ -17,6 +17,7 @@ client_scripts {
 	'client/mechanics/fingerpointing.lua',
 	'client/mechanics/tackle.js',
 	'client/world/npc_control.js',
+	'client/world/radio.js',
 }
 
 server_scripts {
