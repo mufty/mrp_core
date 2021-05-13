@@ -133,10 +133,9 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
 
 RegisterCommand('pos', (source, args, cmd) => {
     let pos = MRP.getEntityPosition(source);
-    if(pos && pos.length > 4) {
+    if(pos && pos.length >= 4) {
         let [posX, posY, posZ, posHeading] = pos;
         let msg = `Heading: ${posHeading} | x: ${posX} | y: ${posY} | z: ${posZ}`;
-
         emitNet('chat:addMessage', source, {
             color: RGB_ARRAY,
             multiline: true,
