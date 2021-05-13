@@ -22,6 +22,7 @@
             "wantedLevelEnabled": false
         },
         "vehicleRadioEnabled": false,
-        "vehicleOnlyRadar": true
+        "vehicleOnlyRadar": true,
+        "persistCharacters": true
     }
 }

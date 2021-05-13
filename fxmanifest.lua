@@ -19,6 +19,7 @@ client_scripts {
 	'client/world/npc_control.js',
 	'client/world/radio.js',
 	'client/world/vehicleRadar.js',
+	'client/system/persistentCharacter.js',
 }
 
 server_scripts {

@@ -24,9 +24,7 @@ module.exports = {
             "error",
             {
                 "allowModules": [],
-                "resolvePaths": [
-                    `${process.env.SPLICE_GIT_ROOT}/node_services/common/src`
-                ],
+                "resolvePaths": [],
                 "tryExtensions": [
                     ".js",
                     ".json"
@@ -40,14 +38,14 @@ module.exports = {
         "node/no-unsupported-features/es-syntax": [
             "error",
             {
-                "version": ">=12.13.0",
+                "version": ">=14.15.0",
                 "ignores": []
             }
         ],
         "node/no-unsupported-features/node-builtins": [
             "error",
             {
-                "version": ">=12.13.0",
+                "version": ">=14.15.0",
                 "ignores": []
             }
         ],
@@ -71,12 +69,15 @@ module.exports = {
             "error",
             "always"
         ],
+        "node/no-unpublished-require": [
+            "off"
+        ],
+        "no-eval": [
+            "off"
+        ],
         "standard/object-curly-even-spacing": [
             "warn",
             "always"
-        ],
-        "no-process-exit": [
-            "warn"
         ],
         "no-irregular-whitespace": [
             "warn",
@@ -86,8 +87,15 @@ module.exports = {
         ],
 
         // new added ignored rules can be fixed by LINT option --fix
-        "indent": [
+        "no-new": [
             "off"
+        ],
+        "no-shadow": [
+            2, 
+            {"allow": ["done"], "hoist": "functions"}
+        ],
+        "indent": [
+            "error", 4, { "SwitchCase": 1, "ignoreComments": true  }
         ],
         "semi": [
             "off"
@@ -101,8 +109,17 @@ module.exports = {
         "spaced-comment": [
             "off"
         ],
-        "no-trailing-spaces": [
+        "no-process-exit": [
             "off"
+        ],
+        "one-var": [
+            "off"
+        ],
+        "no-path-concat": [
+            "off"
+        ],
+        "no-trailing-spaces": [
+            "error", { "skipBlankLines": true, "ignoreComments": true }
         ],
         "no-multi-spaces": [
             "off"
@@ -176,6 +193,21 @@ module.exports = {
         "no-extra-semi": [
             "off"
         ],
+        "no-case-declarations": [
+            "off"
+        ],
+        "node/no-deprecated-api": ["error", {
+            "ignoreModuleItems": ["domain"]
+        }],
+        "promise/param-names": [
+            "off"
+        ],
+        "prefer-promise-reject-errors": [
+            "off"
+        ],
+        "standard/no-callback-literal": [
+            "off"
+        ],
         "comma-style": [
             "off"
         ],
@@ -190,6 +222,9 @@ module.exports = {
         ],
         "arrow-spacing": [
             "off"
+        ],
+        "arrow-body-style": [
+            "error", "as-needed"
         ],
         "standard/object-curly-even-spacing": [
             "off"

@@ -2,7 +2,10 @@ const config = require('../config/default.json');
 
 const MongoClient = require('mongodb').MongoClient;
 const Timestamp = require('mongodb').Timestamp;
+const ObjectID = require('mongodb').ObjectID;
 const logger = require('../shared/debug.js');
+const BSON = require('bson');
+const bson = new BSON();
 
 // Connection URL
 const url = config.DB.url;
@@ -142,6 +145,52 @@ on('mrp:createCharacter', (player, inputChar) => {
     }
 
     create();
+});
+
+function toObjectId(obj) {
+    let arrayBuffer = [];
+    for(let i in obj){
+        arrayBuffer.push(obj[i]);
+    }
+    
+    let buf = Buffer.from(arrayBuffer);
+    
+    let objId = new ObjectID(buf);
+    
+    return objId;
+}
+
+onNet('mrp:updateCharacter', (character) => {
+    if(!character || !character._id)
+        return;
+        
+    delete characterToUse.entityID;
+    
+    //convert mangled ObjectId    
+    let objId = toObjectId(character._id.id);
+    character._id = objId;
+    
+    //convert timestamp
+    character.birthday = Timestamp.fromBits(character.birthday.low_, character.birthday.high_);
+    
+    const collection = db.collection('character');
+    
+    const update = async function() {
+        let query = { _id: objId };
+        let options = { upsert: true };
+        let result;
+        try {
+            result = await collection.updateOne(query, { $set: character }, options);
+        } catch(err) {
+            logger.log(`ERROR: ${err}`); // TypeError: failed to fetch
+        }
+
+        logger.log(`mrp:updateCharacter ${result.matchedCount} user(s) matched the filter, updated ${result.modifiedCount} user(s)`);
+        if(result.modifiedCount > 0)
+            logger.log(`mrp:updateCharacter [${character.name} ${character.surname}] updated`);
+    }
+    
+    update();
 });
 
 module.exports = {
