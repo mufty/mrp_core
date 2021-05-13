@@ -56,14 +56,14 @@ onNet('mrp:spawn', (char, spawn) => {
     } else {
         return;
     }
+    
+    let health = currentCharacter.stats.health;
+    if(currentCharacter.sex == "MALE") {
+        //because reasons :D
+        health += 100;
+    }
 
     exports.spawnmanager.spawnPlayer(currentSpawn, () => {
-        let health = currentCharacter.stats.health;
-        if(currentCharacter.sex == "MALE") {
-            //because reasons :D
-            health += 100;
-        }
-
         let ped = PlayerPedId();
         SetEntityHealth(ped, health);
         SetPedArmour(ped, currentCharacter.stats.armor);
@@ -76,11 +76,13 @@ onNet('mrp:revive', () => {
     if(currentCharacter == null)
         return;
 
-    let health = currentCharacter.stats.health;
+    let health = 100;
     if(currentCharacter.sex == "MALE") {
         //because reasons :D
         health += 100;
     }
+    
+    currentCharacter.stats.health = health;
 
     let ped = PlayerPedId();
     let [x, y, z] = GetEntityCoords(ped, true);

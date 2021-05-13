@@ -164,7 +164,7 @@ onNet('mrp:updateCharacter', (character) => {
     if(!character || !character._id)
         return;
         
-    delete characterToUse.entityID;
+    delete character.entityID;
     
     //convert mangled ObjectId    
     let objId = toObjectId(character._id.id);

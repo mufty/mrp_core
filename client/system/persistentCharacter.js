@@ -11,14 +11,12 @@ if(config.world.persistCharacters) {
 
                 let currentHealth = GetEntityHealth(playerPed);
                 if(lastEntityHealth != currentHealth) {
-                    print("health changed - " + currentHealth);
                     let character = MRP_CLIENT.GetPlayerData();
                     if(!character) {
                         await MRP_CLIENT.sleep(500);
                         continue;
                     }
 
-                    print("health updating");
                     if(character.sex == "MALE") {
                         //because reasons :D
                         character.stats.health = currentHealth - 100;
