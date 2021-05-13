@@ -117,6 +117,7 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
                 Object.assign(spawnPoint, config.spawnPoints[0]);
                 spawnPoint.model = characterToUse.model;
                 emitNet('mrp:spawn', source, characterToUse, spawnPoint);
+                emit('mrp:spawn', source, characterToUse, spawnPoint);
             }
         } else {
             emitNet('chat:addMessage', source, {
