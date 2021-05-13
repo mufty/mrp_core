@@ -1,4 +1,4 @@
-if(!config.world.npc.vehicleRadioEnabled) {
+if(!config.world.vehicleRadioEnabled) {
     MRP_CLIENT.CreateThread(()=>{
         let cycle = async function(){
             while(true){

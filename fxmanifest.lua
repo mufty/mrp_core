@@ -18,6 +18,7 @@ client_scripts {
 	'client/mechanics/tackle.js',
 	'client/world/npc_control.js',
 	'client/world/radio.js',
+	'client/world/vehicleRadar.js',
 }
 
 server_scripts {

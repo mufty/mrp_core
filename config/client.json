@@ -21,6 +21,7 @@
             "copsEnabled": false,
             "wantedLevelEnabled": false
         },
-        "vehicleRadioEnabled": false
+        "vehicleRadioEnabled": false,
+        "vehicleOnlyRadar": true
     }
 }
