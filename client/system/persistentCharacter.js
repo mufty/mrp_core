@@ -1,5 +1,4 @@
 if(config.world.persistCharacters) {
-    print("persistCharacters");
     MRP_CLIENT.CreateThread(()=>{
         let cycle = async function(){
             let lastEntityHealth = 0;
