@@ -20,6 +20,7 @@ client_scripts {
 	'client/world/radio.js',
 	'client/world/vehicleRadar.js',
 	'client/system/persistentCharacter.js',
+	'client/system/hungerThirstDecay.js',
 }
 
 server_scripts {

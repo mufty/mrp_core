@@ -23,6 +23,12 @@
         },
         "vehicleRadioEnabled": false,
         "vehicleOnlyRadar": true,
-        "persistCharacters": true
+        "persistCharacters": true,
+        "hungerDecay": true,
+        "thirstDecay": true,
+        "hungerDecayTimer": 1000,
+        "thirstDecayTimer": 1000,
+        "hungerDecayMultiplier": 0.9,
+        "thirstDecayMultiplier": 0.9
     }
 }
