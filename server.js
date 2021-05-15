@@ -1,4 +1,6 @@
-MRP = {};
+MRP = {
+    playerSpawnedCharacters: {}
+};
 ENTITIES = 0;
 
 const config = require('./config/default.json');

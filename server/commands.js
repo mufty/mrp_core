@@ -118,6 +118,7 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
                 let spawnPoint = {};
                 Object.assign(spawnPoint, config.spawnPoints[0]);
                 spawnPoint.model = characterToUse.model;
+                MRP.playerSpawnedCharacters[source] = characterToUse;
                 emitNet('mrp:spawn', source, characterToUse, spawnPoint);
                 emit('mrp:spawn', source, characterToUse, spawnPoint);
             }
