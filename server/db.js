@@ -12,7 +12,7 @@ const url = config.DB.url;
 
 // Database Name
 const dbName = config.DB.name;
-const client = new MongoClient(url);
+const client = new MongoClient(url, { useUnifiedTopology: true });
 
 //new default character starts
 const DEFAULT_HEALTH = config.newCharacter.health;
