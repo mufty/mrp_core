@@ -1,5 +1,8 @@
 //TODO maybe move this logic to server
 
+const HUNGER_REDUCTION = 1;
+const THIRST_REDUCTION = 1;
+
 if(config.world.hungerDecay){
 	MRP_CLIENT.CreateThread(()=>{
 		let cycle = async function(){
@@ -12,7 +15,7 @@ if(config.world.hungerDecay){
 					continue;
 				}
 
-				character.stats.hunger = Math.round(character.stats.hunger * config.world.hungerDecayMultiplier);
+				character.stats.hunger = character.stats.hunger - HUNGER_REDUCTION;
 				if(character.stats.hunger < 0)
 					character.stats.hunger = 0;
 				emitNet('mrp:updateCharacter', character);
@@ -37,7 +40,7 @@ if(config.world.thirstDecay){
 					continue;
 				}
 
-				character.stats.thirst = Math.round(character.stats.thirst * config.world.thirstDecayMultiplier);
+				character.stats.thirst = character.stats.thirst - THIRST_REDUCTION;
 				if(character.stats.thirst < 0)
 					character.stats.thirst = 0;
 				emitNet('mrp:updateCharacter', character);
