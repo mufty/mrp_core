@@ -3,52 +3,51 @@
 const HUNGER_REDUCTION = 1;
 const THIRST_REDUCTION = 1;
 
-if(config.world.hungerDecay){
-	MRP_CLIENT.CreateThread(()=>{
-		let cycle = async function(){
-			while(true){
-				await MRP_CLIENT.sleep(0);
+if (config.world.hungerDecay || config.world.thirstDecay) {
+    MRP_CLIENT.CreateThread(() => {
+        let hungerDecay = async function() {
+            while (true) {
+                await MRP_CLIENT.sleep(0);
 
-				let character = MRP_CLIENT.GetPlayerData();
-				if(!character) {
-					await MRP_CLIENT.sleep(config.world.hungerDecayTimer);
-					continue;
-				}
+                let character = MRP_CLIENT.GetPlayerData();
+                if (!character) {
+                    await MRP_CLIENT.sleep(config.world.hungerDecayTimer);
+                    continue;
+                }
 
-				character.stats.hunger = character.stats.hunger - HUNGER_REDUCTION;
-				if(character.stats.hunger < 0)
-					character.stats.hunger = 0;
-				emitNet('mrp:updateCharacter', character);
-				emit('mrp:updateCharacter', character);
+                character.stats.hunger = character.stats.hunger - HUNGER_REDUCTION;
+                if (character.stats.hunger < 0)
+                    character.stats.hunger = 0;
+                emitNet('mrp:updateCharacter', character);
+                emit('mrp:updateCharacter', character);
 
-				await MRP_CLIENT.sleep(config.world.hungerDecayTimer);
-			}
-		}
-		cycle();
-	});
-}
+                await MRP_CLIENT.sleep(config.world.hungerDecayTimer);
+            }
+        }
 
-if(config.world.thirstDecay){
-	MRP_CLIENT.CreateThread(()=>{
-		let cycle = async function(){
-			while(true){
-				await MRP_CLIENT.sleep(0);
+        if (config.world.hungerDecay)
+            hungerDecay();
 
-				let character = MRP_CLIENT.GetPlayerData();
-				if(!character) {
-					await MRP_CLIENT.sleep(config.world.thirstDecayTimer);
-					continue;
-				}
+        let thirstDecay = async function() {
+            while (true) {
+                await MRP_CLIENT.sleep(0);
 
-				character.stats.thirst = character.stats.thirst - THIRST_REDUCTION;
-				if(character.stats.thirst < 0)
-					character.stats.thirst = 0;
-				emitNet('mrp:updateCharacter', character);
-				emit('mrp:updateCharacter', character);
+                let character = MRP_CLIENT.GetPlayerData();
+                if (!character) {
+                    await MRP_CLIENT.sleep(config.world.thirstDecayTimer);
+                    continue;
+                }
 
-				await MRP_CLIENT.sleep(config.world.thirstDecayTimer);
-			}
-		}
-		cycle();
-	});
+                character.stats.thirst = character.stats.thirst - THIRST_REDUCTION;
+                if (character.stats.thirst < 0)
+                    character.stats.thirst = 0;
+                emitNet('mrp:updateCharacter', character);
+                emit('mrp:updateCharacter', character);
+
+                await MRP_CLIENT.sleep(config.world.thirstDecayTimer);
+            }
+        }
+        if (config.world.thirstDecay)
+            thirstDecay();
+    });
 }

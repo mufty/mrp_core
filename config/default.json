@@ -14,7 +14,8 @@
         "hunger": 100,
         "thirst": 100,
         "cash": 0,
-        "bank": 0
+        "bank": 0,
+        "stress": 100
     },
     "spawnPoints": [
         {

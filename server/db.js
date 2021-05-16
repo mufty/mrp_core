@@ -21,6 +21,7 @@ const DEFAULT_HUNGER = config.newCharacter.hunger;
 const DEFAULT_THIRST = config.newCharacter.thirst;
 const DEFAULT_CASH = config.newCharacter.cash;
 const DEFAULT_BANK = config.newCharacter.bank;
+const DEFAULT_STRESS = = config.newCharacter.stress;
 
 let db;
 
@@ -129,6 +130,7 @@ on('mrp:createCharacter', (player, inputChar) => {
                 armor: DEFAULT_ARMOR,
                 hunger: DEFAULT_HUNGER,
                 thirst: DEFAULT_THIRST,
+                stress: DEFAULT_STRESS,
                 cash: DEFAULT_CASH,
                 bank: DEFAULT_BANK
             },
