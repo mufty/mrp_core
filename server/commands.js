@@ -185,5 +185,5 @@ RegisterCommand('addArmor', (source, args) => {
 RegisterCommand('addHealth', (source, args) => {
     let [modifier] = args;
     modifier = parseInt(modifier);
-    emitNet('mrp:addStress', source, modifier);
+    emitNet('mrp:addHealth', source, modifier);
 });

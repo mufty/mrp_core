@@ -20,10 +20,14 @@ if (config.world.hungerDecay || config.world.thirstDecay) {
                 if (character.stats.hunger < 0)
                     character.stats.hunger = 0;
 
-                if (character.stats.hunger != lastHunger) {
+                if (config.world.hungerToHealth && character.stats.hunger == 0) {
+                    emit('mrp:addHealth', config.world.hungerToHealthDecay);
+                }
+
+                /*if (character.stats.hunger != lastHunger) {
                     emitNet('mrp:updateCharacter', character);
                     emit('mrp:updateCharacter', character);
-                }
+                }*/
 
                 lastHunger = character.stats.hunger;
 
@@ -49,10 +53,10 @@ if (config.world.hungerDecay || config.world.thirstDecay) {
                 if (character.stats.thirst < 0)
                     character.stats.thirst = 0;
 
-                if (character.stats.thirst != lastThirst) {
+                /*if (character.stats.thirst != lastThirst) {
                     emitNet('mrp:updateCharacter', character);
                     emit('mrp:updateCharacter', character);
-                }
+                }*/
 
                 lastThirst = character.stats.thirst;
 

@@ -26,7 +26,10 @@
         "persistCharacters": true,
         "hungerDecay": true,
         "thirstDecay": true,
-        "hungerDecayTimer": 1000,
-        "thirstDecayTimer": 1000
+        "hungerDecayTimer": 10000,
+        "thirstDecayTimer": 10000,
+        "hungerToHealth": true,
+        "hungerToHealthDecay": -1,
+        "playerHealthRechargeMultiplier": 0.0
     }
 }

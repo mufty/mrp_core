@@ -67,6 +67,7 @@ onNet('mrp:spawn', (char, spawn) => {
         let ped = PlayerPedId();
         SetEntityHealth(ped, health);
         SetPedArmour(ped, currentCharacter.stats.armor);
+        SetPlayerHealthRechargeMultiplier(ped, config.world.playerHealthRechargeMultiplier);
     });
 
     emitNet('mrp:characterSpawned', currentCharacter);
@@ -124,12 +125,26 @@ onNet('mrp:addArmor', (modifier) => {
     SetPedArmour(ped, currentCharacter.stats.armor);
 });
 
-onNet('mrp:addHealth', (modifier) => {
+function addHealth(modifier) {
     if (currentCharacter == null)
         return;
 
     currentCharacter.stats.health += modifier;
+    if (currentCharacter.stats.health < 0) {
+        currentCharacter.stats.health = 0;
+    } else if (currentCharacter.stats.health > 100) {
+        currentCharacter.stats.health = 100;
+    }
+
+    let health = currentCharacter.stats.health;
+    if (currentCharacter.sex == "MALE") {
+        //because reasons :D
+        health += 100;
+    }
 
     let ped = PlayerPedId();
-    SetEntityHealth(ped, currentCharacter.stats.health);
-});
+    SetEntityHealth(ped, health);
+}
+
+on('mrp:addHealth', addHealth);
+onNet('mrp:addHealth', addHealth);
