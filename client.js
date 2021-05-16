@@ -36,8 +36,8 @@ let MRP_CLIENT = {
     CreateThread: function(callback) {
         emit('mrp:createThread', callback);
     },
-    sleep: function(ms){
-        return new Promise((resolve)=>{
+    sleep: function(ms) {
+        return new Promise((resolve) => {
             setTimeout(resolve, ms);
         });
     }
@@ -48,7 +48,7 @@ on('mrp:getSharedObject', (cb) => {
 });
 
 onNet('mrp:spawn', (char, spawn) => {
-    if(!char && currentCharacter) {
+    if (!char && currentCharacter) {
         currentCharacter = currentCharacter;
     } else if (char) {
         currentCharacter = char;
@@ -56,9 +56,9 @@ onNet('mrp:spawn', (char, spawn) => {
     } else {
         return;
     }
-    
+
     let health = currentCharacter.stats.health;
-    if(currentCharacter.sex == "MALE") {
+    if (currentCharacter.sex == "MALE") {
         //because reasons :D
         health += 100;
     }
@@ -73,15 +73,15 @@ onNet('mrp:spawn', (char, spawn) => {
 });
 
 onNet('mrp:revive', () => {
-    if(currentCharacter == null)
+    if (currentCharacter == null)
         return;
 
     let health = 100;
-    if(currentCharacter.sex == "MALE") {
+    if (currentCharacter.sex == "MALE") {
         //because reasons :D
         health += 100;
     }
-    
+
     currentCharacter.stats.health = health;
 
     let ped = PlayerPedId();

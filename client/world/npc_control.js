@@ -1,6 +1,6 @@
-MRP_CLIENT.CreateThread(()=>{
-    let cycle = async function(){
-        while(true){
+MRP_CLIENT.CreateThread(() => {
+    let cycle = async function() {
+        while (true) {
             await MRP_CLIENT.sleep(0);
 
             SetVehicleDensityMultiplierThisFrame(config.world.npc.vehicleDensity);
@@ -15,12 +15,12 @@ MRP_CLIENT.CreateThread(()=>{
             SetCreateRandomCopsOnScenarios(config.world.npc.randomCopsScenarios);
 
             let playerPed = PlayerPedId();
-            if(!config.world.npc.copsEnabled) {
-                let [x,y,z] = GetEntityCoords(playerPed);
+            if (!config.world.npc.copsEnabled) {
+                let [x, y, z] = GetEntityCoords(playerPed);
                 ClearAreaOfCops(x, y, z, 400.0);
             }
 
-            if(!config.world.npc.wantedLevelEnabled && GetPlayerWantedLevel(playerPed) != 0) {
+            if (!config.world.npc.wantedLevelEnabled && GetPlayerWantedLevel(playerPed) != 0) {
                 SetPlayerWantedLevel(playerPed, 0, false)
                 SetPlayerWantedLevelNow(playerPed, false)
             }

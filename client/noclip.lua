@@ -44,7 +44,7 @@ function IsControlAlwaysJustPressed(inputGroup, control) return IsControlJustPre
 function Lerp (a, b, t) return a + (b - a) * t end
 
 function IsPedDrivingVehicle(ped, veh)
-    return ped == GetPedInVehicleSeat(veh, -1);
+    return ped == GetPedInVehicleSeat(veh, - 1);
 end
 
 function SetInvincible(val, id)
@@ -118,7 +118,7 @@ function SetNoClip(val)
                     SetPoliceIgnorePlayer(pPed, true);
 
                     -- `(a and b) or c`, is basically `a ? b : c` --
-                    input = vector3(GetControlNormal(0, MOVE_LEFT_RIGHT), GetControlNormal(0, MOVE_UP_DOWN), (IsControlAlwaysPressed(1, MOVE_UP_KEY) and 1) or ((IsControlAlwaysPressed(1, MOVE_DOWN_KEY) and -1) or 0))
+                    input = vector3(GetControlNormal(0, MOVE_LEFT_RIGHT), GetControlNormal(0, MOVE_UP_DOWN), (IsControlAlwaysPressed(1, MOVE_UP_KEY) and 1) or ((IsControlAlwaysPressed(1, MOVE_DOWN_KEY) and - 1) or 0))
                     speed = ((IsControlAlwaysPressed(1, CHANGE_SPEED_KEY) and NO_CLIP_FAST_SPEED) or NO_CLIP_NORMAL_SPEED) * ((isClippedVeh and 2.75) or 1)
 
                     MoveInNoClip();
@@ -199,7 +199,7 @@ function MoveInNoClip()
 
     SetEntityRotation(noClippingEntity, GetGameplayCamRot(0), 0, false)
     local forward, right, up, c = GetEntityMatrix(noClippingEntity);
-    previousVelocity = Lerp(previousVelocity, (((right * input.x * speed) + (up * -input.z * speed) + (forward * -input.y * speed))), Timestep() * breakSpeed);
+    previousVelocity = Lerp(previousVelocity, (((right * input.x * speed) + (up * - input.z * speed) + (forward * - input.y * speed))), Timestep() * breakSpeed);
     c = c + previousVelocity
     SetEntityCoords(noClippingEntity, c - offset, true, true, true, false)
 
@@ -209,7 +209,7 @@ function MoveCarInNoClip()
 
     SetEntityRotation(noClippingEntity, GetGameplayCamRot(0), 0, false)
     local forward, right, up, c = GetEntityMatrix(noClippingEntity);
-    previousVelocity = Lerp(previousVelocity, (((right * input.x * speed) + (up * input.z * speed) + (forward * -input.y * speed))), Timestep() * breakSpeed);
+    previousVelocity = Lerp(previousVelocity, (((right * input.x * speed) + (up * input.z * speed) + (forward * - input.y * speed))), Timestep() * breakSpeed);
     c = c + previousVelocity
     SetEntityCoords(noClippingEntity, (c - offset) + (vec(0, 0, .3)), true, true, true, false)
 
@@ -231,44 +231,44 @@ end)
 
 AddEventHandler('onResourceStop', function(resourceName)
     if resourceName == RESSOURCE_NAME then
-        SetNoClip(false);
-        FreezeEntityPosition(noClippingEntity, false);
-        SetEntityCollision(noClippingEntity, true, true);
+    SetNoClip(false);
+    FreezeEntityPosition(noClippingEntity, false);
+    SetEntityCollision(noClippingEntity, true, true);
 
-        SetEntityVisible(noClippingEntity, true, false);
-        SetLocalPlayerVisibleLocally(true);
-        ResetEntityAlpha(noClippingEntity);
+    SetEntityVisible(noClippingEntity, true, false);
+    SetLocalPlayerVisibleLocally(true);
+    ResetEntityAlpha(noClippingEntity);
 
-        SetEveryoneIgnorePlayer(playerPed, false);
-        SetPoliceIgnorePlayer(playerPed, false);
-        ResetEntityAlpha(noClippingEntity);
-        SetInvincible(false, noClippingEntity);
-    end
+    SetEveryoneIgnorePlayer(playerPed, false);
+    SetPoliceIgnorePlayer(playerPed, false);
+    ResetEntityAlpha(noClippingEntity);
+    SetInvincible(false, noClippingEntity);
+end
 end)
 
 Citizen.CreateThread(function()
 
-    print(STARTUP_STRING)
-    TriggerEvent('msgprinter:addMessage', STARTUP_HTML_STRING, GetCurrentResourceName());
+print(STARTUP_STRING)
+TriggerEvent('msgprinter:addMessage', STARTUP_HTML_STRING, GetCurrentResourceName());
 
-    if ENABLE_TOGGLE_NO_CLIP then
+if ENABLE_TOGGLE_NO_CLIP then
 
-        RegisterCommand("noClip", function(source, args, rawCommand)
-            SetNoClip(tonumber(args[1]) == 1)
-        end)
+    RegisterCommand("noClip", function(source, args, rawCommand)
+        SetNoClip(tonumber(args[1]) == 1)
+    end)
 
-        RegisterCommand("+noClip", function(source, rawCommand)
-            SetNoClip(true)
-        end)
-        RegisterCommand("-noClip", function(source, rawCommand)
-            SetNoClip(false)
-        end)
+    RegisterCommand("+noClip", function(source, rawCommand)
+        SetNoClip(true)
+    end)
+    RegisterCommand("-noClip", function(source, rawCommand)
+        SetNoClip(false)
+    end)
 
-        RegisterCommand("toggleNoClip", function(source, rawCommand)
-            ToggleNoClipMode()
-        end)
+    RegisterCommand("toggleNoClip", function(source, rawCommand)
+        ToggleNoClipMode()
+    end)
 
-        RegisterKeyMapping("toggleNoClip", "Toggles no-clipping", "keyboard", "F2");
-    end
+    RegisterKeyMapping("toggleNoClip", "Toggles no-clipping", "keyboard", "F2");
+end
 
 end)

@@ -17,8 +17,7 @@
         "bank": 0,
         "stress": 100
     },
-    "spawnPoints": [
-        {
+    "spawnPoints": [{
             "x": 324.975,
             "y": -210.224,
             "z": 54.083,

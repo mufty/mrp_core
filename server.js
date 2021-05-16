@@ -10,13 +10,13 @@ const commands = require('./server/commands.js');
 
 var connectedUsers = {};
 
-MRP.getFivemId = function(source){
+MRP.getFivemId = function(source) {
     let numOfIdentifiers = GetNumPlayerIdentifiers(source);
     let fivemID;
-    for(let i = 0; i < numOfIdentifiers; i++) {
+    for (let i = 0; i < numOfIdentifiers; i++) {
         const identifier = GetPlayerIdentifier(source, i);
 
-        if(identifier.includes('fivem:')){
+        if (identifier.includes('fivem:')) {
             fivemID = identifier.slice(6);
         }
     }
@@ -24,22 +24,26 @@ MRP.getFivemId = function(source){
     return fivemID;
 };
 
-MRP.getPlayersServer = function(){
-	let num = GetNumPlayerIndices();
-	let players = [];
-	for (i = 0; i < num; i++) {
-		players.push( { id: num, identifier: GetPlayerIdentifier(num), name: GetPlayerName(num) } );
-	}
-	return players;
+MRP.getPlayersServer = function() {
+    let num = GetNumPlayerIndices();
+    let players = [];
+    for (i = 0; i < num; i++) {
+        players.push({
+            id: num,
+            identifier: GetPlayerIdentifier(num),
+            name: GetPlayerName(num)
+        });
+    }
+    return players;
 };
 
-MRP.getEntityPosition = function(source){
+MRP.getEntityPosition = function(source) {
     let retVal = [];
     let plyPed = GetPlayerPed(source);
     let plyPos = GetEntityCoords(plyPed);
     let plyHeading = GetEntityHeading(plyPed);
 
-    if(plyPos && plyHeading) {
+    if (plyPos && plyHeading) {
         retVal = [plyPos[0], plyPos[1], plyPos[2], plyHeading];
     }
 
@@ -58,13 +62,13 @@ onNet('mrp:characterSpawned', (char) => {
 
 on('onResourceStart', (resource) => {
     let resName = GetCurrentResourceName();
-    if(resName != resource)
+    if (resName != resource)
         return;
 
     let players = MRP.getPlayersServer();
-    for(let player of players){
+    for (let player of players) {
         let fivemID = MRP.getFivemId(player.id + "");
-        if(fivemID) {
+        if (fivemID) {
             emit('mrp:userLogin', player.name, player, fivemID);
         }
     }
@@ -83,13 +87,13 @@ on('playerConnecting', (playerName, setKickReason, deferrals) => {
 
     deferrals.done();
 
-    if(fivemID) {
+    if (fivemID) {
         emit('mrp:userLogin', playerName, player, fivemID);
     }
 });
 
 on('onResourceStop', (resource) => {
-    if(resource == GetCurrentResourceName()) {
+    if (resource == GetCurrentResourceName()) {
         //TODO despawn characters to prevent "ghost" characters from running around
     }
 });
@@ -104,7 +108,7 @@ on("playerDropped", (reason) => {
     logger.log(`Player ${GetPlayerName(source)} dropped (Reason: ${reason}).`)
 
     let fivemID = MRP.getFivemId(source);
-    if(fivemID) {
+    if (fivemID) {
         delete connectedUsers[fivemID];
     }
 });

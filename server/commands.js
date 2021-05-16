@@ -6,7 +6,7 @@ const logger = require('../shared/debug.js');
 const rawConsoleColor = config.console.system.color;
 let RGB_ARRAY = rawConsoleColor.split(',');
 //convert to numbers
-for(let i in RGB_ARRAY) {
+for (let i in RGB_ARRAY) {
     RGB_ARRAY[i] = parseInt(RGB_ARRAY[i]);
 }
 
@@ -17,7 +17,7 @@ RegisterCommand('users', (source, args, rawCommand) => {
 
     let msg = "";
 
-    for(let id in users) {
+    for (let id in users) {
         msg += users[id].name + ", ";
     }
 
@@ -31,15 +31,18 @@ RegisterCommand('users', (source, args, rawCommand) => {
 }, false);
 
 RegisterCommand('createCharacter', (source, args, cmd) => {
-    let execute = async function(){
+    let execute = async function() {
         let player = await MRP.getPlayer(source);
 
-        if(player){
+        if (player) {
             // args = name surname;
             let name = args[0];
             let surname = args[1];
 
-            emit('mrp:createCharacter', player, {name, surname});
+            emit('mrp:createCharacter', player, {
+                name,
+                surname
+            });
         } else {
             logger.log(`Player doesn't exist in database!`);
         }
@@ -49,12 +52,12 @@ RegisterCommand('createCharacter', (source, args, cmd) => {
 });
 
 RegisterCommand('listCharacters', (source, args, cmd) => {
-    let execute = async function(){
+    let execute = async function() {
         let characters = await MRP.getCharacters(source);
 
-        if(characters && characters.length > 0){
+        if (characters && characters.length > 0) {
             let chatList = "";
-            for(let char of characters){
+            for (let char of characters) {
                 chatList += `[${char._id} - ${char.name} ${char.surname}] `;
             }
 
@@ -76,14 +79,14 @@ RegisterCommand('listCharacters', (source, args, cmd) => {
 });
 
 RegisterCommand('useCharacter', (source, args, cmd) => {
-    let execute = async function(){
+    let execute = async function() {
         let characters = await MRP.getCharacters(source);
 
         // args = name surname;
         let name = args[0];
         let surname = args[1];
 
-        if(!name || !surname){
+        if (!name || !surname) {
             emitNet('chat:addMessage', source, {
                 color: RGB_ARRAY,
                 multiline: true,
@@ -92,16 +95,16 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
             return;
         }
 
-        if(characters && characters.length > 0){
+        if (characters && characters.length > 0) {
             let characterToUse = null;
-            for(let char of characters){
-                if(char.name == name && char.surname == surname) {
+            for (let char of characters) {
+                if (char.name == name && char.surname == surname) {
                     characterToUse = char;
                     break;
                 }
             }
 
-            if(characterToUse == null) {
+            if (characterToUse == null) {
                 emitNet('chat:addMessage', source, {
                     color: RGB_ARRAY,
                     multiline: true,
@@ -109,7 +112,7 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
                 });
             } else {
                 characterToUse.entityID = ENTITIES++;
-                let update = async function(){
+                let update = async function() {
                     let updatedUser = await MRP.setLastUsedCharacter(source, characterToUse);
                     let users = MRP.getConnectedUsers();
                     users[updatedUser._id] = updatedUser;
@@ -136,7 +139,7 @@ RegisterCommand('useCharacter', (source, args, cmd) => {
 
 RegisterCommand('pos', (source, args, cmd) => {
     let pos = MRP.getEntityPosition(source);
-    if(pos && pos.length >= 4) {
+    if (pos && pos.length >= 4) {
         let [posX, posY, posZ, posHeading] = pos;
         let msg = `Heading: ${posHeading} | x: ${posX} | y: ${posY} | z: ${posZ}`;
         emitNet('chat:addMessage', source, {
