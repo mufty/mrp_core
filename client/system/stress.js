@@ -30,5 +30,7 @@ if (cfg.blurEnabled) {
             }
         }
         cycle();
+
+        //TODO shooting adds stress/gun in hand adds stress?
     });
 }
