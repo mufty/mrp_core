@@ -21,6 +21,7 @@ client_scripts {
     'client/world/vehicleRadar.js',
     'client/system/persistentCharacter.js',
     'client/system/hungerThirstDecay.js',
+    'client/system/stress.js',
 }
 
 server_scripts {

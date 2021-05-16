@@ -24,12 +24,39 @@
         "vehicleRadioEnabled": false,
         "vehicleOnlyRadar": true,
         "persistCharacters": true,
-        "hungerDecay": true,
-        "thirstDecay": true,
-        "hungerDecayTimer": 10000,
-        "thirstDecayTimer": 10000,
-        "hungerToHealth": true,
-        "hungerToHealthDecay": -1,
-        "playerHealthRechargeMultiplier": 0.0
+        "playerHealthRechargeMultiplier": 0.0,
+        "decay": {
+            "hungerDecay": true,
+            "thirstDecay": true,
+            "hungerDecayTimer": 10000,
+            "thirstDecayTimer": 10000,
+            "hungerToHealth": true,
+            "hungerToHealthDecay": -1
+        },
+        "stress": {
+            "blurEnabled": true,
+            "breakpoints": [{
+                "min": 25,
+                "max": 50,
+                "fadeIn": 1000,
+                "fadeOut": 1000,
+                "fadeStay": 2000,
+                "fadeTimeout": 60000
+            },{
+                "min": 10,
+                "max": 25,
+                "fadeIn": 1000,
+                "fadeOut": 1000,
+                "fadeStay": 2000,
+                "fadeTimeout": 30000
+            },{
+                "min": 0,
+                "max": 10,
+                "fadeIn": 1000,
+                "fadeOut": 1000,
+                "fadeStay": 2000,
+                "fadeTimeout": 15000
+            }]
+        }
     }
 }

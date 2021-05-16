@@ -9,12 +9,16 @@ if (config.world.persistCharacters) {
 
                 let playerPed = PlayerPedId();
 
-                let currentHealth = GetEntityHealth(playerPed);
                 let character = MRP_CLIENT.GetPlayerData();
                 if (!character) {
                     await MRP_CLIENT.sleep(250);
                     continue;
                 }
+
+                let currentHealth = GetEntityHealth(playerPed);
+                let currentArmor = GetPedArmour(playerPed);
+
+                character.stats.armor = currentArmor;
 
                 if (lastEntityHealth != currentHealth) {
                     if (character.stats.hunger != 0) {

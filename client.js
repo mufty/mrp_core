@@ -94,47 +94,39 @@ onNet('mrp:revive', () => {
     SetPedArmour(ped, currentCharacter.stats.armor);
 });
 
-onNet('mrp:addHunger', (modifier) => {
+function addStat(name, modifier) {
     if (currentCharacter == null)
         return;
 
-    currentCharacter.stats.hunger += modifier;
+    currentCharacter.stats[name] += modifier;
+
+    if (currentCharacter.stats[name] < 0) {
+        currentCharacter.stats[name] = 0;
+    } else if (currentCharacter.stats[name] > 100) {
+        currentCharacter.stats[name] = 100;
+    }
+}
+onNet('mrp:addHunger', (modifier) => {
+    addStat('hunger', modifier);
 });
 
 onNet('mrp:addThirst', (modifier) => {
-    if (currentCharacter == null)
-        return;
-
-    currentCharacter.stats.thirst += modifier;
+    addStat('thirst', modifier);
 });
 
 onNet('mrp:addStress', (modifier) => {
-    if (currentCharacter == null)
-        return;
-
-    currentCharacter.stats.stress += modifier;
+    addStat('stress', modifier);
 });
 
 onNet('mrp:addArmor', (modifier) => {
-    if (currentCharacter == null)
-        return;
-
-    currentCharacter.stats.armor += modifier;
+    addStat('armor', modifier);
 
     let ped = PlayerPedId();
     SetPedArmour(ped, currentCharacter.stats.armor);
 });
 
 function addHealth(modifier) {
-    if (currentCharacter == null)
-        return;
-
-    currentCharacter.stats.health += modifier;
-    if (currentCharacter.stats.health < 0) {
-        currentCharacter.stats.health = 0;
-    } else if (currentCharacter.stats.health > 100) {
-        currentCharacter.stats.health = 100;
-    }
+    addStat('health', modifier);
 
     let health = currentCharacter.stats.health;
     if (currentCharacter.sex == "MALE") {

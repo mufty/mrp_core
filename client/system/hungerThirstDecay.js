@@ -3,7 +3,7 @@
 const HUNGER_REDUCTION = 1;
 const THIRST_REDUCTION = 1;
 
-if (config.world.hungerDecay || config.world.thirstDecay) {
+if (config.world.decay.hungerDecay || config.world.decay.thirstDecay) {
     MRP_CLIENT.CreateThread(() => {
         let hungerDecay = async function() {
             let lastHunger = null;
@@ -12,7 +12,7 @@ if (config.world.hungerDecay || config.world.thirstDecay) {
 
                 let character = MRP_CLIENT.GetPlayerData();
                 if (!character) {
-                    await MRP_CLIENT.sleep(config.world.hungerDecayTimer);
+                    await MRP_CLIENT.sleep(config.world.decay.hungerDecayTimer);
                     continue;
                 }
 
@@ -20,8 +20,8 @@ if (config.world.hungerDecay || config.world.thirstDecay) {
                 if (character.stats.hunger < 0)
                     character.stats.hunger = 0;
 
-                if (config.world.hungerToHealth && character.stats.hunger == 0) {
-                    emit('mrp:addHealth', config.world.hungerToHealthDecay);
+                if (config.world.decay.hungerToHealth && character.stats.hunger == 0) {
+                    emit('mrp:addHealth', config.world.decay.hungerToHealthDecay);
                 }
 
                 /*if (character.stats.hunger != lastHunger) {
@@ -31,11 +31,11 @@ if (config.world.hungerDecay || config.world.thirstDecay) {
 
                 lastHunger = character.stats.hunger;
 
-                await MRP_CLIENT.sleep(config.world.hungerDecayTimer);
+                await MRP_CLIENT.sleep(config.world.decay.hungerDecayTimer);
             }
         }
 
-        if (config.world.hungerDecay)
+        if (config.world.decay.hungerDecay)
             hungerDecay();
 
         let thirstDecay = async function() {
@@ -45,7 +45,7 @@ if (config.world.hungerDecay || config.world.thirstDecay) {
 
                 let character = MRP_CLIENT.GetPlayerData();
                 if (!character) {
-                    await MRP_CLIENT.sleep(config.world.thirstDecayTimer);
+                    await MRP_CLIENT.sleep(config.world.decay.thirstDecayTimer);
                     continue;
                 }
 
@@ -60,10 +60,10 @@ if (config.world.hungerDecay || config.world.thirstDecay) {
 
                 lastThirst = character.stats.thirst;
 
-                await MRP_CLIENT.sleep(config.world.thirstDecayTimer);
+                await MRP_CLIENT.sleep(config.world.decay.thirstDecayTimer);
             }
         }
-        if (config.world.thirstDecay)
+        if (config.world.decay.thirstDecay)
             thirstDecay();
     });
 }
