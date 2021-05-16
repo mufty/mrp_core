@@ -92,3 +92,44 @@ onNet('mrp:revive', () => {
     SetEntityHealth(ped, health);
     SetPedArmour(ped, currentCharacter.stats.armor);
 });
+
+onNet('mrp:addHunger', (modifier) => {
+    if (currentCharacter == null)
+        return;
+
+    currentCharacter.stats.hunger += modifier;
+});
+
+onNet('mrp:addThirst', (modifier) => {
+    if (currentCharacter == null)
+        return;
+
+    currentCharacter.stats.thirst += modifier;
+});
+
+onNet('mrp:addStress', (modifier) => {
+    if (currentCharacter == null)
+        return;
+
+    currentCharacter.stats.stress += modifier;
+});
+
+onNet('mrp:addArmor', (modifier) => {
+    if (currentCharacter == null)
+        return;
+
+    currentCharacter.stats.armor += modifier;
+
+    let ped = PlayerPedId();
+    SetPedArmour(ped, currentCharacter.stats.armor);
+});
+
+onNet('mrp:addHealth', (modifier) => {
+    if (currentCharacter == null)
+        return;
+
+    currentCharacter.stats.health += modifier;
+
+    let ped = PlayerPedId();
+    SetEntityHealth(ped, currentCharacter.stats.health);
+});

@@ -157,3 +157,33 @@ RegisterCommand('respawn', (source) => {
 RegisterCommand('revive', (source) => {
     emitNet('mrp:revive', source);
 });
+
+RegisterCommand('addHunger', (source, args) => {
+    let [modifier] = args;
+    modifier = parseInt(modifier);
+    emitNet('mrp:addHunger', source, modifier);
+});
+
+RegisterCommand('addThirst', (source, args) => {
+    let [modifier] = args;
+    modifier = parseInt(modifier);
+    emitNet('mrp:addThirst', source, modifier);
+});
+
+RegisterCommand('addStress', (source, args) => {
+    let [modifier] = args;
+    modifier = parseInt(modifier);
+    emitNet('mrp:addStress', source, modifier);
+});
+
+RegisterCommand('addArmor', (source, args) => {
+    let [modifier] = args;
+    modifier = parseInt(modifier);
+    emitNet('mrp:addArmor', source, modifier);
+});
+
+RegisterCommand('addHealth', (source, args) => {
+    let [modifier] = args;
+    modifier = parseInt(modifier);
+    emitNet('mrp:addStress', source, modifier);
+});
