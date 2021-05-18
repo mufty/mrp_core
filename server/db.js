@@ -120,6 +120,38 @@ MRP.deleteCharacter = async function(id) {
     logger.log(`Deleted character count ${result.modifiedCount}`);
 }
 
+MRP.createCharacter = function(player, inputChar) {
+    const collection = db.collection('character');
+
+    const create = async function() {
+        let birthDate = inputChar.birthday ? new Date(inputChar.birthday).getTime() : Date.now();
+        const result = await collection.insertOne({
+            name: inputChar.name,
+            surname: inputChar.surname,
+            stats: {
+                health: DEFAULT_HEALTH,
+                armor: DEFAULT_ARMOR,
+                hunger: DEFAULT_HUNGER,
+                thirst: DEFAULT_THIRST,
+                stress: DEFAULT_STRESS,
+                cash: DEFAULT_CASH,
+                bank: DEFAULT_BANK
+            },
+            job: {
+                name: "unemployed"
+            },
+            sex: inputChar.sex || "MALE",
+            birthday: Timestamp.fromNumber(birthDate),
+            model: "mp_m_freemode_01", // TODO argument and default to mp_m_freemode_01
+            owner: player._id
+        });
+
+        logger.log(`mrp:createCharacter [${inputChar.name} ${inputChar.surname}] created`);
+    }
+
+    create();
+}
+
 // Use connect method to connect to the server
 client.connect(function(err) {
     if (err)
@@ -173,36 +205,17 @@ on('mrp:userLogin', (playerName, source, fivemID) => {
     create();
 });
 
-on('mrp:createCharacter', (player, inputChar) => {
-    const collection = db.collection('character');
-
-    const create = async function() {
-        const result = await collection.insertOne({
-            name: inputChar.name,
-            surname: inputChar.surname,
-            stats: {
-                health: DEFAULT_HEALTH,
-                armor: DEFAULT_ARMOR,
-                hunger: DEFAULT_HUNGER,
-                thirst: DEFAULT_THIRST,
-                stress: DEFAULT_STRESS,
-                cash: DEFAULT_CASH,
-                bank: DEFAULT_BANK
-            },
-            job: {
-                name: "unemployed"
-            },
-            sex: "MALE", // TODO argument
-            birthday: Timestamp.fromNumber(Date.now()), // TODO argument
-            model: "a_m_m_farmer_01", // TODO argument and default to mp_m_freemode_01
-            owner: player._id
-        });
-
-        logger.log(`mrp:createCharacter [${inputChar.name} ${inputChar.surname}] created`);
-    }
-
-    create();
+onNet('mrp:createCharacter', (source, inputChar) => {
+    let execute = async () => {
+        let player = await MRP.getPlayer(source);
+        MRP.createCharacter(player, inputChar);
+    };
+    execute();
 });
+
+/*on('mrp:createCharacter', (player, inputChar) => {
+    MRP.createCharacter(player, inputChar);
+});*/
 
 onNet('mrp:updateCharacter', (character) => {
     if (!character || !character._id)
