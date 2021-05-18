@@ -106,6 +106,20 @@ MRP.toMongoTimestamp = function(obj) {
     return Timestamp.fromBits(obj.low_, obj.high_);
 }
 
+MRP.deleteCharacter = async function(id) {
+    const collection = db.collection('character');
+
+    let objId = id;
+    if (id.id)
+        objId = MRP.toObjectId(id.id);
+
+    const result = await collection.remove({
+        _id: objId
+    });
+
+    logger.log(`Deleted character count ${result.modifiedCount}`);
+}
+
 // Use connect method to connect to the server
 client.connect(function(err) {
     if (err)
@@ -227,6 +241,15 @@ onNet('mrp:updateCharacter', (character) => {
     }
 
     update();
+});
+
+
+onNet('mrp:deleteCharacter', (source, charId) => {
+    //TODO
+    if (!charId)
+        return;
+
+    MRP.deleteCharacter(charId);
 });
 
 module.exports = {

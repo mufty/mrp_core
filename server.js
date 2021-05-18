@@ -150,10 +150,6 @@ onNet('mrp:useCharacter', (source, characterToUse) => {
     emit('mrp:spawn', source, characterToUse, spawnPoint);
 });
 
-onNet('mrp:deleteCharacter', (source, characterToDelete) => {
-    //TODO
-});
-
 MRP.log = logger.log;
 MRP.getConnectedUsers = getConnectedUsers;
 /*exports('log', logger.log);
