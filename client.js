@@ -140,3 +140,22 @@ function addHealth(modifier) {
 
 on('mrp:addHealth', addHealth);
 onNet('mrp:addHealth', addHealth);
+
+RegisterCommand('char', function() {
+    let config = {
+        ped: true,
+        headBlend: true,
+        faceFeatures: true,
+        headOverlays: true,
+        components: true,
+        props: true
+    };
+    exports["fivem-appearance"].startPlayerCustomization(appearance => {
+        if (appearance) {
+            print('Saved');
+            print(JSON.stringify(appearance));
+        } else {
+            print('Canceled');
+        }
+    }, config);
+});

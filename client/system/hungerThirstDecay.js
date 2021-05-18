@@ -53,6 +53,11 @@ if (config.world.decay.hungerDecay || config.world.decay.thirstDecay) {
                 if (character.stats.thirst < 0)
                     character.stats.thirst = 0;
 
+                if (character.stats.thirst == 0) {
+                    //if thirst on 0 start decreasing hunger
+                    emitNet('mrp:addHunger', -1);
+                }
+
                 /*if (character.stats.thirst != lastThirst) {
                     emitNet('mrp:updateCharacter', character);
                     emit('mrp:updateCharacter', character);

@@ -117,6 +117,37 @@ onNet('mrp:server:tacklePlayer', (tackled, forvardVector, tackler) => {
     emitNet('mrp:client:tacklePlayer', tackled, forvardVector, tackler);
 });
 
+onNet('mrp:fetchCharacters', (source) => {
+    let execute = async function() {
+        let characters = await MRP.getCharacters(source);
+        emitNet('mrp:client:fetchCharacters', source, characters);
+    };
+    execute();
+});
+
+onNet('mrp:useCharacter', (source, characterToUse) => {
+    if (!characterToUse)
+        return;
+
+    characterToUse.entityID = ENTITIES++;
+    let update = async function() {
+        let updatedUser = await MRP.setLastUsedCharacter(source, characterToUse);
+        let users = MRP.getConnectedUsers();
+        users[updatedUser._id] = updatedUser;
+    };
+    update();
+    let spawnPoint = {};
+    Object.assign(spawnPoint, config.spawnPoints[0]);
+    spawnPoint.model = characterToUse.model;
+    MRP.playerSpawnedCharacters[source] = characterToUse;
+    emitNet('mrp:spawn', source, characterToUse, spawnPoint);
+    emit('mrp:spawn', source, characterToUse, spawnPoint);
+});
+
+onNet('mrp:deleteCharacter', (source, characterToDelete) => {
+    //TODO
+});
+
 MRP.log = logger.log;
 MRP.getConnectedUsers = getConnectedUsers;
 /*exports('log', logger.log);
