@@ -113,14 +113,14 @@ MRP.deleteCharacter = async function(id) {
     if (id.id)
         objId = MRP.toObjectId(id.id);
 
-    const result = await collection.remove({
+    const result = await collection.deleteOne({
         _id: objId
     });
 
     logger.log(`Deleted character count ${result.modifiedCount}`);
 }
 
-MRP.createCharacter = function(player, inputChar) {
+MRP.createCharacter = function(player, inputChar, cb) {
     const collection = db.collection('character');
 
     const create = async function() {
@@ -144,7 +144,7 @@ MRP.createCharacter = function(player, inputChar) {
             birthday: Timestamp.fromNumber(birthDate),
             model: "mp_m_freemode_01", // TODO argument and default to mp_m_freemode_01
             owner: player._id
-        });
+        }, cb);
 
         logger.log(`mrp:createCharacter [${inputChar.name} ${inputChar.surname}] created`);
     }
@@ -208,7 +208,14 @@ on('mrp:userLogin', (playerName, source, fivemID) => {
 onNet('mrp:createCharacter', (source, inputChar) => {
     let execute = async () => {
         let player = await MRP.getPlayer(source);
-        MRP.createCharacter(player, inputChar);
+        MRP.createCharacter(player, inputChar, (err, response) => {
+            if (err) {
+                logger.log('Error occurred while inserting');
+            } else {
+                logger.log('inserted record' + JSON.stringify(response.ops[0]));
+                emitNet('mrp:createdCharacter', source, response.ops[0]);
+            }
+        });
     };
     execute();
 });
