@@ -129,6 +129,12 @@ onNet('mrp:useCharacter', (source, characterToUse) => {
     if (!characterToUse)
         return;
 
+    let objId = MRP.toObjectId(characterToUse._id.id);
+    characterToUse._id = objId;
+
+    //convert timestamp
+    characterToUse.birthday = MRP.toMongoTimestamp(characterToUse.birthday);
+
     characterToUse.entityID = ENTITIES++;
     let update = async function() {
         let updatedUser = await MRP.setLastUsedCharacter(source, characterToUse);

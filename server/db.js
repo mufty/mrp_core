@@ -89,6 +89,23 @@ MRP.getCharacters = async function(source) {
     return chars;
 };
 
+MRP.toObjectId = function(obj) {
+    let arrayBuffer = [];
+    for (let i in obj) {
+        arrayBuffer.push(obj[i]);
+    }
+
+    let buf = Buffer.from(arrayBuffer);
+
+    let objId = new ObjectID(buf);
+
+    return objId;
+};
+
+MRP.toMongoTimestamp = function(obj) {
+    return Timestamp.fromBits(obj.low_, obj.high_);
+}
+
 // Use connect method to connect to the server
 client.connect(function(err) {
     if (err)
@@ -173,19 +190,6 @@ on('mrp:createCharacter', (player, inputChar) => {
     create();
 });
 
-function toObjectId(obj) {
-    let arrayBuffer = [];
-    for (let i in obj) {
-        arrayBuffer.push(obj[i]);
-    }
-
-    let buf = Buffer.from(arrayBuffer);
-
-    let objId = new ObjectID(buf);
-
-    return objId;
-}
-
 onNet('mrp:updateCharacter', (character) => {
     if (!character || !character._id)
         return;
@@ -193,11 +197,11 @@ onNet('mrp:updateCharacter', (character) => {
     delete character.entityID;
 
     //convert mangled ObjectId    
-    let objId = toObjectId(character._id.id);
+    let objId = MRP.toObjectId(character._id.id);
     character._id = objId;
 
     //convert timestamp
-    character.birthday = Timestamp.fromBits(character.birthday.low_, character.birthday.high_);
+    character.birthday = MRP.toMongoTimestamp(character.birthday);
 
     const collection = db.collection('character');
 
