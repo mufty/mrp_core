@@ -27,6 +27,7 @@ if (config.world.hideHudComps && config.world.hideHudComps.length > 0) {
                 22 : HUD_WEAPONS
                 */
                 HideHudComponentThisFrame(hudId)
+                await MRP_CLIENT.sleep(0);
             }
         }
     });
