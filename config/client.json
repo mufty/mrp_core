@@ -28,8 +28,8 @@
         "decay": {
             "hungerDecay": true,
             "thirstDecay": true,
-            "hungerDecayTimer": 10000,
-            "thirstDecayTimer": 10000,
+            "hungerDecayTimer": 60000,
+            "thirstDecayTimer": 60000,
             "hungerToHealth": true,
             "hungerToHealthDecay": -1
         },
@@ -57,6 +57,7 @@
                 "fadeStay": 2000,
                 "fadeTimeout": 15000
             }]
-        }
+        },
+        "hideHudComps": [6, 7, 9]
     }
 }
