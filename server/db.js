@@ -142,7 +142,7 @@ MRP.createCharacter = function(player, inputChar, cb) {
             },
             sex: inputChar.sex || "MALE",
             birthday: Timestamp.fromNumber(birthDate),
-            model: "mp_m_freemode_01", // TODO argument and default to mp_m_freemode_01
+            model: (inputChar.sex == "FEMALE") ? "mp_f_freemode_01" : "mp_m_freemode_01",
             owner: player._id
         }, cb);
 
