@@ -248,27 +248,27 @@ end)
 
 Citizen.CreateThread(function()
 
-print(STARTUP_STRING)
-TriggerEvent('msgprinter:addMessage', STARTUP_HTML_STRING, GetCurrentResourceName());
+    print(STARTUP_STRING)
+    TriggerEvent('msgprinter:addMessage', STARTUP_HTML_STRING, GetCurrentResourceName())
 
-if ENABLE_TOGGLE_NO_CLIP then
+    if ENABLE_TOGGLE_NO_CLIP then
 
-    RegisterCommand("noClip", function(source, args, rawCommand)
-        SetNoClip(tonumber(args[1]) == 1)
-    end)
+        RegisterCommand("noClip", function(source, args, rawCommand)
+            SetNoClip(tonumber(args[1]) == 1)
+        end)
 
-    RegisterCommand("+noClip", function(source, rawCommand)
-        SetNoClip(true)
-    end)
-    RegisterCommand("-noClip", function(source, rawCommand)
-        SetNoClip(false)
-    end)
+        RegisterCommand("+noClip", function(source, rawCommand)
+            SetNoClip(true)
+        end)
+        RegisterCommand("-noClip", function(source, rawCommand)
+            SetNoClip(false)
+        end)
 
-    RegisterCommand("toggleNoClip", function(source, rawCommand)
-        ToggleNoClipMode()
-    end)
+        RegisterCommand("toggleNoClip", function(source, rawCommand)
+            ToggleNoClipMode()
+        end)
 
-    RegisterKeyMapping("toggleNoClip", "Toggles no-clipping", "keyboard", "F2");
-end
+        RegisterKeyMapping("toggleNoClip", "Toggles no-clipping", "keyboard", "F2");
+    end
 
 end)
