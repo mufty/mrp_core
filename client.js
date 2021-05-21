@@ -78,12 +78,11 @@ onNet('mrp:revive', () => {
         return;
 
     let health = 100;
+    currentCharacter.stats.health = health;
     if (currentCharacter.sex == "MALE") {
         //because reasons :D
         health += 100;
     }
-
-    currentCharacter.stats.health = health;
 
     let ped = PlayerPedId();
     let [x, y, z] = GetEntityCoords(ped, true);

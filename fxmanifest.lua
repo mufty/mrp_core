@@ -22,7 +22,7 @@ client_scripts {
     'client/system/persistentCharacter.js',
     'client/system/hungerThirstDecay.js',
     'client/system/stress.js',
-    'client/system/main.js',
+    'client/system/main.lua',
 }
 
 server_scripts {

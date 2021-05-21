@@ -57,7 +57,6 @@
                 "fadeStay": 2000,
                 "fadeTimeout": 15000
             }]
-        },
-        "hideHudComps": [6, 7, 9]
+        }
     }
 }
