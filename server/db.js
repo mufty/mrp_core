@@ -121,6 +121,9 @@ MRP.deleteCharacter = async function(id) {
 }
 
 MRP.createCharacter = function(player, inputChar, cb) {
+    if (!player || !inputChar)
+        return;
+
     const collection = db.collection('character');
 
     const create = async function() {
