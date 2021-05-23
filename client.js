@@ -13,7 +13,7 @@ let MRP_CLIENT = {
     InvokeNative: function() {
         let args = arguments;
         return new Promise(resolve => {
-            emit('mrp:invokeNative', args, (returnVal) => {
+            emit('mrp:lua:invokeNative', args, (returnVal) => {
                 resolve(returnVal);
             });
         });
@@ -34,7 +34,7 @@ let MRP_CLIENT = {
      * });
      */
     CreateThread: function(callback) {
-        emit('mrp:createThread', callback);
+        emit('mrp:lua:createThread', callback);
     },
     sleep: function(ms) {
         return new Promise((resolve) => {
