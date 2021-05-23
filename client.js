@@ -71,6 +71,7 @@ onNet('mrp:spawn', (char, spawn) => {
     }
 
     exports.spawnmanager.spawnPlayer(currentSpawn, () => {
+        let ped = PlayerPedId();
         let pID = PlayerId();
         SetEntityHealth(ped, health);
         SetPedArmour(ped, currentCharacter.stats.armor);
