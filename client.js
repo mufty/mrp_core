@@ -148,6 +148,17 @@ function addHealth(modifier) {
 on('mrp:addHealth', addHealth);
 onNet('mrp:addHealth', addHealth);
 
+if (config.enablePVP) {
+    on('playerSpawned', () => {
+        setInterval(() => {
+            let playerPed = PlayerPedId();
+
+            NetworkSetFriendlyFireOption(true);
+            SetCanAttackFriendly(playerPed, true, false);
+        }, 0);
+    });
+}
+
 RegisterCommand('char', function() {
     let config = {
         ped: true,

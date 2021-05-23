@@ -6,6 +6,7 @@
         "time": 1000,
         "tackledTime": 3000
     },
+    "enablePVP": true,
     "world": {
         "npc": {
             "vehicleDensity": 1.0,
