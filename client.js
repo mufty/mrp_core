@@ -40,6 +40,13 @@ let MRP_CLIENT = {
         return new Promise((resolve) => {
             setTimeout(resolve, ms);
         });
+    },
+    wait: function(ms) {
+        return new Promise((resolve) => {
+            emit('mrp:lua:wait', ms, () => {
+                resolve();
+            });
+        });
     }
 };
 

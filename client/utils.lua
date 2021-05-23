@@ -9,3 +9,8 @@ AddEventHandler("mrp:lua:createThread", function(callback)
         callback()
     end)
 end)
+
+AddEventHandler("mrp:lua:wait", function(waitFor, callback)
+    Citizen.Wait(waitFor);
+    callback();
+end)
