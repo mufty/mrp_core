@@ -31,9 +31,17 @@ function Split(s, delimiter)
     return result;
 end
 
+local loadFile= LoadResourceFile(GetCurrentResourceName(), "config/client.json")
+local config = {}
+config = json.decode(loadFile)
+
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
+        local pID = PlayerId()
+        if ped ~= nil then
+            SetPlayerHealthRechargeMultiplier(pID, config.world.playerHealthRechargeMultiplier);
+        end
         local convarValue = GetConvar("mrp:hideHudComps", "69")
         if convarValue ~= "69" then
             local splitStr = Split(convarValue, ",")

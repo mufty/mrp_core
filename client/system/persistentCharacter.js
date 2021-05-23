@@ -21,13 +21,11 @@ if (config.world.persistCharacters) {
                 character.stats.armor = currentArmor;
 
                 if (lastEntityHealth != currentHealth) {
-                    if (character.stats.hunger != 0) {
-                        if (character.sex == "MALE") {
-                            //because reasons :D
-                            character.stats.health = currentHealth - 100;
-                        } else {
-                            character.stats.health = currentHealth;
-                        }
+                    if (character.sex == "MALE") {
+                        //because reasons :D
+                        character.stats.health = currentHealth - 100;
+                    } else {
+                        character.stats.health = currentHealth;
                     }
                     lastEntityHealth = currentHealth;
                 }
