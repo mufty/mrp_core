@@ -33,7 +33,7 @@ MRP.getPlayer = async function(source) {
 
     const collection = db.collection('user');
 
-    let id = MRP.getFivemId(source);
+    let id = MRP.getUserId(source);
     let storedUser = await collection.findOne({
         _id: id
     });
@@ -70,7 +70,7 @@ MRP.getCharacters = async function(source) {
 
     const collection = db.collection('character');
 
-    let id = MRP.getFivemId(source);
+    let id = MRP.getUserId(source);
     let cursor = await collection.find({
         owner: id
     }, {

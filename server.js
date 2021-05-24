@@ -10,18 +10,41 @@ const commands = require('./server/commands.js');
 
 var connectedUsers = {};
 
-MRP.getFivemId = function(source) {
+MRP.getUserId = function(source) {
     let numOfIdentifiers = GetNumPlayerIdentifiers(source);
-    let fivemID;
+    let userID;
     for (let i = 0; i < numOfIdentifiers; i++) {
         const identifier = GetPlayerIdentifier(source, i);
 
         if (identifier.includes('fivem:')) {
-            fivemID = identifier.slice(6);
+            userID = identifier.slice(6);
         }
     }
 
-    return fivemID;
+    if (!userID) {
+        //don't have fivem suplement with steam
+        for (let i = 0; i < numOfIdentifiers; i++) {
+            const identifier = GetPlayerIdentifier(source, i);
+
+            if (identifier.includes('steam:')) {
+                userID = identifier.slice(6);
+            }
+        }
+    }
+
+    if (!userID) {
+        //don't have fivem suplement with license
+        for (let i = 0; i < numOfIdentifiers; i++) {
+            const identifier = GetPlayerIdentifier(source, i);
+
+            if (identifier.includes('license:')) {
+                userID = identifier.slice(8);
+            }
+        }
+    }
+
+
+    return userID;
 };
 
 MRP.getPlayersServer = function() {
@@ -67,9 +90,9 @@ on('onResourceStart', (resource) => {
 
     let players = MRP.getPlayersServer();
     for (let player of players) {
-        let fivemID = MRP.getFivemId(player.id + "");
-        if (fivemID) {
-            emit('mrp:userLogin', player.name, player, fivemID);
+        let userID = MRP.getUserId(player.id + "");
+        if (userID) {
+            emit('mrp:userLogin', player.name, player, userID);
         }
     }
 });
@@ -83,12 +106,12 @@ on('playerConnecting', (playerName, setKickReason, deferrals) => {
 
     logger.log(`Player connecting: ${playerName}`);
 
-    let fivemID = MRP.getFivemId(player);
+    let userID = MRP.getUserId(player);
 
     deferrals.done();
 
-    if (fivemID) {
-        emit('mrp:userLogin', playerName, player, fivemID);
+    if (userID) {
+        emit('mrp:userLogin', playerName, player, userID);
     }
 });
 
@@ -107,9 +130,9 @@ on("playerDropped", (reason) => {
 
     logger.log(`Player ${GetPlayerName(source)} dropped (Reason: ${reason}).`)
 
-    let fivemID = MRP.getFivemId(source);
-    if (fivemID) {
-        delete connectedUsers[fivemID];
+    let userID = MRP.getUserId(source);
+    if (userID) {
+        delete connectedUsers[userID];
     }
 });
 
