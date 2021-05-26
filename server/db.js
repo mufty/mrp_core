@@ -155,6 +155,72 @@ MRP.createCharacter = function(player, inputChar, cb) {
     create();
 }
 
+MRP.delete = async function(collectionName, id) {
+    const collection = db.collection(collectionName);
+
+    let objId = id;
+    if (id.id)
+        objId = MRP.toObjectId(id.id);
+
+    const result = await collection.deleteOne({
+        _id: objId
+    });
+
+    logger.log(`Deleted ${collectionName} count ${result.modifiedCount}`);
+};
+
+MRP.create = function(collectionName, obj, cb) {
+    const collection = db.collection(collectionName);
+
+    const create = async function() {
+        const result = await collection.insertOne(obj, cb);
+
+        logger.log(`[${collectionName}] created`);
+    }
+
+    create();
+};
+
+MRP.update = function(collectionName, obj, cb) {
+    const collection = db.collection(collectionName);
+
+    const create = async function() {
+        let query = {};
+        if (obj._id)
+            query._id = obj._id;
+
+        let options = {
+            upsert: true
+        };
+        const result = await collection.updateOne(query, {
+            $set: obj
+        }, options);
+
+        logger.log(`[${collectionName}] updated`);
+    }
+
+    create();
+};
+
+MRP.read = function(collectionName, id, cb) {
+    if (!db)
+        return null;
+
+    const collection = db.collection(collectionName);
+
+    let read = async () => {
+        let objId = id;
+        if (id.id)
+            objId = MRP.toObjectId(id.id);
+
+        let storedDocument = await collection.findOne({
+            _id: objId
+        });
+        cb(storedDocument);
+    };
+    read();
+};
+
 // Use connect method to connect to the server
 client.connect(function(err) {
     if (err)
@@ -275,6 +341,4 @@ onNet('mrp:deleteCharacter', (source, charId) => {
     MRP.deleteCharacter(charId);
 });
 
-module.exports = {
-
-};
+module.exports = MRP;

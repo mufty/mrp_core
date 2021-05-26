@@ -137,6 +137,7 @@ on("playerDropped", (reason) => {
 });
 
 onNet('mrp:server:tacklePlayer', (tackled, forvardVector, tackler) => {
+    console.log(`SERVER: tackled [${tackled}] forvardVector [${forvardVector}] tackler [${tackler}]`);
     emitNet('mrp:client:tacklePlayer', tackled, forvardVector, tackler);
 });
 
@@ -175,5 +176,9 @@ onNet('mrp:useCharacter', (source, characterToUse) => {
 
 MRP.log = logger.log;
 MRP.getConnectedUsers = getConnectedUsers;
-/*exports('log', logger.log);
-exports('getConnectedUsers', getConnectedUsers);*/
+
+exports('log', logger.log);
+exports('DBCreate', db.create);
+exports('DBRead', db.read);
+exports('toObjectId', MRP.toObjectId);
+//exports('getConnectedUsers', getConnectedUsers);

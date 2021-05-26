@@ -5,6 +5,10 @@ author 'mufty'
 description 'MRP core module'
 version '0.0.1'
 
+dependencies {
+    "yarn"
+}
+
 files {
     'shared/debug.js',
     'config/client.json',
