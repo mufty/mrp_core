@@ -48,7 +48,8 @@ MRP_CLIENT.CreateThread(() => {
     cycle();
 });
 
-onNet('mrp:client:tacklePlayer', (tackled, forvardVector, tackler) => {
+onNet('mrp:client:tacklePlayer', (forwardVector, tackler) => {
+    console.log(`CLIENT: forwardVector [${forwardVector}] tackler [${tackler}]`);
     SetPedToRagdollWithFall(
         PlayerPedId(),
         config.tackle.tackledTime,
