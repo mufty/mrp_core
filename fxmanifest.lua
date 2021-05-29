@@ -15,6 +15,7 @@ files {
 }
 
 client_scripts {
+    'client/entityEnumerator.lua',
     'client/utils.lua',
     'client.js',
     'client/noclip.lua',

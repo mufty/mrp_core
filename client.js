@@ -7,6 +7,19 @@ let currentCharacter = null;
 let currentSpawn = null;
 
 let MRP_CLIENT = {
+    TriggerServerCallback: function(event, args, callback) {
+        let responseEvent = event + ":response";
+        let serverResponse = function() {
+            removeEventListener(responseEvent, serverResponse);
+            callback.apply(null, arguments);
+        };
+        onNet(responseEvent, serverResponse);
+        let source = GetPlayerServerId(PlayerId());
+        if (args)
+            emitNet.apply(this, [event, source].concat(args));
+        else
+            emitNet(event, source);
+    },
     GetPlayerData: function() {
         return currentCharacter;
     },
