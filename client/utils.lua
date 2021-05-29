@@ -15,20 +15,12 @@ AddEventHandler("mrp:lua:wait", function(waitFor, callback)
     callback();
 end)
 
---pvp
---[[Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-        local ped = PlayerPedId()
-        if ped ~= nil then
-            SetCanAttackFriendly(ped, true, false)
-    		NetworkSetFriendlyFireOption(true)
-        end
-	end
+AddEventHandler("mrp:lua:taskPlayAnim", function(ped, animDictionary, animationName, blendInSpeed, blendOutSpeed, duration, flag, playbackRate, lockX, lockY, lockZ)
+    RequestAnimDict(animDictionary)
+    while not HasAnimDictLoaded(animDictionary) do
+        Citizen.Wait(100)
+    end
+    
+    TaskPlayAnim(ped, animDictionary, animationName, blendInSpeed + 0.0, blendOutSpeed + 0.0, duration, flag, playbackRate, lockX, lockY, lockZ)
+    Citizen.Wait(0)
 end)
-
-AddEventHandler("playerSpawned", function(spawn)
-	local ped = PlayerPedId()
-	SetCanAttackFriendly(ped, true, true)
-	NetworkSetFriendlyFireOption(true)
-end)]]--
