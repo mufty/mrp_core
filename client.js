@@ -92,6 +92,13 @@ onNet('mrp:spawn', (char, spawn) => {
     });
 
     emitNet('mrp:characterSpawned', currentCharacter);
+
+    //TODO test only revive for all in menu
+    emit('mrp:radial_menu:addMenuItem', {
+        id: 'revive',
+        text: 'Revive',
+        action: 'https://mrp_core/revive'
+    });
 });
 
 onNet('mrp:revive', () => {
@@ -189,4 +196,10 @@ RegisterCommand('char', function() {
             print('Canceled');
         }
     }, config);
+});
+
+RegisterNuiCallbackType('revive');
+on('__cfx_nui:revive', (data, cb) => {
+    emit('mrp:revive');
+    cb();
 });
