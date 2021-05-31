@@ -12,6 +12,7 @@ dependencies {
 files {
     'shared/debug.js',
     'config/client.json',
+    'client/helpers.js',
 }
 
 client_scripts {
