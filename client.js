@@ -9,9 +9,15 @@ let currentSpawn = null;
 let MRP_CLIENT = {
     TriggerServerCallback: function(event, args, callback) {
         let responseEvent = event + ":response";
-        let serverResponse = function() {
+        let serverResponse = function(...serverResponseArgs) {
             removeEventListener(responseEvent, serverResponse);
-            callback.apply(null, arguments);
+            try {
+                callback.call(this, ...serverResponseArgs);
+            } catch (e) {
+                //TODO this thing throw Error: BUFFER_SHORTAGE for some reason but everything works something to do with wrapped objects in fivem V8
+                console.log(e);
+                //throw e;
+            }
         };
         onNet(responseEvent, serverResponse);
         let source = GetPlayerServerId(PlayerId());
