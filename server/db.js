@@ -227,6 +227,26 @@ MRP.read = function(collectionName, id, cb) {
     read();
 };
 
+MRP.find = function(collectionName, query, options, cb) {
+    if (!db)
+        return null;
+
+    const collection = db.collection(collectionName);
+    let find = async () => {
+        normalizeIDs(query);
+        const cursor = await collection.find(query, options);
+        if ((await cursor.count()) === 0) {
+            logger.log(`No documents found for collection [${collectionName}] with query [${JSON.stringify(query)}] and options [${JSON.stringify(options)}]`);
+            cb(null);
+            return;
+        }
+
+        let documents = await cursor.toArray();
+        cb(documents);
+    };
+    find();
+};
+
 let normalizeIDs = (obj) => {
     for (let k in obj) {
         if (Array.isArray(obj[k])) {
