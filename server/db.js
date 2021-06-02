@@ -181,13 +181,19 @@ MRP.create = function(collectionName, obj, cb) {
     create();
 };
 
-MRP.update = function(collectionName, obj, cb) {
+MRP.update = function(collectionName, obj, cb, q) {
     const collection = db.collection(collectionName);
+
+    normalizeIDs(obj);
 
     const create = async function() {
         let query = {};
-        if (obj._id)
-            query._id = obj._id;
+        if (q) {
+            query = q;
+        } else {
+            if (obj._id)
+                query._id = obj._id;
+        }
 
         let options = {
             upsert: true
@@ -219,6 +225,22 @@ MRP.read = function(collectionName, id, cb) {
         cb(storedDocument);
     };
     read();
+};
+
+let normalizeIDs = (obj) => {
+    for (let k in obj) {
+        if (Array.isArray(obj[k])) {
+            for (let i in obj[k]) {
+                normalizeIDs(obj[k][i]);
+            }
+        } else if (typeof obj[k] == 'object') {
+            if (obj[k]._bsontype && obj[k]._bsontype == "ObjectID") {
+                obj[k] = MRP.toObjectId(obj[k].id);
+            } else {
+                normalizeIDs(obj[k]);
+            }
+        }
+    }
 };
 
 // Use connect method to connect to the server
