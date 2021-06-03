@@ -49,5 +49,12 @@ Citizen.CreateThread(function()
                 HideHudComponentThisFrame(tonumber(splitStr[k]))
             end
         end
+        
+        if config.world.disableWeaponWheel == true then
+            BlockWeaponWheelThisFrame()
+            
+            DisableControlAction(0, 37, true)
+            DisableControlAction(0, 199, true) 
+        end
 	end
 end)

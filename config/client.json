@@ -8,6 +8,7 @@
     },
     "enablePVP": true,
     "world": {
+        "disableWeaponWheel": true,
         "npc": {
             "vehicleDensity": 1.0,
             "pedDensity": 1.0,
