@@ -8,8 +8,14 @@ let currentSpawn = null;
 
 let MRP_CLIENT = {
     TriggerServerCallback: function(event, args, callback) {
+        let requestTS = Date.now();
         let responseEvent = event + ":response";
         let serverResponse = function(...serverResponseArgs) {
+            let responseTS = serverResponseArgs[serverResponseArgs.length - 1];
+            //check if this response is for the callback made
+            if (requestTS != responseTS)
+                return;
+
             removeEventListener(responseEvent, serverResponse);
             try {
                 callback.call(this, ...serverResponseArgs);
@@ -21,9 +27,11 @@ let MRP_CLIENT = {
         };
         onNet(responseEvent, serverResponse);
         let source = GetPlayerServerId(PlayerId());
-        if (args)
-            emitNet.apply(this, [event, source].concat(args));
-        else
+        if (args) {
+            let params = [event, source].concat(args);
+            params.push(requestTS);
+            emitNet.apply(this, params);
+        } else
             emitNet(event, source);
     },
     GetPlayerData: function() {
