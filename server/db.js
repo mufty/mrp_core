@@ -208,20 +208,15 @@ MRP.update = function(collectionName, obj, cb, q) {
     create();
 };
 
-MRP.read = function(collectionName, id, cb) {
+MRP.read = function(collectionName, query, cb) {
     if (!db)
         return null;
 
     const collection = db.collection(collectionName);
 
     let read = async () => {
-        let objId = id;
-        if (id.id)
-            objId = MRP.toObjectId(id.id);
-
-        let storedDocument = await collection.findOne({
-            _id: objId
-        });
+        normalizeIDs(query);
+        let storedDocument = await collection.findOne(query);
         cb(storedDocument);
     };
     read();

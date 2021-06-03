@@ -60,6 +60,10 @@ MRP.getPlayersServer = function() {
     return players;
 };
 
+MRP.getSpawnedCharacter = function(source) {
+    return MRP.playerSpawnedCharacters[source];
+};
+
 MRP.getEntityPosition = function(source) {
     let retVal = [];
     let plyPed = GetPlayerPed(source);
@@ -71,6 +75,30 @@ MRP.getEntityPosition = function(source) {
     }
 
     return retVal;
+};
+
+MRP.isObjectIDEqual = function(id1, id2) {
+    if (!id1 || !id2 || !id1.id || !id2.id)
+        return false;
+
+    let bufferArr = [];
+    for (let i in id1.id) {
+        bufferArr.push(id1.id[i]);
+    }
+
+    let idHash1 = Buffer.from(bufferArr).toString();
+
+    bufferArr = [];
+    for (let i in id2.id) {
+        bufferArr.push(id2.id[i]);
+    }
+
+    let idHash2 = Buffer.from(bufferArr).toString();
+
+    if (idHash1 == idHash2)
+        return true;
+
+    return false;
 };
 
 var getConnectedUsers = () => connectedUsers;
