@@ -181,7 +181,7 @@ MRP.create = function(collectionName, obj, cb) {
     create();
 };
 
-MRP.update = function(collectionName, obj, cb, q) {
+MRP.update = function(collectionName, obj, q, opt, cb) {
     const collection = db.collection(collectionName);
 
     normalizeIDs(obj);
@@ -195,9 +195,14 @@ MRP.update = function(collectionName, obj, cb, q) {
                 query._id = obj._id;
         }
 
-        let options = {
-            upsert: true
-        };
+        let options;
+        if (opt) {
+            options = opt;
+        } else {
+            options = {
+                upsert: true
+            };
+        }
         const result = await collection.updateOne(query, {
             $set: obj
         }, options);
