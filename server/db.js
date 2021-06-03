@@ -156,6 +156,15 @@ MRP.createCharacter = function(player, inputChar, cb) {
 }
 
 MRP.delete = async function(collectionName, id) {
+    if (!db) {
+        //DB not connected stash changes
+        stashedCalls.push({
+            action: "delete",
+            args: arguments
+        });
+        return;
+    }
+
     const collection = db.collection(collectionName);
 
     let objId = id;
@@ -170,6 +179,15 @@ MRP.delete = async function(collectionName, id) {
 };
 
 MRP.create = function(collectionName, obj, cb) {
+    if (!db) {
+        //DB not connected stash changes
+        stashedCalls.push({
+            action: "create",
+            args: arguments
+        });
+        return;
+    }
+
     const collection = db.collection(collectionName);
 
     const create = async function() {
@@ -181,7 +199,19 @@ MRP.create = function(collectionName, obj, cb) {
     create();
 };
 
+let stashedCalls = [];
+
 MRP.update = function(collectionName, obj, q, opt, cb) {
+    if (!db) {
+        //DB not connected stash changes
+        stashedCalls.push({
+            action: "update",
+            args: arguments
+        });
+        return;
+    }
+
+
     const collection = db.collection(collectionName);
 
     normalizeIDs(obj);
@@ -216,8 +246,14 @@ MRP.update = function(collectionName, obj, q, opt, cb) {
 };
 
 MRP.read = function(collectionName, query, cb) {
-    if (!db)
-        return null;
+    if (!db) {
+        //DB not connected stash changes
+        stashedCalls.push({
+            action: "read",
+            args: arguments
+        });
+        return;
+    }
 
     const collection = db.collection(collectionName);
 
@@ -230,8 +266,14 @@ MRP.read = function(collectionName, query, cb) {
 };
 
 MRP.find = function(collectionName, query, options, cb) {
-    if (!db)
-        return null;
+    if (!db) {
+        //DB not connected stash changes
+        stashedCalls.push({
+            action: "find",
+            args: arguments
+        });
+        return;
+    }
 
     const collection = db.collection(collectionName);
     let find = async () => {
@@ -273,6 +315,13 @@ client.connect(function(err) {
         logger.log('Connected successfully to server');
 
     db = client.db(dbName);
+
+    if (stashedCalls && stashedCalls.length > 0) {
+        for (let call of stashedCalls) {
+            MRP[call.action].apply(this, call.args);
+        }
+        stashedCalls = [];
+    }
 });
 
 // shutdown
