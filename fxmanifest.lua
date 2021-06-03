@@ -22,6 +22,7 @@ client_scripts {
     'client/noclip.lua',
     'client/mechanics/fingerpointing.lua',
     'client/mechanics/tackle.js',
+    'client/mechanics/gamertags.js',
     'client/world/npc_control.js',
     'client/world/radio.js',
     'client/world/vehicleRadar.js',
