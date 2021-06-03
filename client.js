@@ -7,8 +7,11 @@ let currentCharacter = null;
 let currentSpawn = null;
 
 let MRP_CLIENT = {
+    RandomString: function() {
+        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    },
     TriggerServerCallback: function(event, args, callback) {
-        let requestTS = Date.now();
+        let requestTS = Date.now() + ":" + MRP_CLIENT.RandomString();
         let responseEvent = event + ":response";
         let serverResponse = function(...serverResponseArgs) {
             let responseTS = serverResponseArgs[serverResponseArgs.length - 1];
