@@ -204,7 +204,7 @@ MRP.update = function(collectionName, obj, cb, q) {
 
         logger.log(`[${collectionName}] updated`);
         if (cb)
-            cb();
+            cb(result);
     }
 
     create();
