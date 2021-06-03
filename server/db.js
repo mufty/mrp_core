@@ -203,6 +203,8 @@ MRP.update = function(collectionName, obj, cb, q) {
         }, options);
 
         logger.log(`[${collectionName}] updated`);
+        if (cb)
+            cb();
     }
 
     create();
