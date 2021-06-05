@@ -136,6 +136,7 @@ onNet('mrp:revive', () => {
     SetPlayerInvincible(ped, false);
     SetEntityHealth(ped, health);
     SetPedArmour(ped, currentCharacter.stats.armor);
+    ClearPedBloodDamage(ped);
 });
 
 function addStat(name, modifier) {
