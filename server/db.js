@@ -190,10 +190,15 @@ MRP.create = function(collectionName, obj, cb) {
 
     const collection = db.collection(collectionName);
 
+    normalizeIDs(obj);
+
     const create = async function() {
-        const result = await collection.insertOne(obj, cb);
+        const result = await collection.insertOne(obj);
 
         logger.log(`[${collectionName}] created`);
+
+        if (result)
+            cb(result);
     }
 
     create();
@@ -289,6 +294,25 @@ MRP.find = function(collectionName, query, options, cb) {
         cb(documents);
     };
     find();
+};
+
+MRP.count = function(collectionName, query, cb) {
+    if (!db) {
+        //DB not connected stash changes
+        stashedCalls.push({
+            action: "count",
+            args: arguments
+        });
+        return;
+    }
+
+    const collection = db.collection(collectionName);
+    let count = async () => {
+        normalizeIDs(query);
+        const count = await collection.countDocuments(query);
+        cb(count);
+    };
+    count();
 };
 
 let normalizeIDs = (obj) => {
