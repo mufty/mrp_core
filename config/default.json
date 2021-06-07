@@ -13,8 +13,8 @@
         "armor": 0,
         "hunger": 100,
         "thirst": 100,
-        "cash": 0,
-        "bank": 0,
+        "cash": 500,
+        "bank": 5000,
         "stress": 100
     },
     "spawnPoints": [{
