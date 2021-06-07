@@ -218,6 +218,7 @@ MRP.update = function(collectionName, obj, q, opt, cb) {
 
     const collection = db.collection(collectionName);
 
+    normalizeIDs(q);
     normalizeIDs(obj);
 
     const create = async function() {
@@ -320,6 +321,9 @@ MRP.count = function(collectionName, query, cb) {
 };
 
 let normalizeIDs = (obj) => {
+    if (!obj)
+        return;
+
     for (let k in obj) {
         if (Array.isArray(obj[k])) {
             for (let i in obj[k]) {
