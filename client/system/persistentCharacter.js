@@ -34,7 +34,7 @@ if (config.world.persistCharacters) {
                 let curCharString = JSON.stringify(character);
                 if (lastCharString != curCharString) {
                     //something changed send update
-                    emitNet('mrp:updateCharacter', character);
+                    emitNet('mrp:updateCharacter', GetPlayerServerId(PlayerId()), character);
                     emit('mrp:updateCharacter', character);
                 }
 

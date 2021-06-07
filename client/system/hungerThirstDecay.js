@@ -24,11 +24,6 @@ if (config.world.decay.hungerDecay || config.world.decay.thirstDecay) {
                     emit('mrp:addHealth', config.world.decay.hungerToHealthDecay);
                 }
 
-                /*if (character.stats.hunger != lastHunger) {
-                    emitNet('mrp:updateCharacter', character);
-                    emit('mrp:updateCharacter', character);
-                }*/
-
                 lastHunger = character.stats.hunger;
 
                 await MRP_CLIENT.sleep(config.world.decay.hungerDecayTimer);

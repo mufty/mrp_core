@@ -170,6 +170,10 @@ onNet('mrp:addArmor', (modifier) => {
     SetPedArmour(ped, currentCharacter.stats.armor);
 });
 
+onNet('mrp:updateCharacter', (char) => {
+    currentCharacter = char;
+});
+
 function addHealth(modifier) {
     addStat('health', modifier);
 

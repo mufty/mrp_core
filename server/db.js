@@ -414,7 +414,7 @@ onNet('mrp:createCharacter', (source, inputChar) => {
     MRP.createCharacter(player, inputChar);
 });*/
 
-onNet('mrp:updateCharacter', (character) => {
+onNet('mrp:updateCharacter', (source, character) => {
     if (!character || !character._id)
         return;
 
@@ -446,8 +446,10 @@ onNet('mrp:updateCharacter', (character) => {
         }
 
         logger.log(`mrp:updateCharacter ${result.matchedCount} user(s) matched the filter, updated ${result.modifiedCount} user(s)`);
-        if (result.modifiedCount > 0)
+        if (result.modifiedCount > 0) {
+            MRP.updateSpawnedChar(source, character);
             logger.log(`mrp:updateCharacter [${character.name} ${character.surname}] updated`);
+        }
     }
 
     update();
