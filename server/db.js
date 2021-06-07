@@ -270,7 +270,7 @@ MRP.read = function(collectionName, query, cb) {
     read();
 };
 
-MRP.find = function(collectionName, query, options, cb) {
+MRP.find = function(collectionName, query, options, paging, cb) {
     if (!db) {
         //DB not connected stash changes
         stashedCalls.push({
@@ -289,6 +289,11 @@ MRP.find = function(collectionName, query, options, cb) {
             cb(null);
             return;
         }
+
+        if (paging && paging.skip !== false)
+            result.skip(paging.skip);
+        if (paging && paging.limit !== false)
+            result.limit(paging.limit);
 
         let documents = await cursor.toArray();
         cb(documents);
