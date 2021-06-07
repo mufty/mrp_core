@@ -291,9 +291,9 @@ MRP.find = function(collectionName, query, options, paging, cb) {
         }
 
         if (paging && paging.skip !== false)
-            result.skip(paging.skip);
+            cursor.skip(paging.skip);
         if (paging && paging.limit !== false)
-            result.limit(paging.limit);
+            cursor.limit(paging.limit);
 
         let documents = await cursor.toArray();
         cb(documents);
