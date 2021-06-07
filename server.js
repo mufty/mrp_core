@@ -64,6 +64,10 @@ MRP.getSpawnedCharacter = function(source) {
     return MRP.playerSpawnedCharacters[source];
 };
 
+MRP.updateSpawnedChar = function(source, char) {
+    MRP.playerSpawnedCharacters[source] = char;
+};
+
 MRP.getEntityPosition = function(source) {
     let retVal = [];
     let plyPed = GetPlayerPed(source);
