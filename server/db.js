@@ -301,6 +301,28 @@ MRP.find = function(collectionName, query, options, paging, cb) {
     find();
 };
 
+MRP.aggregate = function(collectionName, query, cb) {
+    if (!db) {
+        //DB not connected stash changes
+        stashedCalls.push({
+            action: "aggregate",
+            args: arguments
+        });
+        return;
+    }
+
+    const collection = db.collection(collectionName);
+    let find = async () => {
+        normalizeIDs(query);
+        const cursor = await collection.aggregate(query);
+
+        let documents = await cursor.toArray();
+
+        cb(documents);
+    };
+    find();
+};
+
 MRP.count = function(collectionName, query, cb) {
     if (!db) {
         //DB not connected stash changes
