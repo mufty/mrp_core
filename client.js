@@ -225,3 +225,8 @@ on('__cfx_nui:revive', (data, cb) => {
     emit('mrp:revive');
     cb();
 });
+
+on('mrp:startTimer', (data) => {
+    data.type = 'showCounter';
+    SendNuiMessage(JSON.stringify(data));
+});

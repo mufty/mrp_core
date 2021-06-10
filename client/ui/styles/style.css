@@ -1,0 +1,61 @@
+@font-face {
+    font-family: coolvetica_rg;
+    src: url(../font/coolvetica_rg.ttf);
+}
+
+body {
+    color: #ffffff;
+    font-family: made-black;
+    overflow: hidden;
+}
+
+.timer {
+    bottom: 25%;
+    display: none;
+    position: absolute;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+/*svg.fuel-progress {
+    position: absolute;
+    bottom: 70px;
+    right: 42%;
+}
+
+svg.oil-progress {
+    position: absolute;
+    bottom: 70px;
+    left: 42%;
+}*/
+svg.radial-progress {
+    height: auto;
+    max-width: 60px;
+    padding: 1em;
+    transform: rotate(-90deg);
+    width: 100%;
+}
+
+svg.radial-progress circle {
+    fill: rgba(0, 0, 0, 0);
+    stroke: #266FA9;
+    stroke-dashoffset: 219.91148575129;
+    stroke-width: 10;
+}
+
+svg.radial-progress circle.incomplete {
+    opacity: 0.25;
+}
+
+svg.radial-progress circle.complete {
+    stroke-dasharray: 219.91148575129;
+}
+
+svg.radial-progress text {
+    fill: #fff;
+    text-anchor: middle;
+}
