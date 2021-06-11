@@ -15,7 +15,7 @@ files {
     'shared/debug.js',
     'config/client.json',
     'client/helpers.js',
-    'client/ui/font/coolvetica_rg.ttf',
+    'client/ui/fonts/coolvetica_rg.ttf',
     'client/ui/scripts/hud.js',
     'client/ui/styles/style.css',
     'client/ui/index.html',

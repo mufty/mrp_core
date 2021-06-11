@@ -223,10 +223,22 @@ RegisterCommand('char', function() {
 RegisterNuiCallbackType('revive');
 on('__cfx_nui:revive', (data, cb) => {
     emit('mrp:revive');
-    cb();
+    cb({});
+});
+
+RegisterNuiCallbackType('closeUI');
+on('__cfx_nui:closeUI', (data, cb) => {
+    SetNuiFocus(false, false);
+    cb({});
 });
 
 on('mrp:startTimer', (data) => {
     data.type = 'showCounter';
+    SendNuiMessage(JSON.stringify(data));
+});
+
+onNet('mrp:popup', (data) => {
+    SetNuiFocus(true, true);
+    data.type = 'showPopup';
     SendNuiMessage(JSON.stringify(data));
 });

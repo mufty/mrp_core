@@ -1,4 +1,14 @@
 $(function() {
+    $('.popup').hide();
+
+    $(document).keydown(function(e) {
+        //on ESC close
+        if (e.keyCode == 27) {
+            $('.popup').hide();
+            $.post('https://mrp_core/closeUI', JSON.stringify({}));
+        }
+    });
+
     window.addEventListener('message', function(event) {
         var data = event.data;
         switch (data.type) {
@@ -33,6 +43,28 @@ $(function() {
                     };
 
                     startTimer();
+                }
+                break;
+            case "showPopup":
+                if (data.message) {
+                    $('.popup .message').html(data.message);
+
+                    $('.popup .actions').empty();
+                    if (data.actions && data.actions.length > 0) {
+                        for (let action of data.actions) {
+                            let html = '<a href="#">' + action.text + '</a>';
+                            html = $(html);
+                            html.click((event) => {
+                                $('.popup').hide();
+                                $.post('https://mrp_core/closeUI', JSON.stringify({}));
+                                $.post(action.url, JSON.stringify({}), () => {});
+                            });
+
+                            $('.popup .actions').append(html);
+                        }
+                    }
+
+                    $('.popup').css('display', 'inline-block');
                 }
                 break;
             default:
