@@ -128,6 +128,22 @@ MRP.createCharacter = function(player, inputChar, cb) {
 
     const create = async function() {
         let birthDate = inputChar.birthday ? new Date(inputChar.birthday).getTime() : Date.now();
+
+        const agg = [{
+            '$group': {
+                '_id': '$item',
+                'maxStateId': {
+                    '$max': '$stateId'
+                }
+            }
+        }];
+        //aggreage max state ids to generate a new one
+        const cursor = await collection.aggregate(agg);
+        let maxId = await cursor.toArray();
+        let stateId = 1;
+        if (maxId && maxId.length > 0 && maxId[0].maxStateId) {
+            stateId += maxId[0].maxStateId;
+        }
         const result = await collection.insertOne({
             name: inputChar.name,
             surname: inputChar.surname,
@@ -142,6 +158,7 @@ MRP.createCharacter = function(player, inputChar, cb) {
             job: {
                 name: "unemployed"
             },
+            stateId: stateId,
             sex: inputChar.sex || "MALE",
             birthday: Timestamp.fromNumber(birthDate),
             model: (inputChar.sex == "FEMALE") ? "mp_f_freemode_01" : "mp_m_freemode_01",
