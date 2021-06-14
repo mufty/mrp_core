@@ -187,3 +187,14 @@ RegisterCommand('addHealth', (source, args) => {
     modifier = parseInt(modifier);
     emitNet('mrp:addHealth', source, modifier);
 });
+
+RegisterCommand('stateId', (source) => {
+    let char = MRP.getSpawnedCharacter(source);
+    if (char) {
+        emitNet('chat:addMessage', source, {
+            color: [255, 255, 255],
+            multiline: true,
+            args: [`Your state ID is: ${char.stateId}`]
+        });
+    }
+});

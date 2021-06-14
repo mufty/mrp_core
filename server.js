@@ -206,17 +206,6 @@ onNet('mrp:useCharacter', (source, characterToUse) => {
     emit('mrp:spawn', source, characterToUse, spawnPoint);
 });
 
-RegisterCommand('stateId', (source) => {
-    let char = MRP.getSpawnedCharacter(source);
-    if (char) {
-        emitNet('chat:addMessage', source, {
-            color: [255, 255, 255],
-            multiline: true,
-            args: [`Your state ID is: ${char.stateId}`]
-        });
-    }
-});
-
 MRP.log = logger.log;
 MRP.getConnectedUsers = getConnectedUsers;
 
