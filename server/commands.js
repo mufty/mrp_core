@@ -1,7 +1,8 @@
 const config = require('../config/default.json');
 
 const db = require('./db.js');
-const logger = require('../shared/debug.js');
+require('../shared/debug.js');
+const logger = mrp_logger;
 
 const rawConsoleColor = config.console.system.color;
 let RGB_ARRAY = rawConsoleColor.split(',');

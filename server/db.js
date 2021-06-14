@@ -3,7 +3,8 @@ const config = require('../config/default.json');
 const MongoClient = require('mongodb').MongoClient;
 const Timestamp = require('mongodb').Timestamp;
 const ObjectID = require('mongodb').ObjectID;
-const logger = require('../shared/debug.js');
+require('../shared/debug.js');
+const logger = mrp_logger;
 const BSON = require('bson');
 const bson = new BSON();
 

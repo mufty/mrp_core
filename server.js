@@ -4,7 +4,8 @@ MRP = {
 ENTITIES = 0;
 
 const config = require('./config/default.json');
-const logger = require('./shared/debug.js');
+require('./shared/debug.js');
+const logger = mrp_logger;
 const db = require('./server/db.js');
 const commands = require('./server/commands.js');
 

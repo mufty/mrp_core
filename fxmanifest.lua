@@ -12,7 +12,6 @@ dependencies {
 ui_page 'client/ui/index.html'
 
 files {
-    'shared/debug.js',
     'config/client.json',
     'client/helpers.js',
     'client/ui/fonts/coolvetica_rg.ttf',
@@ -22,6 +21,7 @@ files {
 }
 
 client_scripts {
+    'shared/debug.js',
     'client/entityEnumerator.lua',
     'client/utils.lua',
     'client.js',
