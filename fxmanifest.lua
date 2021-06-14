@@ -22,6 +22,7 @@ files {
 
 client_scripts {
     'shared/debug.js',
+    'shared/locale.lua',
     'client/entityEnumerator.lua',
     'client/utils.lua',
     'client.js',
@@ -39,5 +40,6 @@ client_scripts {
 }
 
 server_scripts {
+    'shared/locale.lua',
     'server.js',
 }
