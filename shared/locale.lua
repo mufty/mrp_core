@@ -1,24 +1,21 @@
 Locales = {}
 
-function _(key, ...)
+function _(str, ...)  -- Translate string
+
 	if Locales[Config.Locale] ~= nil then
-		if Locales[Config.Locale][key] ~= nil then
-			return keying.format(Locales[Config.Locale][key], ...)
+
+		if Locales[Config.Locale][str] ~= nil then
+			return string.format(Locales[Config.Locale][str], ...)
 		else
-			return "Translation of [" .. Config.Locale .. "] [" .. key .. "] doesn't exist"
+			return 'Translation [' .. Config.Locale .. '][' .. str .. '] does not exist'
 		end
+
 	else
-		return 'Locale [' .. Config.Locale .. '] not found'
+		return 'Locale [' .. Config.Locale .. '] does not exist'
 	end
+
 end
 
-function _U(key, ...)
-	return _(key, ...)
-end
-
-function LoadLocale(nameSpace, lang, data)
-  Locales[lang] = Locales[lang] or {}
-  for k,v in pairs(data) do
-    Locales[lang][nameSpace .. ':' .. k] =v
-  end
+function _U(str, ...) -- Translate string first char uppercase
+	return tostring(_(str, ...):gsub("^%l", string.upper))
 end

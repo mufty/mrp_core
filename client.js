@@ -10,6 +10,16 @@ let MRP_CLIENT = {
     RandomString: function() {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     },
+    Notification: function(text, duration) {
+        let exec = async () => {
+            SetNotificationTextEntry("STRING");
+            AddTextComponentString(text);
+            let notification = DrawNotification(false, false);
+            await MRP_CLIENT.sleep(duration);
+            RemoveNotification(notification);
+        }
+        exec();
+    },
     TriggerServerCallback: function(event, args, callback) {
         let requestTS = Date.now() + ":" + MRP_CLIENT.RandomString();
         let responseEvent = event + ":response";
@@ -241,4 +251,8 @@ onNet('mrp:popup', (data) => {
     SetNuiFocus(true, true);
     data.type = 'showPopup';
     SendNuiMessage(JSON.stringify(data));
+});
+
+onNet('mrp:showNotification', msg => {
+    MRP_CLIENT.Notification(msg, config.notificationDuration);
 });
