@@ -195,6 +195,24 @@ MRP.delete = async function(collectionName, id) {
     logger.log(`Deleted ${collectionName} count ${result.modifiedCount}`);
 };
 
+MRP.deleteQuery = function(collectionName, q) {
+    if (!db) {
+        //DB not connected stash changes
+        stashedCalls.push({
+            action: "delete",
+            args: arguments
+        });
+        return;
+    }
+
+    const collection = db.collection(collectionName);
+
+    normalizeIDs(q)
+    const result = collection.deleteOne(q);
+
+    logger.log(`Deleted ${collectionName} count ${result.modifiedCount}`);
+};
+
 MRP.create = function(collectionName, obj, cb) {
     if (!db) {
         //DB not connected stash changes
