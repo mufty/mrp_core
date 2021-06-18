@@ -289,6 +289,11 @@ MRP.read = function(collectionName, query, cb) {
 };
 
 MRP.find = function(collectionName, query, options, paging, cb) {
+    if (Array.isArray(query))
+        query = undefined;
+    if (Array.isArray(options))
+        options = undefined;
+
     if (!db) {
         //DB not connected stash changes
         stashedCalls.push({
