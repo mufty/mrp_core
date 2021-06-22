@@ -36,6 +36,10 @@ MRPShared.SplitStr = function(str, delimiter)
 	return result
 end
 
+MRPShared.Trim = function(s)
+   return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
 MRPShared.StarterItems = {
     ["phone"] = {amount = 1, item = "phone"},
     ["id_card"] = {amount = 1, item = "id_card"},
