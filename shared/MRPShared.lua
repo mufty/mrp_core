@@ -42,6 +42,7 @@ MRPShared.StarterItems = {
     ["driver_license"] = {amount = 1, item = "driver_license"},
 }
 
+--TODO from DB
 MRPShared.Items = {
 	-- // WEAPONS
 	["weapon_unarmed"] 				 = {["name"] = "weapon_unarmed", 		 	  	["label"] = "Fists", 					["weight"] = 1000, 		["type"] = "weapon",	["ammotype"] = nil, 					["image"] = "placeholder.png", 			["unique"] = true, 		["useable"] = false, 	["description"] = "Fisticuffs"},
