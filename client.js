@@ -5,6 +5,7 @@ config = JSON.parse(configFile);
 
 let currentCharacter = null;
 let currentSpawn = null;
+let metadata = {};
 
 let MRP_CLIENT = {
     RandomString: function() {
@@ -50,6 +51,12 @@ let MRP_CLIENT = {
     GetPlayerData: function() {
         return currentCharacter;
     },
+    getPlayerMetadata: function() {
+        return metadata;
+    },
+    setPlayerMetadata: function(name, state) {
+        metadata[name] = state;
+    },
     InvokeNative: function() {
         let args = arguments;
         return new Promise(resolve => {
@@ -87,6 +94,21 @@ let MRP_CLIENT = {
                 resolve();
             });
         });
+    },
+    drawText3D: function(x, y, z, text) {
+        //TODO config not hardcoded magic numbers
+        SetTextScale(0.35, 0.35);
+        SetTextFont(4);
+        SetTextProportional(1);
+        SetTextColour(255, 255, 255, 215);
+        SetTextEntry("STRING");
+        SetTextCentre(true);
+        AddTextComponentString(text);
+        SetDrawOrigin(x, y, z, 0);
+        DrawText(0.0, 0.0);
+        let factor = text.length / 370;
+        DrawRect(0.0, 0.0 + 0.0125, 0.017 + factor, 0.03, 0, 0, 0, 75);
+        ClearDrawOrigin();
     }
 };
 
@@ -100,6 +122,12 @@ onNet('mrp:spawn', (char, spawn) => {
     } else if (char) {
         currentCharacter = char;
         currentSpawn = spawn;
+        //reset metadata
+        metadata = {
+            isDead: false,
+            isCuffed: false,
+            isLastStand: false
+        };
     } else {
         return;
     }
