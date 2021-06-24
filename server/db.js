@@ -26,6 +26,10 @@ const DEFAULT_CASH = config.newCharacter.cash;
 const DEFAULT_BANK = config.newCharacter.bank;
 const DEFAULT_STRESS = config.newCharacter.stress;
 
+let exportObj = {
+    test: "test"
+};
+
 let db;
 
 MRP.getPlayer = async function(source) {
@@ -417,6 +421,9 @@ client.connect(function(err) {
         }
         stashedCalls = [];
     }
+
+    exportObj.client = db;
+    emit('mrp:db:connected');
 });
 
 // shutdown
@@ -424,6 +431,7 @@ on('onResourceStop', (resource) => {
     if (resource == GetCurrentResourceName()) {
         logger.log('Closing DB connection');
         client.close();
+        delete MRP.db;
     }
 });
 
@@ -531,4 +539,4 @@ onNet('mrp:deleteCharacter', (source, charId) => {
     MRP.deleteCharacter(charId);
 });
 
-module.exports = MRP;
+module.exports = exportObj;

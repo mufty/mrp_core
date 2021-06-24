@@ -4,6 +4,7 @@ MRP = {
 ENTITIES = 0;
 
 const config = require('./config/default.json');
+let baseItems = require('./config/db/items.json'); //not a constant we will delete this from memory after insert into DB
 require('./shared/debug.js');
 const logger = mrp_logger;
 const db = require('./server/db.js');
@@ -130,6 +131,34 @@ on('onResourceStart', (resource) => {
     }
 });
 
+on('mrp:db:connected', () => {
+    const inserBaseItems = async function() {
+        console.log(`Updating base items in DB`);
+        let connection = db.client;
+        const collection = connection.collection('item');
+
+        //prefill DB with default values
+        for (let k in baseItems) {
+            let baseItem = baseItems[k];
+
+            await collection.updateOne({
+                name: baseItem.name
+            }, {
+                $set: baseItem
+            }, {
+                upsert: true
+            });
+
+            logger.log(`Item [${baseItem.name}] updated`);
+        }
+
+        //remove loaded items from memory don't need them any more
+        baseItems = null;
+    }
+
+    inserBaseItems();
+});
+
 on('playerConnecting', (playerName, setKickReason, deferrals) => {
     deferrals.defer();
 
@@ -211,7 +240,7 @@ MRP.log = logger.log;
 MRP.getConnectedUsers = getConnectedUsers;
 
 exports('log', logger.log);
-exports('DBCreate', db.create);
-exports('DBRead', db.read);
+exports('DBCreate', MRP.create);
+exports('DBRead', MRP.read);
 exports('toObjectId', MRP.toObjectId);
 //exports('getConnectedUsers', getConnectedUsers);
