@@ -236,6 +236,14 @@ onNet('mrp:useCharacter', (source, characterToUse) => {
     emit('mrp:spawn', source, characterToUse, spawnPoint);
 });
 
+onNet('mrp:server:read:item', (source, name, uuid) => {
+    MRP.read('item', {
+        name: name
+    }, (res) => {
+        emitNet('mrp:server:read:item:response', source, res, uuid);
+    })
+});
+
 MRP.log = logger.log;
 MRP.getConnectedUsers = getConnectedUsers;
 
