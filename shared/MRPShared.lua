@@ -58,12 +58,25 @@ MRPShared.StarterItems = {
 MRPShared._cachedItems = {}
 
 MRPShared.Items = function(name)
+    local item = nil
+    local p = promise.new()
+    
+    if name == nil then
+        --get all items from DB
+        MRP.find('item', {}, {sort = 'name'}, {skip = false, limit = false}, function(res)
+            print('got all items')
+            item = res
+            p:resolve(true)
+        end)
+        
+        Citizen.Await(p)
+        
+        return item
+    end
+    
     if MRPShared._cachedItems[name] ~= nil then
         return MRPShared._cachedItems[name]
     end
-    
-    local item = nil
-    local p = promise.new()
     
     if MRP.TriggerServerCallback == nil then
         --server get item directly form DB

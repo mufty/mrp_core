@@ -278,9 +278,16 @@ MRP.update = function(collectionName, obj, q, opt, cb) {
                 upsert: true
             };
         }
-        const result = await collection.updateOne(query, {
+
+        let toUpdate = {
             $set: obj
-        }, options);
+        };
+
+        if (obj.$set || obj.$pull) {
+            toUpdate = obj
+        }
+
+        const result = await collection.updateOne(query, toUpdate, options);
 
         logger.log(`[${collectionName}] updated`);
         if (cb)
