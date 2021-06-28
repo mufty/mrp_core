@@ -1057,7 +1057,7 @@
             "lockZ": false
         }, {
             "type": "anim",
-            "delay": 800,
+            "delay": 500,
             "dict": "mp_player_inteat@burger",
             "anim": "mp_player_int_eat_exit_burger_fp",
             "blendInSpeed": 8.0,
@@ -1117,7 +1117,7 @@
             "lockZ": false
         }, {
             "type": "anim",
-            "delay": 800,
+            "delay": 500,
             "dict": "mp_player_inteat@burger",
             "anim": "mp_player_int_eat_exit_burger_fp",
             "blendInSpeed": 8.0,
@@ -1165,7 +1165,7 @@
             "lockZ": false
         }, {
             "type": "anim",
-            "delay": 800,
+            "delay": 500,
             "dict": "mp_player_inteat@burger",
             "anim": "mp_player_int_eat_exit_burger_fp",
             "blendInSpeed": 8.0,
