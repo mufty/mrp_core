@@ -1019,7 +1019,56 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"To get happy real quick."
+        "description":"To get happy real quick.",
+        "onUse": [{
+            "type": "effect",
+            "effect": "DrugsTrevorClownsFightIn",
+            "duration": 1000,
+            "loop": false
+        }, {
+            "type": "effect",
+            "effect": "DrugsTrevorClownsFight",
+            "duration": 10000,
+            "loop": false,
+            "delay": 1000
+        }, {
+            "type": "effect",
+            "effect": "DrugsTrevorClownsFightOut",
+            "duration": 1000,
+            "loop": false,
+            "delay": 11000
+        }, {
+            "type": "stats",
+            "name": "speed",
+            "duration": 11000,
+            "rate": 10.0,
+            "multiplier": 1.49
+        }, {
+            "type": "anim",
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_burger_enter_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": 8.0,
+            "duration": 1000, 
+            "flag": 16, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }, {
+            "type": "anim",
+            "delay": 800,
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_exit_burger_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": 8.0,
+            "duration": 800, 
+            "flag": 16, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }]
     },
     "crack_baggy":{
         "name":"crack_baggy",
@@ -1030,7 +1079,56 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"To get happy faster."
+        "description":"To get happy faster.",
+        "onUse": [{
+            "type": "effect",
+            "effect": "DrugsMichaelAliensFightIn",
+            "duration": 1000,
+            "loop": false
+        }, {
+            "type": "effect",
+            "effect": "DrugsMichaelAliensFight",
+            "duration": 10000,
+            "loop": false,
+            "delay": 1000
+        }, {
+            "type": "effect",
+            "effect": "DrugsMichaelAliensFightOut",
+            "duration": 1000,
+            "loop": false,
+            "delay": 11000
+        }, {
+            "type": "stats",
+            "name": "speed",
+            "duration": 11000,
+            "rate": 10.0,
+            "multiplier": 1.3
+        }, {
+            "type": "anim",
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_burger_enter_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": 8.0,
+            "duration": 1000, 
+            "flag": 16, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }, {
+            "type": "anim",
+            "delay": 800,
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_exit_burger_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": 8.0,
+            "duration": 800, 
+            "flag": 16, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }]
     },
     "xtcbaggy":{
         "name":"xtcbaggy",
@@ -1041,7 +1139,44 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"Pop those pills baby."
+        "description":"Pop those pills baby.",
+        "onUse": [{
+            "type": "effect",
+            "effect": "DMT_flight",
+            "duration": 10000,
+            "loop": false
+        }, {
+            "type": "stats",
+            "name": "speed",
+            "duration": 11000,
+            "rate": 10.0,
+            "multiplier": 1.2
+        }, {
+            "type": "anim",
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_burger_enter_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": 8.0,
+            "duration": 1000, 
+            "flag": 16, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }, {
+            "type": "anim",
+            "delay": 800,
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_exit_burger_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": 8.0,
+            "duration": 800, 
+            "flag": 16, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }]
     },
     "plastic":{
         "name":"plastic",

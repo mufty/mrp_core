@@ -28,16 +28,11 @@ client_scripts {
     'client/utils.lua',
     'client.js',
     'client/noclip.lua',
-    'client/mechanics/fingerpointing.lua',
-    'client/mechanics/tackle.js',
-    'client/mechanics/gamertags.js',
-    'client/world/npc_control.js',
-    'client/world/radio.js',
-    'client/world/vehicleRadar.js',
-    'client/system/persistentCharacter.js',
-    'client/system/hungerThirstDecay.js',
-    'client/system/stress.js',
-    'client/system/main.lua',
+    'client/mechanics/*.lua',
+    'client/mechanics/*.js',
+    'client/world/*.js',
+    'client/system/*.js',
+    'client/system/*.lua',
 }
 
 server_scripts {
