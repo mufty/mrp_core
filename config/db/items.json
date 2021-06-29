@@ -957,7 +957,7 @@
             "name": "thirst",
             "tick": {
                 "factor": 1,
-                "count": 50,
+                "count": 25,
                 "tickCadence": 100
             }
         }, {
@@ -1037,7 +1037,38 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"For all the thirsty out there"
+        "description":"For all the thirsty out there",
+        "onUse": [{
+            "type": "stats",
+            "name": "thirst",
+            "tick": {
+                "factor": 1,
+                "count": 25,
+                "tickCadence": 80
+            }
+        }, {
+            "type": "anim",
+            "dict": "mp_player_intdrink",
+            "anim": "loop_bottle",
+            "blendInSpeed": 1.0,
+            "blendOutSpeed": -1.0,
+            "duration": 4000, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false,
+            "attachment": {
+                "prop": "prop_ecola_can",
+                "boneId": 18905,
+                "xPos": 0.1, 
+                "yPos": 0.001, 
+                "zPos": 0.031, 
+                "xRot": 279.1, 
+                "yRot": 175.1, 
+                "zRot": 0.0
+            }
+        }]
     },
     "twerks_candy":{
         "name":"twerks_candy",
@@ -1048,7 +1079,38 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"Some delicious candy :O"
+        "description":"Some delicious candy :O",
+        "onUse": [{
+            "type": "stats",
+            "name": "hunger",
+            "tick": {
+                "factor": 1,
+                "count": 10,
+                "tickCadence": 150
+            }
+        }, {
+            "type": "anim",
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_burger_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": -8.0,
+            "duration": 1500, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false,
+            "attachment": {
+                "prop": "prop_choc_meto",
+                "boneId": 18905,
+                "xPos": 0.12, 
+                "yPos": 0.028, 
+                "zPos": 0.001, 
+                "xRot": 10.0, 
+                "yRot": 175.0, 
+                "zRot": 0.0
+            }
+        }]
     },
     "snikkel_candy":{
         "name":"snikkel_candy",
@@ -1059,7 +1121,38 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"Some delicious candy :O"
+        "description":"Some delicious candy :O",
+        "onUse": [{
+            "type": "stats",
+            "name": "hunger",
+            "tick": {
+                "factor": 1,
+                "count": 10,
+                "tickCadence": 150
+            }
+        }, {
+            "type": "anim",
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_burger_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": -8.0,
+            "duration": 1500, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false,
+            "attachment": {
+                "prop": "prop_choc_ego",
+                "boneId": 18905,
+                "xPos": 0.12, 
+                "yPos": 0.028, 
+                "zPos": 0.001, 
+                "xRot": 10.0, 
+                "yRot": 175.0, 
+                "zRot": 0.0
+            }
+        }]
     },
     "joint":{
         "name":"joint",
@@ -1764,7 +1857,38 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"Nice bread for your stomach."
+        "description":"Nice bread for your stomach.",
+        "onUse": [{
+            "type": "stats",
+            "name": "hunger",
+            "tick": {
+                "factor": 1,
+                "count": 30,
+                "tickCadence": 250
+            }
+        }, {
+            "type": "anim",
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_burger_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": -8.0,
+            "duration": 7500, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false,
+            "attachment": {
+                "prop": "prop_sandwich_01",
+                "boneId": 18905,
+                "xPos": 0.12, 
+                "yPos": 0.028, 
+                "zPos": 0.001, 
+                "xRot": 10.0, 
+                "yRot": 175.0, 
+                "zRot": 0.0
+            }
+        }]
     },
     "electronickit":{
         "name":"electronickit",
