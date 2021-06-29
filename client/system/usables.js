@@ -15,6 +15,41 @@ function playEffect(fx, duration, loop) {
     }, duration);
 }
 
+function playAnim(use) {
+    let ped = PlayerPedId();
+    let prop;
+    if (use.attachment) {
+        let att = use.attachment;
+        let [coordsX, coordsY, coordsZ] = GetEntityCoords(ped);
+        prop = CreateObject(GetHashKey(att.prop),
+            coordsX + 0.0,
+            coordsY + 0.0,
+            coordsZ + 0.2,
+            true, true, true);
+
+        AttachEntityToEntity(prop, ped, GetPedBoneIndex(ped, att.boneId), att.xPos, att.yPos, att.zPos, att.xRot, att.yRot, att.zRot, true, true, false, true, 1, true);
+    }
+
+    emit('mrp:lua:taskPlayAnim', ped,
+        use.dict,
+        use.anim,
+        use.blendInSpeed,
+        use.blendOutSpeed,
+        use.duration,
+        use.flag,
+        use.playbackRate,
+        use.lockX,
+        use.lockY,
+        use.lockZ);
+
+    if (prop) {
+        setTimeout(() => {
+            ClearPedSecondaryTask(ped);
+            DeleteObject(prop);
+        }, use.duration);
+    }
+}
+
 //main interval for stats and things
 setInterval(() => {
     let player = PlayerId();
@@ -53,30 +88,10 @@ onNet('mrp:client:useables:use', (usable) => {
                     //add time spend processing to delay
                     let timeToAdd = ts - startTS;
                     setTimeout(() => {
-                        emit('mrp:lua:taskPlayAnim', PlayerPedId(),
-                            use.dict,
-                            use.anim,
-                            use.blendInSpeed,
-                            use.blendOutSpeed,
-                            use.duration,
-                            use.flag,
-                            use.playbackRate,
-                            use.lockX,
-                            use.lockY,
-                            use.lockZ);
+                        playAnim(use);
                     }, use.delay + timeToAdd);
                 } else {
-                    emit('mrp:lua:taskPlayAnim', PlayerPedId(),
-                        use.dict,
-                        use.anim,
-                        use.blendInSpeed,
-                        use.blendOutSpeed,
-                        use.duration,
-                        use.flag,
-                        use.playbackRate,
-                        use.lockX,
-                        use.lockY,
-                        use.lockZ);
+                    playAnim(use);
                 }
                 break;
             case TYPE_STATS:
@@ -89,6 +104,17 @@ onNet('mrp:client:useables:use', (usable) => {
                             sprintMultiplier = DEFAULT_SPRINT_MULTIPLIER;
                             moveRate = DEFAULT_MOVE_RATE;
                         }, use.duration);
+                    }
+                } else if (use.name == 'hunger' || use.name == 'thirst' || use.name == 'stress') {
+                    let tick = use.tick;
+                    if (tick) {
+                        let count = 0;
+                        let interval = setInterval(() => {
+                            addStat(use.name, tick.factor);
+                            count++;
+                            if (count >= tick.count)
+                                clearInterval(interval);
+                        }, tick.tickCadence);
                     }
                 }
                 break;

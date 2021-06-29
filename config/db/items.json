@@ -898,7 +898,38 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"Nice to eat."
+        "description":"Nice to eat.",
+        "onUse": [{
+            "type": "stats",
+            "name": "hunger",
+            "tick": {
+                "factor": 1,
+                "count": 25,
+                "tickCadence": 250
+            }
+        }, {
+            "type": "anim",
+            "dict": "mp_player_inteat@burger",
+            "anim": "mp_player_int_eat_burger_fp",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": -8.0,
+            "duration": 6250, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false,
+            "attachment": {
+                "prop": "prop_sandwich_01",
+                "boneId": 18905,
+                "xPos": 0.12, 
+                "yPos": 0.028, 
+                "zPos": 0.001, 
+                "xRot": 10.0, 
+                "yRot": 175.0, 
+                "zRot": 0.0
+            }
+        }]
     },
     "casinochips":{
         "name":"casinochips",
@@ -920,7 +951,38 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"For all the thirsty out there"
+        "description":"For all the thirsty out there",
+        "onUse": [{
+            "type": "stats",
+            "name": "thirst",
+            "tick": {
+                "factor": 1,
+                "count": 50,
+                "tickCadence": 100
+            }
+        }, {
+            "type": "anim",
+            "dict": "mp_player_intdrink",
+            "anim": "loop_bottle",
+            "blendInSpeed": 1.0,
+            "blendOutSpeed": -1.0,
+            "duration": 5000, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false,
+            "attachment": {
+                "prop": "prop_ld_flow_bottle",
+                "boneId": 18905,
+                "xPos": 0.1, 
+                "yPos": 0.001, 
+                "zPos": 0.031, 
+                "xRot": 279.1, 
+                "yRot": 175.1, 
+                "zRot": 0.0
+            }
+        }]
     },
     "beer":{
         "name":"beer",
