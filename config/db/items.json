@@ -2271,7 +2271,28 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"A bandage works every time"
+        "description":"A bandage works every time",
+        "onUse": [{
+            "type": "stats",
+            "name": "health",
+            "tick": {
+                "factor": 1,
+                "count": 25,
+                "tickCadence": 100
+            }
+        }, {
+            "type": "anim",
+            "dict": "anim@amb@board_room@supervising@",
+            "anim": "dissaproval_01_lo_amy_skater_01",
+            "blendInSpeed": 1.0,
+            "blendOutSpeed": -1.0,
+            "duration": 2500, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }]
     },
     "painkillers":{
         "name":"painkillers",
@@ -2590,7 +2611,28 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"You can use this First Aid kit to get people back on their feet."
+        "description":"You can use this First Aid kit to get people back on their feet.",
+        "onUse": [{
+            "type": "stats",
+            "name": "health",
+            "tick": {
+                "factor": 1,
+                "count": 50,
+                "tickCadence": 100
+            }
+        }, {
+            "type": "anim",
+            "dict": "anim@amb@board_room@supervising@",
+            "anim": "dissaproval_01_lo_amy_skater_01",
+            "blendInSpeed": 1.0,
+            "blendOutSpeed": -1.0,
+            "duration": 5000, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }]
     },
     "printerdocument":{
         "name":"printerdocument",
