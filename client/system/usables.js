@@ -105,23 +105,12 @@ onNet('mrp:client:useables:use', (usable) => {
                             moveRate = DEFAULT_MOVE_RATE;
                         }, use.duration);
                     }
-                } else if (use.name == 'hunger' || use.name == 'thirst' || use.name == 'stress' || use.name == 'armor') {
+                } else if (use.name == 'hunger' || use.name == 'thirst' || use.name == 'stress' || use.name == 'armor' || use.name == 'health') {
                     let tick = use.tick;
                     if (tick) {
                         let count = 0;
                         let interval = setInterval(() => {
                             addStat(use.name, tick.factor);
-                            count++;
-                            if (count >= tick.count)
-                                clearInterval(interval);
-                        }, tick.tickCadence);
-                    }
-                } else if (use.name == 'health') {
-                    let tick = use.tick;
-                    if (tick) {
-                        let count = 0;
-                        let interval = setInterval(() => {
-                            addHealth(tick.factor);
                             count++;
                             if (count >= tick.count)
                                 clearInterval(interval);

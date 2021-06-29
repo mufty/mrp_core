@@ -1802,7 +1802,28 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"Some protection won't hurt.. right? (One-time use)"
+        "description":"Some protection won't hurt.. right? (One-time use)",
+        "onUse": [{
+            "type": "stats",
+            "name": "armor",
+            "tick": {
+                "factor": 1,
+                "count": 75,
+                "tickCadence": 65
+            }
+        }, {
+            "type": "anim",
+            "dict": "anim@amb@board_room@supervising@",
+            "anim": "dissaproval_01_lo_amy_skater_01",
+            "blendInSpeed": 1.0,
+            "blendOutSpeed": -1.0,
+            "duration": 4875, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }]
     },
     "heavyarmor":{
         "name":"heavyarmor",
@@ -1813,7 +1834,28 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
-        "description":"Some protection won't hurt.. right?"
+        "description":"Some protection won't hurt.. right?",
+        "onUse": [{
+            "type": "stats",
+            "name": "armor",
+            "tick": {
+                "factor": 1,
+                "count": 100,
+                "tickCadence": 65
+            }
+        }, {
+            "type": "anim",
+            "dict": "anim@amb@board_room@supervising@",
+            "anim": "dissaproval_01_lo_amy_skater_01",
+            "blendInSpeed": 1.0,
+            "blendOutSpeed": -1.0,
+            "duration": 6500, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
+        }]
     },
     "weed_brick":{
         "name":"weed_brick",

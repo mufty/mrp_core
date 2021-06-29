@@ -188,6 +188,22 @@ function addStat(name, modifier) {
     } else if (currentCharacter.stats[name] > 100) {
         currentCharacter.stats[name] = 100;
     }
+
+    if (name == "armor") {
+        let ped = PlayerPedId();
+        SetPedArmour(ped, currentCharacter.stats.armor);
+    }
+
+    if (name == "health") {
+        let health = currentCharacter.stats.health;
+        if (currentCharacter.sex == "MALE") {
+            //because reasons :D
+            health += 100;
+        }
+
+        let ped = PlayerPedId();
+        SetEntityHealth(ped, health);
+    }
 }
 onNet('mrp:addHunger', (modifier) => {
     addStat('hunger', modifier);
@@ -203,30 +219,19 @@ onNet('mrp:addStress', (modifier) => {
 
 onNet('mrp:addArmor', (modifier) => {
     addStat('armor', modifier);
-
-    let ped = PlayerPedId();
-    SetPedArmour(ped, currentCharacter.stats.armor);
 });
 
 onNet('mrp:updateCharacter', (char) => {
     currentCharacter = char;
 });
 
-function addHealth(modifier) {
+on('mrp:addHealth', (modifier) => {
     addStat('health', modifier);
+});
 
-    let health = currentCharacter.stats.health;
-    if (currentCharacter.sex == "MALE") {
-        //because reasons :D
-        health += 100;
-    }
-
-    let ped = PlayerPedId();
-    SetEntityHealth(ped, health);
-}
-
-on('mrp:addHealth', addHealth);
-onNet('mrp:addHealth', addHealth);
+onNet('mrp:addHealth', (modifier) => {
+    addStat('health', modifier);
+});
 
 if (config.enablePVP) {
     on('playerSpawned', () => {
