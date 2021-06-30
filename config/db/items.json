@@ -1527,7 +1527,11 @@
             "text":"Crafting lockpick",
             "timeOut":7500
         },
-        "description":"Very useful if you lose your keys a lot.. or if you want to use it for something else..."
+        "description":"Very useful if you lose your keys a lot.. or if you want to use it for something else...",
+        "onUse": [{
+            "type": "event",
+            "client": "mrp:vehicle:lockpick"
+        }]
     },
     "advancedlockpick":{
         "name":"advancedlockpick",

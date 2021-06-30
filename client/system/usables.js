@@ -7,15 +7,16 @@ const DEFAULT_MOVE_RATE = 1;
 let sprintMultiplier = 1;
 let moveRate = 1;
 
-function playEffect(fx, duration, loop) {
+function playEffect(fx, duration, loop, resolve) {
     AnimpostfxPlay(fx, duration, loop);
     //stop effect after duration it should end if it's not looping on it's own but it doesn't sometimes
     setTimeout(() => {
         AnimpostfxStop(fx);
+        resolve(true);
     }, duration);
 }
 
-function playAnim(use) {
+function playAnim(use, resolve) {
     let ped = PlayerPedId();
     let prop;
     if (use.attachment) {
@@ -46,7 +47,10 @@ function playAnim(use) {
         setTimeout(() => {
             ClearPedSecondaryTask(ped);
             DeleteObject(prop);
+            resolve(true);
         }, use.duration);
+    } else {
+        setTimeout(() => resolve(true), use.duration);
     }
 }
 
@@ -60,7 +64,7 @@ setInterval(() => {
     }
 }, 0);
 
-onNet('mrp:client:useables:use', (usable) => {
+onNet('mrp:client:useables:use', (usable, callbackEvent) => {
     if (!usable || !usable.useable || !usable.onUse) {
         console.log(`Tried using something that isn't usable`);
         return;
@@ -68,58 +72,71 @@ onNet('mrp:client:useables:use', (usable) => {
 
     let onUse = usable.onUse;
     let startTS = Date.now();
+    let promises = [];
     for (let use of onUse) {
-        switch (use.type) {
-            case TYPE_EFFECT:
-                if (use.delay) {
-                    let ts = Date.now();
-                    //add time spend processing to delay
-                    let timeToAdd = ts - startTS;
-                    setTimeout(() => {
-                        playEffect(use.effect, use.duration, use.loop);
-                    }, use.delay + timeToAdd);
-                } else {
-                    playEffect(use.effect, use.duration, use.loop);
-                }
-                break;
-            case TYPE_ANIM:
-                if (use.delay) {
-                    let ts = Date.now();
-                    //add time spend processing to delay
-                    let timeToAdd = ts - startTS;
-                    setTimeout(() => {
-                        playAnim(use);
-                    }, use.delay + timeToAdd);
-                } else {
-                    playAnim(use);
-                }
-                break;
-            case TYPE_STATS:
-                if (use.name == 'speed') {
-                    sprintMultiplier = use.multiplier;
-                    moveRate = use.rate;
-                    if (use.duration) {
+        promises.push(new Promise((resolve, reject) => {
+            switch (use.type) {
+                case TYPE_EFFECT:
+                    if (use.delay) {
+                        let ts = Date.now();
+                        //add time spend processing to delay
+                        let timeToAdd = ts - startTS;
                         setTimeout(() => {
-                            //reset speed after duration
-                            sprintMultiplier = DEFAULT_SPRINT_MULTIPLIER;
-                            moveRate = DEFAULT_MOVE_RATE;
-                        }, use.duration);
+                            playEffect(use.effect, use.duration, use.loop, resolve);
+                        }, use.delay + timeToAdd);
+                    } else {
+                        playEffect(use.effect, use.duration, use.loop, resolve);
                     }
-                } else if (use.name == 'hunger' || use.name == 'thirst' || use.name == 'stress' || use.name == 'armor' || use.name == 'health') {
-                    let tick = use.tick;
-                    if (tick) {
-                        let count = 0;
-                        let interval = setInterval(() => {
-                            addStat(use.name, tick.factor);
-                            count++;
-                            if (count >= tick.count)
-                                clearInterval(interval);
-                        }, tick.tickCadence);
+                    break;
+                case TYPE_ANIM:
+                    if (use.delay) {
+                        let ts = Date.now();
+                        //add time spend processing to delay
+                        let timeToAdd = ts - startTS;
+                        setTimeout(() => {
+                            playAnim(use, resolve);
+                        }, use.delay + timeToAdd);
+                    } else {
+                        playAnim(use, resolve);
                     }
-                }
-                break;
-            default:
-                break;
-        }
+                    break;
+                case TYPE_STATS:
+                    if (use.name == 'speed') {
+                        sprintMultiplier = use.multiplier;
+                        moveRate = use.rate;
+                        if (use.duration) {
+                            setTimeout(() => {
+                                //reset speed after duration
+                                sprintMultiplier = DEFAULT_SPRINT_MULTIPLIER;
+                                moveRate = DEFAULT_MOVE_RATE;
+                                resolve(true);
+                            }, use.duration);
+                        }
+                    } else if (use.name == 'hunger' || use.name == 'thirst' || use.name == 'stress' || use.name == 'armor' || use.name == 'health') {
+                        let tick = use.tick;
+                        if (tick) {
+                            let count = 0;
+                            let interval = setInterval(() => {
+                                addStat(use.name, tick.factor);
+                                count++;
+                                if (count >= tick.count) {
+                                    clearInterval(interval);
+                                    resolve(true);
+                                }
+                            }, tick.tickCadence);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }));
     }
+
+    Promise.all(promises).then((values) => {
+        //everything done
+        if (callbackEvent) {
+            emitNet(callbackEvent, GetPlayerServerId(PlayerId()), usable);
+        }
+    });
 });
