@@ -1,6 +1,7 @@
 const TYPE_EFFECT = "effect";
 const TYPE_ANIM = "anim";
 const TYPE_STATS = "stats";
+const TYPE_EVENT = "event";
 const DEFAULT_SPRINT_MULTIPLIER = 1;
 const DEFAULT_MOVE_RATE = 1;
 
@@ -43,14 +44,17 @@ function playAnim(use, resolve) {
         use.lockY,
         use.lockZ);
 
-    if (prop) {
+    if (prop && use.duration > 0) {
         setTimeout(() => {
             ClearPedSecondaryTask(ped);
             DeleteObject(prop);
             resolve(true);
         }, use.duration);
     } else {
-        setTimeout(() => resolve(true), use.duration);
+        if (use.duration > 0)
+            setTimeout(() => resolve(true), use.duration);
+        else
+            resolve(true);
     }
 }
 
@@ -64,13 +68,13 @@ setInterval(() => {
     }
 }, 0);
 
-onNet('mrp:client:useables:use', (usable, callbackEvent) => {
-    if (!usable || !usable.useable || !usable.onUse) {
-        console.log(`Tried using something that isn't usable`);
+onNet('mrp:client:useables:use', (useable, callbackEvent) => {
+    if (!useable || !useable.useable || !useable.onUse) {
+        console.log(`Tried using something that isn't useable`);
         return;
     }
 
-    let onUse = usable.onUse;
+    let onUse = useable.onUse;
     let startTS = Date.now();
     let promises = [];
     for (let use of onUse) {
@@ -104,7 +108,7 @@ onNet('mrp:client:useables:use', (usable, callbackEvent) => {
                     if (use.name == 'speed') {
                         sprintMultiplier = use.multiplier;
                         moveRate = use.rate;
-                        if (use.duration) {
+                        if (use.duration > 0) {
                             setTimeout(() => {
                                 //reset speed after duration
                                 sprintMultiplier = DEFAULT_SPRINT_MULTIPLIER;
@@ -127,6 +131,17 @@ onNet('mrp:client:useables:use', (usable, callbackEvent) => {
                         }
                     }
                     break;
+                case TYPE_EVENT:
+                    if (use.client) {
+                        console.log(`Sending client event [${use.client}]`);
+                        emit(use.client, useable);
+                    }
+                    if (use.server) {
+                        console.log(`Sending server event [${use.server}]`);
+                        emitNet(use.server, GetPlayerServerId(PlayerId()), useable);
+                    }
+                    resolve(true);
+                    break;
                 default:
                     break;
             }
@@ -136,7 +151,7 @@ onNet('mrp:client:useables:use', (usable, callbackEvent) => {
     Promise.all(promises).then((values) => {
         //everything done
         if (callbackEvent) {
-            emitNet(callbackEvent, GetPlayerServerId(PlayerId()), usable);
+            emitNet(callbackEvent, GetPlayerServerId(PlayerId()), useable);
         }
     });
 });

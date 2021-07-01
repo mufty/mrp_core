@@ -1517,6 +1517,7 @@
         "unique":false,
         "useable":true,
         "shouldClose":true,
+        "persistent": true,
         "combinable":{
             "accept":"screwdriverset"
         },
@@ -1530,7 +1531,19 @@
         "description":"Very useful if you lose your keys a lot.. or if you want to use it for something else...",
         "onUse": [{
             "type": "event",
-            "client": "mrp:vehicle:lockpick"
+            "client": "mrp:lockpick"
+        }, {
+            "type": "anim",
+            "dict": "anim@amb@clubhouse@tutorial@bkr_tut_ig3@",
+            "anim": "machinic_loop_mechandplayer",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": -8.0,
+            "duration": -1, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false
         }]
     },
     "advancedlockpick":{

@@ -15,8 +15,8 @@ files {
     'config/client.json',
     'client/helpers.js',
     'client/ui/fonts/coolvetica_rg.ttf',
-    'client/ui/scripts/hud.js',
-    'client/ui/styles/style.css',
+    'client/ui/scripts/*.js',
+    'client/ui/styles/*.css',
     'client/ui/index.html',
 }
 

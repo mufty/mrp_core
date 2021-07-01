@@ -4,10 +4,20 @@
     <link href="styles/style.css" rel="stylesheet"></link>
     <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
     <script src="scripts/hud.js" type="text/javascript"></script>
+    <script src="scripts/lockpick.js" type="text/javascript"></script>
 </head>
 
 <body>
     <div class="main">
+        <div class="minigame_lockpick">
+            <div id="circle2">
+                <div class="point"></div>
+            </div>
+            <p></p>
+            <div id="circle">
+                <div id="pointer"></div>
+            </div>
+        </div>
         <div class="timer">
             <svg class="radial-progress radial-timer" data-percentage="82" viewBox="0 0 80 80">
                 <circle class="incomplete" cx="40" cy="40" r="35"></circle>
