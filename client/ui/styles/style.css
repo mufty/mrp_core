@@ -88,6 +88,8 @@ svg.radial-progress text {
     margin: 10vh;
     text-align: center;
     color: #fefefe;
+    position: relative;
+    top: 180px;
 }
 
 #circle {
@@ -100,7 +102,6 @@ svg.radial-progress text {
     margin: -13.6em auto;
     border: 2px solid #fefefe;
     z-index: 1;
-    transition: all 15s linear;
 }
 
 #circle:hover {
