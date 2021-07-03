@@ -1518,6 +1518,7 @@
         "useable":true,
         "shouldClose":true,
         "persistent": true,
+        "breakChance": 5,
         "combinable":{
             "accept":"screwdriverset"
         },
