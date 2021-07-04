@@ -41,5 +41,17 @@ utils = {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    getAllPlayersInVehicle: function(vehicle) {
+        let seatCount = GetVehicleMaxNumberOfPassengers(vehicle);
+        let players = [];
+        for (let i = 0; i < seatCount; i++) {
+            let seatFree = IsVehicleSeatFree(vehicle, i);
+            let pedInSeat = GetPedInVehicleSeat(vehicle, i);
+            let pid = NetworkGetPlayerIndexFromPed(pedInSeat);
+            let playerServerId = GetPlayerServerId(pid);
+            players.push(playerServerId);
+        }
+        return players;
     }
 };
