@@ -52,6 +52,14 @@ utils = {
             let playerServerId = GetPlayerServerId(pid);
             players.push(playerServerId);
         }
+
+        if (!IsVehicleSeatFree(vehicle, -1)) {
+            let pedInSeat = GetPedInVehicleSeat(vehicle, -1);
+            let pid = NetworkGetPlayerIndexFromPed(pedInSeat);
+            let playerServerId = GetPlayerServerId(pid);
+            players.push(playerServerId);
+        }
+
         return players;
     }
 };
