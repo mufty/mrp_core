@@ -109,6 +109,11 @@ let MRP_CLIENT = {
         let factor = text.length / 370;
         DrawRect(0.0, 0.0 + 0.0125, 0.017 + factor, 0.03, 0, 0, 0, 75);
         ClearDrawOrigin();
+    },
+    displayHelpText: function(str) {
+        BeginTextCommandDisplayHelp("STRING");
+        AddTextComponentString(str);
+        EndTextCommandDisplayHelp(0, false, true, -1);
     }
 };
 
