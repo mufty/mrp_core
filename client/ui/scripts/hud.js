@@ -55,9 +55,13 @@ $(function() {
                             let html = '<a href="#">' + action.text + '</a>';
                             html = $(html);
                             html.click((event) => {
+                                let data = {};
+                                $('.popup .message :input').each(function() {
+                                    data[$(this).attr('name')] = $(this).val();
+                                });
                                 $('.popup').hide();
                                 $.post('https://mrp_core/closeUI', JSON.stringify({}));
-                                $.post(action.url, JSON.stringify({}), () => {});
+                                $.post(action.url, JSON.stringify(data), () => {});
                             });
 
                             $('.popup .actions').append(html);
