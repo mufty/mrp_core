@@ -1462,7 +1462,12 @@
         "unique":false,
         "useable":true,
         "shouldClose":false,
-        "description":"Ammo for Pistols."
+        "description":"Ammo for Pistols.",
+        "persistent": true,
+        "onUse": [{
+            "type": "event",
+            "client": "mrp:inventory:client:useAmmo"
+        }]
     },
     "rifle_ammo":{
         "name":"rifle_ammo",
@@ -1473,7 +1478,12 @@
         "unique":false,
         "useable":true,
         "shouldClose":false,
-        "description":"Ammo for Rifles."
+        "description":"Ammo for Rifles.",
+        "persistent": true,
+        "onUse": [{
+            "type": "event",
+            "client": "mrp:inventory:client:useAmmo"
+        }]
     },
     "smg_ammo":{
         "name":"smg_ammo",
@@ -1484,7 +1494,12 @@
         "unique":false,
         "useable":true,
         "shouldClose":false,
-        "description":"Ammo for Sub Machine Guns."
+        "description":"Ammo for Sub Machine Guns.",
+        "persistent": true,
+        "onUse": [{
+            "type": "event",
+            "client": "mrp:inventory:client:useAmmo"
+        }]
     },
     "shotgun_ammo":{
         "name":"shotgun_ammo",
@@ -1495,7 +1510,12 @@
         "unique":false,
         "useable":true,
         "shouldClose":false,
-        "description":"Ammo for Shotguns."
+        "description":"Ammo for Shotguns.",
+        "persistent": true,
+        "onUse": [{
+            "type": "event",
+            "client": "mrp:inventory:client:useAmmo"
+        }]
     },
     "mg_ammo":{
         "name":"mg_ammo",
@@ -1506,7 +1526,12 @@
         "unique":false,
         "useable":true,
         "shouldClose":false,
-        "description":"Ammo for Machine Guns."
+        "description":"Ammo for Machine Guns.",
+        "persistent": true,
+        "onUse": [{
+            "type": "event",
+            "client": "mrp:inventory:client:useAmmo"
+        }]
     },
     "lockpick":{
         "name":"lockpick",
