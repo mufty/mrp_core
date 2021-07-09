@@ -43,12 +43,14 @@ setInterval(() => {
             DisableControlAction(1, 2, menuOpen);
             DisableControlAction(1, 4, menuOpen);
             DisableControlAction(1, 6, menuOpen);
+            DisableControlAction(1, 24, menuOpen); // left click attack
         } else {
             //enable mouse lookaround when menu's opened
             EnableControlAction(1, 1, true);
             EnableControlAction(1, 2, true);
             EnableControlAction(1, 4, true);
             EnableControlAction(1, 6, true);
+            EnableControlAction(1, 24, true);
         }
 
         if (IsControlJustPressed(1, KEYBOARD_KEYBIND) && !menuOpen) {
