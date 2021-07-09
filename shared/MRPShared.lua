@@ -105,6 +105,8 @@ MRPShared.Items = function(name)
     return item
 end
 
+exports('MRPSharedItems', MRPShared.Items)
+
 -- // HASH WEAPON ITEMS, NEED SOMETIMES TO GET INFO FOR CLIENT
 
 MRPShared.Weapons = {
