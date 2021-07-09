@@ -8,6 +8,7 @@
     },
     "enablePVP": true,
     "notificationDuration": 10000,
+    "defaultNearArea": 50,
     "world": {
         "disableWeaponWheel": true,
         "npc": {

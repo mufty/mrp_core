@@ -114,6 +114,29 @@ let MRP_CLIENT = {
         BeginTextCommandDisplayHelp("STRING");
         AddTextComponentString(str);
         EndTextCommandDisplayHelp(0, false, true, -1);
+    },
+    isNearLocation: function(entity, x, y, z, area) {
+        if (!area) {
+            area = config.defaultNearArea;
+        }
+
+        let [entityX, entityY, entityZ] = GetEntityCoords(entity);
+        let distance = Vdist(entityX, entityY, entityZ, x, y, z);
+        return distance <= area;
+    },
+    getEntityInFront: function(flags) {
+        let [plyCoordsX, plyCoordsY, plyCoordsZ] = GetEntityCoords(PlayerPedId(), false);
+        let [plyOffsetX, plyOffsetY, plyOffsetZ] = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 1.2, 0.0);
+        let rayHandle = StartShapeTestCapsule(plyCoordsX, plyCoordsY, plyCoordsZ, plyOffsetX, plyOffsetY, plyOffsetZ, 0.3, flags, PlayerPedId(), 7);
+        let [_1, _2, _3, _4, entity] = GetShapeTestResult(rayHandle);
+
+        return entity;
+    },
+    getVehicleInFront: function() {
+        return this.getEntityInFront(10);
+    },
+    getPedInFront: function() {
+        return this.getEntityInFront(12);
     }
 };
 
