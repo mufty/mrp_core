@@ -133,10 +133,10 @@ let MRP_CLIENT = {
         return entity;
     },
     getVehicleInFront: function() {
-        return this.getEntityInFront(10);
+        return MRP_CLIENT.getEntityInFront(10);
     },
     getPedInFront: function() {
-        return this.getEntityInFront(12);
+        return MRP_CLIENT.getEntityInFront(12);
     }
 };
 
