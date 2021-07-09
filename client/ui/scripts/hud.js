@@ -1,5 +1,6 @@
 $(function() {
     $('.popup').hide();
+    $('.eye').hide();
 
     $(document).keydown(function(e) {
         //on ESC close
@@ -70,6 +71,12 @@ $(function() {
 
                     $('.popup').css('display', 'inline-block');
                 }
+                break;
+            case "showEye":
+                $('.eye').show();
+                break;
+            case "hideEye":
+                $('.eye').hide();
                 break;
             default:
                 break;

@@ -17,6 +17,7 @@ files {
     'client/ui/fonts/coolvetica_rg.ttf',
     'client/ui/scripts/*.js',
     'client/ui/styles/*.css',
+    'client/ui/images/*.png',
     'client/ui/index.html',
 }
 
