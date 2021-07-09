@@ -78,6 +78,23 @@ $(function() {
             case "hideEye":
                 $('.eye').hide();
                 break;
+            case "thirdeyeAdd":
+                if (!$('.eye #' + data.id).length) {
+                    let html = '<div class="action"><a id="' + data.id + '">' + data.text + '</a></div>';
+                    html = $(html);
+                    html.find('a').click((event) => {
+                        $.post('https://mrp_core/closeEye', JSON.stringify({}));
+                        $.post(data.action, JSON.stringify(data), () => {});
+                    });
+
+                    $('.eye').append(html);
+                }
+                break;
+            case "thirdeyeRemove":
+                if ($('.eye #' + data.id).length) {
+                    $('.eye #' + data.id).parent().remove();
+                }
+                break;
             default:
                 break;
         }

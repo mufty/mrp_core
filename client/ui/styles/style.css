@@ -175,3 +175,9 @@ p>h4 {
     position: absolute;
     top: 50%;
 }
+
+.eye a {
+    color: #6EEB70;
+    font-weight: bold;
+    text-decoration: none;
+}

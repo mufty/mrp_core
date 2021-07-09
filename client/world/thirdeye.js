@@ -1,3 +1,13 @@
+onNet('mrp:thirdeye:addMenuItem', (data) => {
+    data.type = "thirdeyeAdd";
+    SendNuiMessage(JSON.stringify(data));
+});
+
+onNet('mrp:thirdeye:removeMenuItem', (data) => {
+    data.type = "thirdeyeRemove";
+    SendNuiMessage(JSON.stringify(data));
+});
+
 function triggerUI(showUI) {
     let show = "showEye";
     if (!showUI) {
@@ -13,6 +23,12 @@ function triggerUI(showUI) {
     };
     SendNuiMessage(JSON.stringify(data));
 }
+
+RegisterNuiCallbackType('closeEye');
+on('__cfx_nui:closeEye', (data, cb) => {
+    cb({});
+    triggerUI(false);
+});
 
 let menuOpen = false;
 const KEYBOARD_KEYBIND = 19
