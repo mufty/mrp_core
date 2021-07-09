@@ -137,6 +137,19 @@ let MRP_CLIENT = {
     },
     getPedInFront: function() {
         return MRP_CLIENT.getEntityInFront(12);
+    },
+    addBlips: function(blips) {
+        for (let v of blips) {
+            let blip = AddBlipForCoord(v.x, v.y, v.z);
+            SetBlipSprite(blip, v.blip);
+            SetBlipScale(blip, 0.8);
+            SetBlipAsShortRange(blip, true);
+            SetBlipColour(blip, v.blipColor);
+
+            BeginTextCommandSetBlipName("STRING");
+            AddTextComponentString(v.blipName);
+            EndTextCommandSetBlipName(blip);
+        }
     }
 };
 
