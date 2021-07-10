@@ -261,7 +261,7 @@
         "label":"Taser",
         "weight":1000,
         "type":"weapon",
-        "image":"weapon_taser.png",
+        "image":"WEAPON_STUNGUN.png",
         "unique":true,
         "useable":false,
         "description":"A weapon firing barbs attached by wires to batteries, causing temporary paralysis"
