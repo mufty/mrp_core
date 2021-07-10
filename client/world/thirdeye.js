@@ -1,3 +1,4 @@
+let menuOpen = false;
 onNet('mrp:thirdeye:addMenuItem', (data) => {
     data.type = "thirdeyeAdd";
     SendNuiMessage(JSON.stringify(data));
@@ -9,14 +10,19 @@ onNet('mrp:thirdeye:removeMenuItem', (data) => {
 });
 
 function triggerUI(showUI) {
+    if (MRP_CLIENT.getPlayerMetadata('inMenu'))
+        return;
     let show = "showEye";
-    if (!showUI) {
+    if (!showUI && menuOpen) {
+        console.log('close eye');
         show = "hideEye";
         SetNuiFocus(false, false);
         SetNuiFocusKeepInput(false);
-    } else {
+        menuOpen = false;
+    } else if (showUI && !menuOpen) {
         SetNuiFocus(true, true);
         SetNuiFocusKeepInput(true);
+        menuOpen = true;
     }
     let data = {
         type: show
@@ -30,7 +36,6 @@ on('__cfx_nui:closeEye', (data, cb) => {
     triggerUI(false);
 });
 
-let menuOpen = false;
 const KEYBOARD_KEYBIND = 19
 setInterval(() => {
     const ped = PlayerPedId();
@@ -54,10 +59,8 @@ setInterval(() => {
         }
 
         if (IsControlJustPressed(1, KEYBOARD_KEYBIND) && !menuOpen) {
-            menuOpen = true;
             triggerUI(true);
         } else if (IsControlJustReleased(1, KEYBOARD_KEYBIND) && menuOpen) {
-            menuOpen = false;
             triggerUI(false);
         }
     }

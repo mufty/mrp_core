@@ -51,7 +51,10 @@ let MRP_CLIENT = {
     GetPlayerData: function() {
         return currentCharacter;
     },
-    getPlayerMetadata: function() {
+    getPlayerMetadata: function(name) {
+        if (name)
+            return metadata[name];
+
         return metadata;
     },
     setPlayerMetadata: function(name, state) {

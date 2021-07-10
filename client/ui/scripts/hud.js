@@ -61,8 +61,9 @@ $(function() {
                                     data[$(this).attr('name')] = $(this).val();
                                 });
                                 $('.popup').hide();
-                                $.post('https://mrp_core/closeUI', JSON.stringify({}));
-                                $.post(action.url, JSON.stringify(data), () => {});
+                                $.post('https://mrp_core/closeUI', JSON.stringify({}), () => {
+                                    $.post(action.url, JSON.stringify(data), () => {});
+                                });
                             });
 
                             $('.popup .actions').append(html);
@@ -82,9 +83,10 @@ $(function() {
                 if (!$('.eye #' + data.id).length) {
                     let html = '<div class="action"><a id="' + data.id + '">' + data.text + '</a></div>';
                     html = $(html);
-                    html.find('a').click((event) => {
-                        $.post('https://mrp_core/closeEye', JSON.stringify({}));
-                        $.post(data.action, JSON.stringify(data), () => {});
+                    html.find('#' + data.id).click((event) => {
+                        $.post('https://mrp_core/closeEye', JSON.stringify({}), () => {
+                            $.post(data.action, JSON.stringify(data), () => {});
+                        });
                     });
 
                     $('.eye').append(html);
