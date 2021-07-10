@@ -150,6 +150,30 @@ let MRP_CLIENT = {
             AddTextComponentString(v.blipName);
             EndTextCommandSetBlipName(blip);
         }
+    },
+    isPedNearCoords: function(x, y, z, area, model) {
+        if (!area)
+            area = config.defaultIsPedNearArea;
+
+        let peds = exports["mrp_core"].EnumeratePeds();
+        let pedFound = false;
+        for (let ped of peds) {
+            let [entityX, entityY, entityZ] = GetEntityCoords(ped);
+            let distance = Vdist(entityX, entityY, entityZ, x, y, z);
+            if (model) {
+                let entityModel = GetEntityModel(ped);
+                if (entityModel != model)
+                    continue;
+            }
+
+            if (distance < area) {
+                pedFound = true;
+                break;
+            }
+
+        }
+
+        return pedFound;
     }
 };
 

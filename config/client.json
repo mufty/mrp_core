@@ -9,6 +9,7 @@
     "enablePVP": true,
     "notificationDuration": 10000,
     "defaultNearArea": 50,
+    "defaultIsPedNearArea": 5.0,
     "world": {
         "disableWeaponWheel": true,
         "npc": {
