@@ -14,7 +14,6 @@ function triggerUI(showUI) {
         return;
     let show = "showEye";
     if (!showUI && menuOpen) {
-        console.log('close eye');
         show = "hideEye";
         SetNuiFocus(false, false);
         SetNuiFocusKeepInput(false);
