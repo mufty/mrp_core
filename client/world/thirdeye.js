@@ -39,8 +39,9 @@ const KEYBOARD_KEYBIND = 19
 setInterval(() => {
     const ped = PlayerPedId();
     const vehicle = GetVehiclePedIsIn(ped, false);
+    const enterVehicle = GetVehiclePedIsTryingToEnter(ped);
 
-    if (ped && vehicle == 0) {
+    if (ped && vehicle == 0 && enterVehicle == 0) {
         if (menuOpen) {
             //disable mouse lookaround when menu's opened
             DisableControlAction(1, 1, menuOpen);
