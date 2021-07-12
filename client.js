@@ -191,28 +191,28 @@ let MRP_CLIENT = {
      * @param  {type} opt options as described above
      * @return {type}     PED     
      */
-    spawnSharedNPC: async function(opt) {
-        let modelHash = GetHashKey(opt.model);
-        let ped;
-        if (!MRP_CLIENT.isPedNearCoords(opt.x, opt.y, opt.z, null, modelHash)) {
-            RequestModel(modelHash);
-            while (!HasModelLoaded(modelHash)) {
-                await utils.sleep(100);
+    spawnSharedNPC: function(opt) {
+        let exec = async () => {
+            let modelHash = GetHashKey(opt.model);
+            if (!MRP_CLIENT.isPedNearCoords(opt.x, opt.y, opt.z, null, modelHash)) {
+                RequestModel(modelHash);
+                while (!HasModelLoaded(modelHash)) {
+                    await MRP_CLIENT.sleep(100);
+                }
+
+                ped = CreatePed(GetPedType(opt.model), opt.model, opt.x, opt.y, opt.z, opt.heading, true, true);
+                SetBlockingOfNonTemporaryEvents(ped, true);
+                SetPedKeepTask(ped, true);
+                SetPedDropsWeaponsWhenDead(ped, false);
+                SetPedFleeAttributes(ped, 0, 0);
+                SetPedCombatAttributes(ped, 17, 1);
+                SetPedSeeingRange(ped, 0.0);
+                SetPedHearingRange(ped, 0.0);
+                SetPedAlertness(ped, 0.0);
+                SetEntityInvincible(ped, true);
             }
-
-            ped = CreatePed(GetPedType(opt.model), opt.model, opt.x, opt.y, opt.z, opt.heading, true, true);
-            SetBlockingOfNonTemporaryEvents(ped, true);
-            SetPedKeepTask(ped, true);
-            SetPedDropsWeaponsWhenDead(ped, false);
-            SetPedFleeAttributes(ped, 0, 0);
-            SetPedCombatAttributes(ped, 17, 1);
-            SetPedSeeingRange(ped, 0.0);
-            SetPedHearingRange(ped, 0.0);
-            SetPedAlertness(ped, 0.0);
-            SetEntityInvincible(ped, true);
-        }
-
-        return ped;
+        };
+        exec();
     }
 };
 
