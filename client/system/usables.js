@@ -8,6 +8,14 @@ const DEFAULT_MOVE_RATE = 1;
 let sprintMultiplier = 1;
 let moveRate = 1;
 
+let props = [];
+
+MRP_CLIENT.clearProps = function() {
+    for (let prop of props) {
+        DeleteObject(prop);
+    }
+}
+
 function playEffect(fx, duration, loop, resolve) {
     AnimpostfxPlay(fx, duration, loop);
     //stop effect after duration it should end if it's not looping on it's own but it doesn't sometimes
@@ -30,6 +38,7 @@ function playAnim(use, resolve) {
             true, true, true);
 
         AttachEntityToEntity(prop, ped, GetPedBoneIndex(ped, att.boneId), att.xPos, att.yPos, att.zPos, att.xRot, att.yRot, att.zRot, true, true, false, true, 1, true);
+        props.push(prop);
     }
 
     emit('mrp:lua:taskPlayAnim', ped,
