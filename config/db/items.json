@@ -2730,6 +2730,21 @@
         "shouldClose":true,
         "description":"A nice document"
     },
+    "businessproposal":{
+        "name":"businessproposal",
+        "label":"Business Proposal",
+        "weight":0,
+        "type":"item",
+        "image":"printerdocument.png",
+        "unique":true,
+        "useable":true,
+        "shouldClose":true,
+        "description":"Filed business proposal",
+        "onUse": [{
+            "type": "event",
+            "server": "mrp:business:server:view"
+        }]
+    },
     "weaponlicense":{
         "name":"weaponlicense",
         "label":"Weapon License",
