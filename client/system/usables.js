@@ -14,6 +14,8 @@ MRP_CLIENT.clearProps = function() {
     for (let prop of props) {
         DeleteObject(prop);
     }
+
+    props = [];
 }
 
 function playEffect(fx, duration, loop, resolve) {
