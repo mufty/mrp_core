@@ -2740,6 +2740,7 @@
         "useable":true,
         "shouldClose":true,
         "description":"Filed business proposal",
+        "persistent": true,
         "onUse": [{
             "type": "event",
             "server": "mrp:business:server:view"
