@@ -2744,6 +2744,28 @@
         "onUse": [{
             "type": "event",
             "server": "mrp:business:server:view"
+        }, {
+            "type": "anim",
+            "dict": "missfam4",
+            "anim": "base",
+            "blendInSpeed": 8.0,
+            "blendOutSpeed": -8.0,
+            "duration": -1, 
+            "flag": 49, 
+            "playbackRate": 1.0, 
+            "lockX": false, 
+            "lockY": false, 
+            "lockZ": false,
+            "attachment": {
+                "prop": "p_amb_clipboard_01",
+                "boneId": 36029,
+                "xPos": 0.16, 
+                "yPos": 0.08, 
+                "zPos": 0.10, 
+                "xRot": -130.0, 
+                "yRot": -50.0, 
+                "zRot": 0.0
+            }
         }]
     },
     "weaponlicense":{
