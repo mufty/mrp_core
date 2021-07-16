@@ -7,10 +7,30 @@ let currentCharacter = null;
 let currentSpawn = null;
 let metadata = {};
 
+/**
+ * @namespace MRP_CLIENT
+ */
 let MRP_CLIENT = {
+
+    /**    
+     * RandomString - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @return {type}  description     
+     */
     RandomString: function() {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     },
+
+
+    /**    
+     * Notification - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} text     description     
+     * @param  {type} duration description     
+     * @return {type}          description     
+     */
     Notification: function(text, duration) {
         let exec = async () => {
             SetNotificationTextEntry("STRING");
@@ -21,6 +41,16 @@ let MRP_CLIENT = {
         }
         exec();
     },
+
+    /**    
+     * TriggerServerCallback - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} event    description     
+     * @param  {type} args     description     
+     * @param  {type} callback description     
+     * @return {type}          description     
+     */
     TriggerServerCallback: function(event, args, callback) {
         let requestTS = Date.now() + ":" + MRP_CLIENT.RandomString();
         let responseEvent = event + ":response";
@@ -48,18 +78,49 @@ let MRP_CLIENT = {
         } else
             emitNet(event, source);
     },
+
+    /**    
+     * GetPlayerData - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @return {type}  description     
+     */
     GetPlayerData: function() {
         return currentCharacter;
     },
+
+    /**    
+     * getPlayerMetadata - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} name description     
+     * @return {type}      description     
+     */
     getPlayerMetadata: function(name) {
         if (name)
             return metadata[name];
 
         return metadata;
     },
+
+    /**    
+     * setPlayerMetadata - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} name  description     
+     * @param  {type} state description     
+     * @return {type}       description     
+     */
     setPlayerMetadata: function(name, state) {
         metadata[name] = state;
     },
+
+    /**    
+     * InvokeNative - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @return {type}  description     
+     */
     InvokeNative: function() {
         let args = arguments;
         return new Promise(resolve => {
@@ -69,7 +130,9 @@ let MRP_CLIENT = {
         });
     },
 
-    /**
+    /**     
+     * CreateThread - description    
+     * 
      * Example with infinite while cycle:
      * MRP_CLIENT.CreateThread(()=>{
      *      let cycle = async function(){
@@ -82,15 +145,35 @@ let MRP_CLIENT = {
      *      }
      *      cycle();
      * });
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} callback description     
+     * @return {type}          description     
      */
     CreateThread: function(callback) {
         emit('mrp:lua:createThread', callback);
     },
+
+    /**    
+     * sleep - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} ms description     
+     * @return {type}    description     
+     */
     sleep: function(ms) {
         return new Promise((resolve) => {
             setTimeout(resolve, ms);
         });
     },
+
+    /**    
+     * wait - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} ms description     
+     * @return {type}    description     
+     */
     wait: function(ms) {
         return new Promise((resolve) => {
             emit('mrp:lua:wait', ms, () => {
@@ -98,6 +181,17 @@ let MRP_CLIENT = {
             });
         });
     },
+
+    /**    
+     * drawText3D - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} x    description     
+     * @param  {type} y    description     
+     * @param  {type} z    description     
+     * @param  {type} text description     
+     * @return {type}      description     
+     */
     drawText3D: function(x, y, z, text) {
         //TODO config not hardcoded magic numbers
         SetTextScale(0.35, 0.35);
@@ -113,11 +207,31 @@ let MRP_CLIENT = {
         DrawRect(0.0, 0.0 + 0.0125, 0.017 + factor, 0.03, 0, 0, 0, 75);
         ClearDrawOrigin();
     },
+
+    /**    
+     * displayHelpText - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} str description     
+     * @return {type}     description     
+     */
     displayHelpText: function(str) {
         BeginTextCommandDisplayHelp("STRING");
         AddTextComponentString(str);
         EndTextCommandDisplayHelp(0, false, true, -1);
     },
+
+    /**    
+     * isNearLocation - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} entity description     
+     * @param  {type} x      description     
+     * @param  {type} y      description     
+     * @param  {type} z      description     
+     * @param  {type} area   description     
+     * @return {type}        description     
+     */
     isNearLocation: function(entity, x, y, z, area) {
         if (!area) {
             area = config.defaultNearArea;
@@ -127,6 +241,14 @@ let MRP_CLIENT = {
         let distance = Vdist(entityX, entityY, entityZ, x, y, z);
         return distance <= area;
     },
+
+    /**    
+     * getEntityInFront - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} flags description     
+     * @return {type}       description     
+     */
     getEntityInFront: function(flags) {
         let [plyCoordsX, plyCoordsY, plyCoordsZ] = GetEntityCoords(PlayerPedId(), false);
         let [plyOffsetX, plyOffsetY, plyOffsetZ] = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 1.2, 0.0);
@@ -135,12 +257,34 @@ let MRP_CLIENT = {
 
         return entity;
     },
+
+    /**    
+     * getVehicleInFront - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @return {type}  description     
+     */
     getVehicleInFront: function() {
         return MRP_CLIENT.getEntityInFront(10);
     },
+
+    /**    
+     * getPedInFront - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @return {type}  description     
+     */
     getPedInFront: function() {
         return MRP_CLIENT.getEntityInFront(12);
     },
+
+    /**    
+     * addBlips - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} blips description     
+     * @return {type}       description     
+     */
     addBlips: function(blips) {
         for (let v of blips) {
             let blip = AddBlipForCoord(v.x, v.y, v.z);
@@ -154,6 +298,18 @@ let MRP_CLIENT = {
             EndTextCommandSetBlipName(blip);
         }
     },
+
+    /**    
+     * isPedNearCoords - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @param  {type} x     description     
+     * @param  {type} y     description     
+     * @param  {type} z     description     
+     * @param  {type} area  description     
+     * @param  {type} model description     
+     * @return {type}       description     
+     */
     isPedNearCoords: function(x, y, z, area, model) {
         if (!area)
             area = config.defaultIsPedNearArea;
@@ -187,7 +343,8 @@ let MRP_CLIENT = {
      *     z: 0,
      *     heading: 0
      * }
-     *      
+     * 
+     * @memberof MRP_CLIENT     
      * @param  {type} opt options as described above
      * @return {type}     PED     
      */

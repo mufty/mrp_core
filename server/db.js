@@ -32,6 +32,14 @@ let exportObj = {
 
 let db;
 
+
+/**
+ * MRP - description
+ * 
+ * @memberof MRP_SERVER
+ * @param  {type} source description 
+ * @return {type}        description 
+ */
 MRP.getPlayer = async function(source) {
     if (!db)
         return null;
@@ -45,6 +53,15 @@ MRP.getPlayer = async function(source) {
     return storedUser;
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} source description 
+ * @param  {type} char   description 
+ * @return {type}        description 
+ */
 MRP.setLastUsedCharacter = async function(source, char) {
     if (!db)
         return null;
@@ -69,6 +86,14 @@ MRP.setLastUsedCharacter = async function(source, char) {
     return player;
 }
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} source description 
+ * @return {type}        description 
+ */
 MRP.getCharacters = async function(source) {
     if (!db)
         return null;
@@ -94,6 +119,14 @@ MRP.getCharacters = async function(source) {
     return chars;
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} obj description 
+ * @return {type}     description 
+ */
 MRP.toObjectId = function(obj) {
     let arrayBuffer = [];
     for (let i in obj) {
@@ -107,10 +140,26 @@ MRP.toObjectId = function(obj) {
     return objId;
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} obj description 
+ * @return {type}     description 
+ */
 MRP.toMongoTimestamp = function(obj) {
     return Timestamp.fromBits(obj.low_, obj.high_);
 }
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} id description 
+ * @return {type}    description 
+ */
 MRP.deleteCharacter = async function(id) {
     const collection = db.collection('character');
 
@@ -125,6 +174,16 @@ MRP.deleteCharacter = async function(id) {
     logger.log(`Deleted character count ${result.modifiedCount}`);
 }
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} player    description 
+ * @param  {type} inputChar description 
+ * @param  {type} cb        description 
+ * @return {type}           description 
+ */
 MRP.createCharacter = function(player, inputChar, cb) {
     if (!player || !inputChar)
         return;
@@ -176,6 +235,15 @@ MRP.createCharacter = function(player, inputChar, cb) {
     create();
 }
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} collectionName description 
+ * @param  {type} id             description 
+ * @return {type}                description 
+ */
 MRP.delete = async function(collectionName, id) {
     if (!db) {
         //DB not connected stash changes
@@ -199,6 +267,15 @@ MRP.delete = async function(collectionName, id) {
     logger.log(`Deleted ${collectionName} count ${result.modifiedCount}`);
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} collectionName description 
+ * @param  {type} q              description 
+ * @return {type}                description 
+ */
 MRP.deleteQuery = function(collectionName, q) {
     if (!db) {
         //DB not connected stash changes
@@ -217,6 +294,16 @@ MRP.deleteQuery = function(collectionName, q) {
     logger.log(`Deleted ${collectionName} count ${result.modifiedCount}`);
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} collectionName description 
+ * @param  {type} obj            description 
+ * @param  {type} cb             description 
+ * @return {type}                description 
+ */
 MRP.create = function(collectionName, obj, cb) {
     if (!db) {
         //DB not connected stash changes
@@ -245,6 +332,18 @@ MRP.create = function(collectionName, obj, cb) {
 
 let stashedCalls = [];
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} collectionName description 
+ * @param  {type} obj            description 
+ * @param  {type} q              description 
+ * @param  {type} opt            description 
+ * @param  {type} cb             description 
+ * @return {type}                description 
+ */
 MRP.update = function(collectionName, obj, q, opt, cb) {
     if (!db) {
         //DB not connected stash changes
@@ -297,6 +396,16 @@ MRP.update = function(collectionName, obj, q, opt, cb) {
     create();
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} collectionName description 
+ * @param  {type} query          description 
+ * @param  {type} cb             description 
+ * @return {type}                description 
+ */
 MRP.read = function(collectionName, query, cb) {
     if (!db) {
         //DB not connected stash changes
@@ -317,6 +426,18 @@ MRP.read = function(collectionName, query, cb) {
     read();
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} collectionName description 
+ * @param  {type} query          description 
+ * @param  {type} options        description 
+ * @param  {type} paging         description 
+ * @param  {type} cb             description 
+ * @return {type}                description 
+ */
 MRP.find = function(collectionName, query, options, paging, cb) {
     if (Array.isArray(query))
         query = undefined;
@@ -353,6 +474,16 @@ MRP.find = function(collectionName, query, options, paging, cb) {
     find();
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} collectionName description 
+ * @param  {type} query          description 
+ * @param  {type} cb             description 
+ * @return {type}                description 
+ */
 MRP.aggregate = function(collectionName, query, cb) {
     if (!db) {
         //DB not connected stash changes
@@ -375,6 +506,16 @@ MRP.aggregate = function(collectionName, query, cb) {
     find();
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} collectionName description 
+ * @param  {type} query          description 
+ * @param  {type} cb             description 
+ * @return {type}                description 
+ */
 MRP.count = function(collectionName, query, cb) {
     if (!db) {
         //DB not connected stash changes

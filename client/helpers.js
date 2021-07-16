@@ -1,4 +1,14 @@
+/**
+ * @namespace utils
+ */
 utils = {
+
+    /**    
+     * InvokeNative - description    
+     *      
+     * @memberof utils
+     * @return {type}  description     
+     */
     InvokeNative: function() {
         let args = arguments;
         return new Promise(resolve => {
@@ -8,7 +18,8 @@ utils = {
         });
     },
 
-    /**
+    /**     
+     * CreateThread - description    
      * Example with infinite while cycle:
      * MRP_CLIENT.CreateThread(()=>{
      *      let cycle = async function(){
@@ -21,15 +32,35 @@ utils = {
      *      }
      *      cycle();
      * });
+     *      
+     * @memberof utils
+     * @param  {type} callback description     
+     * @return {type}          description     
      */
     CreateThread: function(callback) {
         emit('mrp:lua:createThread', callback);
     },
+
+    /**    
+     * sleep - description    
+     *      
+     * @memberof utils
+     * @param  {type} ms description     
+     * @return {type}    description     
+     */
     sleep: function(ms) {
         return new Promise((resolve) => {
             setTimeout(resolve, ms);
         });
     },
+
+    /**    
+     * wait - description    
+     *      
+     * @memberof utils
+     * @param  {type} ms description     
+     * @return {type}    description     
+     */
     wait: function(ms) {
         return new Promise((resolve) => {
             emit('mrp:lua:wait', ms, () => {
@@ -37,11 +68,28 @@ utils = {
             });
         });
     },
+
+    /**    
+     * getRandomInt - description    
+     *      
+     * @memberof utils
+     * @param  {type} min description     
+     * @param  {type} max description     
+     * @return {type}     description     
+     */
     getRandomInt: function(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     },
+
+    /**    
+     * getAllPlayersInVehicle - description    
+     *      
+     * @memberof utils
+     * @param  {type} vehicle description     
+     * @return {type}         description     
+     */
     getAllPlayersInVehicle: function(vehicle) {
         let seatCount = GetVehicleMaxNumberOfPassengers(vehicle);
         let players = [];

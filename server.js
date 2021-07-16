@@ -1,4 +1,10 @@
+/**
+ * @namespace MRP_SERVER
+ */
 MRP = {
+    /**    
+     * @memberof MRP_SERVER    
+     */
     playerSpawnedCharacters: {}
 };
 ENTITIES = 0;
@@ -12,6 +18,15 @@ const commands = require('./server/commands.js');
 
 var connectedUsers = {};
 
+
+/**
+ * MRP - description
+ * 
+ * @memberof MRP_SERVER
+ *  
+ * @param  {type} source description 
+ * @return {type}        description 
+ */
 MRP.getUserId = function(source) {
     let numOfIdentifiers = GetNumPlayerIdentifiers(source);
     let userID;
@@ -49,6 +64,13 @@ MRP.getUserId = function(source) {
     return userID;
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @return {type}  description 
+ */
 MRP.getPlayersServer = function() {
     let num = GetNumPlayerIndices();
     let players = [];
@@ -62,14 +84,39 @@ MRP.getPlayersServer = function() {
     return players;
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} source description 
+ * @return {type}        description 
+ */
 MRP.getSpawnedCharacter = function(source) {
     return MRP.playerSpawnedCharacters[source];
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} source description 
+ * @param  {type} char   description 
+ * @return {type}        description 
+ */
 MRP.updateSpawnedChar = function(source, char) {
     MRP.playerSpawnedCharacters[source] = char;
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} source description 
+ * @return {type}        description 
+ */
 MRP.getEntityPosition = function(source) {
     let retVal = [];
     let plyPed = GetPlayerPed(source);
@@ -83,6 +130,15 @@ MRP.getEntityPosition = function(source) {
     return retVal;
 };
 
+
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @param  {type} id1 description 
+ * @param  {type} id2 description 
+ * @return {type}     description 
+ */
 MRP.isObjectIDEqual = function(id1, id2) {
     if (!id1 || !id2 || !id1.id || !id2.id)
         return false;
@@ -107,6 +163,11 @@ MRP.isObjectIDEqual = function(id1, id2) {
     return false;
 };
 
+
+/**
+ * getConnectedUsers - returns all users connected
+ * @memberof MRP_SERVER
+ */
 var getConnectedUsers = () => connectedUsers;
 
 on('mrp:getSharedObject', (cb) => {
@@ -243,6 +304,7 @@ onNet('mrp:server:read:item', (source, name, uuid) => {
         emitNet('mrp:server:read:item:response', source, res, uuid);
     })
 });
+
 
 MRP.log = logger.log;
 MRP.getConnectedUsers = getConnectedUsers;
