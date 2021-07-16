@@ -281,6 +281,13 @@ onNet('mrp:fetchCharacters', (source) => {
     execute();
 });
 
+/**
+ * Character spawn event
+ * @event MRP_SERVER#mrp:spawn
+ * @type {object}
+ * @property {Character} char      spawned character
+ * @property {Location} spawn      spawn location
+ */
 onNet('mrp:useCharacter', (source, characterToUse) => {
     if (!characterToUse)
         return;

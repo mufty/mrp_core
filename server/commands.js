@@ -79,6 +79,13 @@ RegisterCommand('listCharacters', (source, args, cmd) => {
     execute();
 });
 
+/**
+ * Character spawn event
+ * @event MRP_CLIENT#mrp:spawn
+ * @type {object}
+ * @property {Character} char      spawned character
+ * @property {Location} spawn      spawn location
+ */
 RegisterCommand('useCharacter', (source, args, cmd) => {
     let execute = async function() {
         let characters = await MRP.getCharacters(source);
