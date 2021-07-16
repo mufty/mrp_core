@@ -84,6 +84,15 @@ MRP.getPlayersServer = function() {
     return players;
 };
 
+/**
+ * MRP - description
+ *  
+ * @memberof MRP_SERVER
+ * @return {type}  description 
+ */
+MRP.getSpawnedCharacters = function() {
+    return MRP.playerSpawnedCharacters;
+};
 
 /**
  * MRP - description

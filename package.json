@@ -10,7 +10,9 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "jsdoc-baseline": "https://github.com/hegemonic/baseline/tarball/master",
         "mongodb": "^3.6.6"
+    },
+    "devDependencies": {
+        "jsdoc-baseline": "^0.1.5"
     }
 }
