@@ -351,12 +351,12 @@ let MRP_CLIENT = {
     spawnSharedNPC: function(opt) {
         let exec = async () => {
             let modelHash = GetHashKey(opt.model);
-            if (!MRP_CLIENT.isPedNearCoords(opt.x, opt.y, opt.z, null, modelHash)) {
-                RequestModel(modelHash);
-                while (!HasModelLoaded(modelHash)) {
-                    await MRP_CLIENT.sleep(100);
-                }
+            RequestModel(modelHash);
+            while (!HasModelLoaded(modelHash)) {
+                await MRP_CLIENT.sleep(100);
+            }
 
+            if (!MRP_CLIENT.isPedNearCoords(opt.x, opt.y, opt.z, null, modelHash)) {
                 ped = CreatePed(GetPedType(opt.model), opt.model, opt.x, opt.y, opt.z, opt.heading, true, true);
                 SetBlockingOfNonTemporaryEvents(ped, true);
                 SetPedKeepTask(ped, true);
