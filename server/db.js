@@ -545,7 +545,7 @@ let normalizeIDs = (obj) => {
                 normalizeIDs(obj[k][i]);
             }
         } else if (typeof obj[k] == 'object') {
-            if (obj[k]._bsontype && obj[k]._bsontype == "ObjectID") {
+            if (obj[k] && obj[k]._bsontype && obj[k]._bsontype == "ObjectID") {
                 obj[k] = MRP.toObjectId(obj[k].id);
             } else {
                 normalizeIDs(obj[k]);
