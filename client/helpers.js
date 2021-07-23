@@ -1,3 +1,5 @@
+eval(LoadResourceFile('mrp_core', 'client/objectid.js'));
+
 /**
  * @namespace utils
  */
@@ -128,14 +130,14 @@ utils = {
             bufferArr.push(id1.id[i]);
         }
 
-        let idHash1 = Buffer.from(bufferArr).toString();
+        let idHash1 = ObjectID(bufferArr).toString();
 
         bufferArr = [];
         for (let i in id2.id) {
             bufferArr.push(id2.id[i]);
         }
 
-        let idHash2 = Buffer.from(bufferArr).toString();
+        let idHash2 = ObjectID(bufferArr).toString();
 
         if (idHash1 == idHash2)
             return true;

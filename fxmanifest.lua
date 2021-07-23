@@ -13,6 +13,7 @@ ui_page 'client/ui/index.html'
 
 files {
     'config/client.json',
+    'client/objectid.js',
     'client/helpers.js',
     'client/ui/fonts/coolvetica_rg.ttf',
     'client/ui/scripts/*.js',
