@@ -13,7 +13,7 @@
     "world": {
         "disableWeaponWheel": true,
         "npc": {
-            "vehicleDensity": 0.7,
+            "vehicleDensity": 0.5,
             "pedDensity": 1.0,
             "randomVehicleDensity": 1.0,
             "parkedVehicleDensity": 1.0,

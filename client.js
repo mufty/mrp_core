@@ -358,7 +358,9 @@ let MRP_CLIENT = {
 
             if (!MRP_CLIENT.isPedNearCoords(opt.x, opt.y, opt.z, null, modelHash)) {
                 console.log(`adding NPC debug [${GetPedType(opt.model)}] [${opt.model}] [${opt.x}] [${opt.y}] [${opt.z}] [${opt.heading}]`);
-                ped = CreatePed(GetPedType(opt.model), opt.model, opt.x, opt.y, opt.z, opt.heading, true, true);
+                ped = CreatePed(GetPedType(opt.model), modelHash, opt.x, opt.y, opt.z, opt.heading, true, true);
+                let netId = PedToNet(ped);
+                SetNetworkIdExistsOnAllMachines(netId, true);
                 SetBlockingOfNonTemporaryEvents(ped, true);
                 SetPedKeepTask(ped, true);
                 SetPedDropsWeaponsWhenDead(ped, false);
