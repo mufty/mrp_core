@@ -358,9 +358,8 @@ let MRP_CLIENT = {
 
             if (!MRP_CLIENT.isPedNearCoords(opt.x, opt.y, opt.z, null, modelHash)) {
                 console.log(`adding NPC debug [${GetPedType(opt.model)}] [${opt.model}] [${opt.x}] [${opt.y}] [${opt.z}] [${opt.heading}]`);
-                ped = CreatePed(GetPedType(opt.model), modelHash, opt.x, opt.y, opt.z, opt.heading, true, true);
-                let netId = PedToNet(ped);
-                SetNetworkIdExistsOnAllMachines(netId, true);
+
+                let ped = CreatePed(GetPedType(opt.model), modelHash, opt.x, opt.y, opt.z, opt.heading, true, false);
                 SetBlockingOfNonTemporaryEvents(ped, true);
                 SetPedKeepTask(ped, true);
                 SetPedDropsWeaponsWhenDead(ped, false);
@@ -370,6 +369,23 @@ let MRP_CLIENT = {
                 SetPedHearingRange(ped, 0.0);
                 SetPedAlertness(ped, 0.0);
                 SetEntityInvincible(ped, true);
+
+                await MRP_CLIENT.sleep(1000);
+
+                let netId = 0;
+                if (NetworkGetNetworkIdFromEntity(ped) == 0) {
+                    console.log(`No network ID for entity trying to assign one`);
+                    NetworkRegisterEntityAsNetworked(ped);
+                }
+                netId = PedToNet(ped);
+                SetNetworkIdCanMigrate(netId, false);
+                NetworkUseHighPrecisionBlending(netId, false);
+                console.log(`Network ID [${netId}]`);
+                SetNetworkIdExistsOnAllMachines(netId, true);
+
+                /*await MRP_CLIENT.sleep(1000);
+
+                FreezeEntityPosition(ped, true);*/
             }
         };
         exec();
