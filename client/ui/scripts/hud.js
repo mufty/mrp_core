@@ -60,6 +60,9 @@ $(function() {
                                 $('.popup .message :input').each(function() {
                                     data[$(this).attr('name')] = $(this).val();
                                 });
+                                $('.popup .message select').each(function() {
+                                    data[$(this).attr('name')] = $(this).children("option:selected").val();
+                                });
                                 $('.popup').hide();
                                 $.post('https://mrp_core/closeUI', JSON.stringify({}), () => {
                                     $.post(action.url, JSON.stringify(data), () => {});
