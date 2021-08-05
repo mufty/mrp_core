@@ -350,16 +350,18 @@ let MRP_CLIENT = {
      */
     spawnSharedNPC: function(opt) {
         let exec = async () => {
-            let modelHash = GetHashKey(opt.model);
+            let modelHash = opt.model;
+            if (typeof opt.model === 'string' || opt.model instanceof String)
+                modelHash = GetHashKey(opt.model);
             RequestModel(modelHash);
             while (!HasModelLoaded(modelHash)) {
                 await MRP_CLIENT.sleep(100);
             }
 
             if (!MRP_CLIENT.isPedNearCoords(opt.x, opt.y, opt.z, null, modelHash)) {
-                console.log(`adding NPC debug [${GetPedType(opt.model)}] [${opt.model}] [${opt.x}] [${opt.y}] [${opt.z}] [${opt.heading}]`);
+                console.log(`adding NPC debug [${opt.model}] [${opt.x}] [${opt.y}] [${opt.z}] [${opt.heading}]`);
 
-                let ped = CreatePed(GetPedType(opt.model), modelHash, opt.x, opt.y, opt.z, opt.heading, true, false);
+                let ped = CreatePed(0, modelHash, opt.x, opt.y, opt.z, opt.heading, true, false);
                 SetBlockingOfNonTemporaryEvents(ped, true);
                 SetPedKeepTask(ped, true);
                 SetPedDropsWeaponsWhenDead(ped, false);
