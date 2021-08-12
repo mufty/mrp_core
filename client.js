@@ -391,6 +391,35 @@ let MRP_CLIENT = {
             }
         };
         exec();
+    },
+
+    /**
+     * createProp - description    
+     *      
+     * @param  {string} prop       model hash
+     * @param  {int} propBone      bone ID
+     * @param  {object} propPlacement {
+     *     xPos: 0.025,
+     *     yPos: 0.08,
+     *     zPos: 0.255,
+     *     xRot: -145.0,
+     *     yRot: 290.0,
+     *     zRot: 0.0
+     * }
+     * @return {int}               prop ID
+     */
+    createProp: function(prop, propBone, propPlacement) {
+        let ped = PlayerPedId();
+        let [coordsX, coordsY, coordsZ] = GetEntityCoords(ped);
+        let object = CreateObject(GetHashKey(prop),
+            coordsX + 0.0,
+            coordsY + 0.0,
+            coordsZ + 0.2,
+            true, true, true);
+
+        AttachEntityToEntity(object, ped, GetPedBoneIndex(ped, propBone), propPlacement.xPos, propPlacement.yPos, propPlacement.zPos, propPlacement.xRot, propPlacement.yRot, propPlacement.zRot, true, true, false, true, 1, true);
+
+        return object;
     }
 };
 
