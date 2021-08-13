@@ -346,9 +346,10 @@ let MRP_CLIENT = {
      * 
      * @memberof MRP_CLIENT     
      * @param  {type} opt options as described above
+     * @param  {function} cb callback after done
      * @return {type}     PED     
      */
-    spawnSharedNPC: function(opt) {
+    spawnSharedNPC: function(opt, cb) {
         let exec = async () => {
             let modelHash = opt.model;
             if (typeof opt.model === 'string' || opt.model instanceof String)
@@ -388,6 +389,9 @@ let MRP_CLIENT = {
                 /*await MRP_CLIENT.sleep(1000);
 
                 FreezeEntityPosition(ped, true);*/
+
+                if (cb)
+                    cb(ped);
             }
         };
         exec();
