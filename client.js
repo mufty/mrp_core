@@ -351,6 +351,10 @@ let MRP_CLIENT = {
      */
     spawnSharedNPC: function(opt, cb) {
         let exec = async () => {
+            if (!NetworkIsHost()) {
+                return;
+            }
+
             let modelHash = opt.model;
             if (typeof opt.model === 'string' || opt.model instanceof String)
                 modelHash = GetHashKey(opt.model);
@@ -362,7 +366,8 @@ let MRP_CLIENT = {
             if (!MRP_CLIENT.isPedNearCoords(opt.x, opt.y, opt.z, null, modelHash)) {
                 console.log(`adding NPC debug [${opt.model}] [${opt.x}] [${opt.y}] [${opt.z}] [${opt.heading}]`);
 
-                let ped = CreatePed(0, modelHash, opt.x, opt.y, opt.z, opt.heading, true, false);
+                let ped = CreatePed(0, modelHash, opt.x, opt.y, opt.z, opt.heading, true, true);
+                SetEntityAsMissionEntity(ped, true, true);
                 SetBlockingOfNonTemporaryEvents(ped, true);
                 SetPedKeepTask(ped, true);
                 SetPedDropsWeaponsWhenDead(ped, false);
@@ -376,7 +381,7 @@ let MRP_CLIENT = {
                 await MRP_CLIENT.sleep(1000);
 
                 let netId = 0;
-                if (NetworkGetNetworkIdFromEntity(ped) == 0) {
+                if (!NetworkGetEntityIsNetworked(ped)) {
                     console.log(`No network ID for entity trying to assign one`);
                     NetworkRegisterEntityAsNetworked(ped);
                 }
