@@ -13,11 +13,11 @@
     "world": {
         "disableWeaponWheel": true,
         "npc": {
-            "vehicleDensity": 0.2,
+            "vehicleDensity": 0.1,
             "pedDensity": 1.0,
             "randomVehicleDensity": 1.0,
             "parkedVehicleDensity": 1.0,
-            "scenarioPedDensity": [1.0, 1.0],
+            "scenarioPedDensity": [0.5, 0.5],
             "garbageTrucks": false,
             "randomBoats": true,
             "randomCops": false,
