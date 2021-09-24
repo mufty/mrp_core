@@ -278,6 +278,16 @@ let MRP_CLIENT = {
         return MRP_CLIENT.getEntityInFront(12);
     },
 
+    /**
+     * getObjectInFront - description    
+     *      
+     * @memberof MRP_CLIENT
+     * @return {type}  description     
+     */
+    getObjectInFront: function() {
+        return MRP_CLIENT.getEntityInFront(16);
+    },
+
     /**    
      * addBlips - description    
      *      
