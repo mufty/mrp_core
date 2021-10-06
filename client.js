@@ -139,7 +139,7 @@ let MRP_CLIENT = {
     portToLocation: function(ped, location) {
         SetEntityCoords(ped, location.x, location.y, location.z, true, false, false, false);
         SetEntityHeading(ped, location.heading);
-    }
+    },
 
     /**     
      * CreateThread - description    
