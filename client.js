@@ -130,6 +130,17 @@ let MRP_CLIENT = {
         });
     },
 
+    /**
+     * portToLocation - description    
+     *      
+     * @param  {type} ped
+     * @param  {type} location {x, y, z, heading}
+     */
+    portToLocation: function(ped, location) {
+        SetEntityCoords(ped, location.x, location.y, location.z, true, false, false, false);
+        SetEntityHeading(ped, location.heading);
+    }
+
     /**     
      * CreateThread - description    
      * 
